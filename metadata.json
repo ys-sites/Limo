@@ -1,0 +1,6 @@
+{
+  "name": "Premier Limo - Luxury Chauffeur & Limousine Service",
+  "description": "Premier luxury limousine and chauffeur service for corporate travel, airport transfers, weddings, and special events. Seamless online reservations and executive fleet.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
