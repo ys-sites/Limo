@@ -11,14 +11,15 @@ import { CoverageMapSection } from './components/CoverageMapSection';
 import { TopCitiesSection } from './components/TopCitiesSection';
 import { ReviewsMarquee } from './components/ReviewsMarquee';
 import { Footer } from './components/Footer';
-import { BookingState, Vehicle, ServiceItem, CityDestination } from './types/limo';
+import { BookingState } from './types/limo';
 import { FLEET } from './data/limoData';
+import { QuoteModal } from './components/QuoteModal';
+import { DestinationInquiryModal } from './components/DestinationInquiryModal';
+import { CallbackModal } from './components/CallbackModal';
+import { QuotePrefill } from './lib/contact';
 
 // Code-split below-the-fold / on-demand views so the initial bundle stays lean.
 // Features are unchanged — these load on first interaction.
-const BookingModal = React.lazy(() =>
-  import('./components/BookingModal').then((m) => ({ default: m.BookingModal }))
-);
 const VehicleDetailPage = React.lazy(() =>
   import('./components/VehicleDetailPage').then((m) => ({ default: m.VehicleDetailPage }))
 );
@@ -28,9 +29,16 @@ const DestinationsPage = React.lazy(() =>
 
 export default function App() {
   const [language, setLanguage] = useState<'FR' | 'EN'>('FR');
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [activeVehicleSlug, setActiveVehicleSlug] = useState<string | null>(null);
   const [isDestinationsPage, setIsDestinationsPage] = useState(false);
+
+  // Contact popups: general quote (Form A), destinations inquiry (Form B), callback request
+  const [quoteModal, setQuoteModal] = useState<{ open: boolean; prefill?: QuotePrefill }>({ open: false });
+  const [destModal, setDestModal] = useState<{ open: boolean; destination?: string }>({ open: false });
+  const [callbackOpen, setCallbackOpen] = useState(false);
+
+  const openQuote = (prefill?: QuotePrefill) => setQuoteModal({ open: true, prefill });
+  const openDestInquiry = (destination?: string) => setDestModal({ open: true, destination });
 
   // Blacklane-style smooth scroll progress indicator
   const { scrollYProgress } = useScroll();
@@ -73,61 +81,19 @@ export default function App() {
     }
   }, [activeVehicle, isDestinationsPage]);
 
-  // Initial booking state tailored for Montreal & Limo Raf
-  const [bookingState, setBookingState] = useState<BookingState>({
-    serviceType: 'distance',
-    pickupAddress: 'Aéroport Montréal-Trudeau (YUL)',
-    dropoffAddress: 'Centre-Ville Montréal (Vieux-Port)',
-    hours: 3,
-    tripType: 'one_way',
-    date: new Date().toISOString().split('T')[0],
-    timeHour: '01',
-    timeMinute: '00',
-    timePeriod: 'PM',
-    selectedVehicleId: 'gmc-yukon-denali',
-    passengers: 2,
-    luggage: 2
-  });
-
+  // Hero widget submit → open the quote popup with trip details prefilled
   const handleHeroReserve = (incomingBooking: BookingState) => {
-    setBookingState(incomingBooking);
-    setIsBookingOpen(true);
-  };
-
-  const handleSelectVehicle = (vehicle: Vehicle) => {
-    setBookingState((prev) => ({
-      ...prev,
-      selectedVehicleId: vehicle.id
-    }));
-    setIsBookingOpen(true);
+    const vehicle = FLEET.find((v) => v.id === incomingBooking.selectedVehicleId);
+    openQuote({
+      vehicle: vehicle?.name,
+      details: `${incomingBooking.pickupAddress} → ${incomingBooking.dropoffAddress} · ${incomingBooking.date} ${incomingBooking.timeHour}:${incomingBooking.timeMinute} ${incomingBooking.timePeriod} · ${incomingBooking.passengers} passagers`,
+    });
   };
 
   const handleViewVehicleDetails = (slug: string) => {
     setActiveVehicleSlug(slug);
     window.history.pushState(null, '', `#/vehicles/${slug}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleSelectService = (service: ServiceItem) => {
-    const isAirport = service.id === 'airport-service';
-    setBookingState((prev) => ({
-      ...prev,
-      serviceType: isAirport ? 'flat_rate' : 'hourly',
-      dropoffAddress: isAirport
-        ? 'Aéroport International Montréal-Trudeau (YUL)'
-        : 'Mont-Tremblant Station VIP'
-    }));
-    setIsBookingOpen(true);
-  };
-
-  const handleSelectCity = (city: CityDestination | string) => {
-    const dest = typeof city === 'string' ? city : `${city.name} (${city.region})`;
-    setBookingState((prev) => ({
-      ...prev,
-      pickupAddress: 'Aéroport Montréal-Trudeau (YUL)',
-      dropoffAddress: dest
-    }));
-    setIsBookingOpen(true);
   };
 
   return (
@@ -145,7 +111,8 @@ export default function App() {
       <Navbar
         language={language}
         onToggleLanguage={setLanguage}
-        onOpenBooking={() => setIsBookingOpen(true)}
+        onQuote={() => openQuote()}
+        onCallback={() => setCallbackOpen(true)}
         onNavigateHome={() => {
           setActiveVehicleSlug(null);
           setIsDestinationsPage(false);
@@ -179,10 +146,8 @@ export default function App() {
               setIsDestinationsPage(false);
               window.history.pushState(null, '', '#cities');
             }}
-            onOpenBooking={() => setIsBookingOpen(true)}
-            onBookDestination={(destination: string) => {
-              handleSelectCity(destination);
-            }}
+            onInquiry={(destination?: string) => openDestInquiry(destination)}
+            onCallback={() => setCallbackOpen(true)}
           />
         ) : (
           /* Luxury Single-Page Experience in exact required sequence */
@@ -191,25 +156,26 @@ export default function App() {
             <Hero
               language={language}
               onReserve={handleHeroReserve}
+              onCallback={() => setCallbackOpen(true)}
             />
 
             {/* 2. Section 02: À Propos / Our Values with night fleet */}
             <AboutUsSection
               language={language}
-              onBookNow={() => setIsBookingOpen(true)}
+              onQuote={() => openQuote()}
             />
 
             {/* 3. Section 03: Notre flotte / Our fleet (Car Section strictly 3rd section) */}
             <FleetSection
               language={language}
-              onSelectVehicle={handleSelectVehicle}
+              onQuote={(prefill) => openQuote(prefill)}
               onViewVehicleDetails={handleViewVehicleDetails}
             />
 
             {/* 4. Section 04: Nos services / Our services (6 services grid matching screenshot) */}
             <ServicesSection
               language={language}
-              onSelectService={handleSelectService}
+              onQuote={(prefill) => openQuote(prefill)}
             />
 
             {/* 5. Section 05: Pourquoi nous choisir / Why Choose Us (6 dashed gold cards) */}
@@ -220,7 +186,7 @@ export default function App() {
             {/* Section: Destinations Phares avec AccordionGallery */}
             <TopCitiesSection
               language={language}
-              onSelectCity={handleSelectCity}
+              onQuote={(prefill) => openQuote(prefill)}
               onViewAllDestinations={() => {
                 setIsDestinationsPage(true);
                 window.history.pushState(null, '', '#/destinations');
@@ -231,7 +197,7 @@ export default function App() {
             {/* 6. Section 06: Destinations Phares Canada & USA (Coverage Map) */}
             <CoverageMapSection
               language={language}
-              onOpenBooking={() => setIsBookingOpen(true)}
+              onQuote={() => openQuote()}
             />
 
             {/* Section: Google Reviews Marquee (Infinite scroll left-to-right) */}
@@ -244,6 +210,7 @@ export default function App() {
       {/* Pure Black Luxury Footer (matching screenshot, newsletter removed) */}
       <Footer
         language={language}
+        onCallback={() => setCallbackOpen(true)}
         onNavigateHome={() => {
           setActiveVehicleSlug(null);
           setIsDestinationsPage(false);
@@ -256,15 +223,24 @@ export default function App() {
       {/* Floating Instant WhatsApp Button matching YS-MARKETING-SOLUTION */}
       <WhatsAppButton language={language} />
 
-      {/* Interactive Reservation Concierge Modal */}
-      <Suspense fallback={null}>
-        <BookingModal
-          isOpen={isBookingOpen}
-          onClose={() => setIsBookingOpen(false)}
-          initialBooking={bookingState}
-          language={language}
-        />
-      </Suspense>
+      {/* Contact popups: general quote / destinations inquiry / callback request */}
+      <QuoteModal
+        isOpen={quoteModal.open}
+        onClose={() => setQuoteModal({ open: false })}
+        language={language}
+        prefill={quoteModal.prefill}
+      />
+      <DestinationInquiryModal
+        isOpen={destModal.open}
+        onClose={() => setDestModal({ open: false })}
+        language={language}
+        destination={destModal.destination}
+      />
+      <CallbackModal
+        isOpen={callbackOpen}
+        onClose={() => setCallbackOpen(false)}
+        language={language}
+      />
     </div>
   );
 }

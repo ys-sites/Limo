@@ -5,7 +5,7 @@
  * Note: FormSubmit sends an initial one-time activation email to this address
  * when the first form is submitted. Simply click "Activate" in that email once.
  */
-export const FORMSUBMIT_EMAIL = 'info@limoraf.com';
+export const FORMSUBMIT_EMAIL = 'Sharafathshahul@outlook.com';
 
 /**
  * Online Payment / Checkout link.

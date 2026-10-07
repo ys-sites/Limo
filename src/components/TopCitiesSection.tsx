@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { TOP_CITIES } from '../data/limoData';
 import { CityDestination } from '../types/limo';
+import { QuotePrefill } from '../lib/contact';
 import { AccordionGallery, AccordionGalleryItem } from './ui/AccordionGallery';
 import { ShinyText } from './ui/ShinyText';
 import { FoldText } from './ui/FoldText';
@@ -9,13 +10,13 @@ import { Sparkles } from 'lucide-react';
 
 interface TopCitiesSectionProps {
   language: 'FR' | 'EN';
-  onSelectCity: (city: CityDestination) => void;
+  onQuote: (prefill: QuotePrefill) => void;
   onViewAllDestinations?: () => void;
 }
 
 export const TopCitiesSection: React.FC<TopCitiesSectionProps> = ({
   language,
-  onSelectCity,
+  onQuote,
   onViewAllDestinations
 }) => {
   const isFr = language === 'FR';
@@ -35,8 +36,9 @@ export const TopCitiesSection: React.FC<TopCitiesSectionProps> = ({
   }));
 
   const handleItemClick = (_item: AccordionGalleryItem, index: number) => {
-    if (TOP_CITIES[index]) {
-      onSelectCity(TOP_CITIES[index]);
+    const city = TOP_CITIES[index];
+    if (city) {
+      onQuote({ destination: city.name });
     }
   };
 

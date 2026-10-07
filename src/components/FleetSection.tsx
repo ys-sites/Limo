@@ -3,17 +3,18 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Users, Luggage, Info, Sparkles } from 'lucide-react';
 import { FLEET } from '../data/limoData';
 import { Vehicle } from '../types/limo';
+import { QuotePrefill } from '../lib/contact';
 import { ShinyText } from './ui/ShinyText';
 
 interface FleetSectionProps {
   language: 'FR' | 'EN';
-  onSelectVehicle: (vehicle: Vehicle) => void;
+  onQuote: (prefill: QuotePrefill) => void;
   onViewVehicleDetails: (slug: string) => void;
 }
 
 export const FleetSection: React.FC<FleetSectionProps> = ({ 
   language, 
-  onSelectVehicle, 
+  onQuote, 
   onViewVehicleDetails 
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
@@ -220,7 +221,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
           </div>
 
           <button
-            onClick={() => onSelectVehicle(FLEET[0])}
+            onClick={() => onQuote({ vehicle: FLEET[0].name })}
             className="w-full sm:w-auto px-7 py-3 text-xs font-bold text-neutral-950 bg-[#D7B65D] hover:bg-[#C4963A] active:scale-[0.98] rounded-full transition-all shadow-md shadow-[#D7B65D]/20 cursor-pointer uppercase tracking-wider"
           >
             {language === 'FR' ? 'Book Now · Réserver' : 'Book Now · Reserve'}

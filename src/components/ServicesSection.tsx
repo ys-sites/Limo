@@ -3,14 +3,15 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, Plane, Navigation, Clock, Heart, Compass, GlassWater, Sparkles } from 'lucide-react';
 import { SERVICES } from '../data/limoData';
 import { ServiceItem } from '../types/limo';
+import { QuotePrefill } from '../lib/contact';
 import { ShinyText } from './ui/ShinyText';
 
 interface ServicesSectionProps {
   language: 'FR' | 'EN';
-  onSelectService: (service: ServiceItem) => void;
+  onQuote: (prefill: QuotePrefill) => void;
 }
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onSelectService }) => {
+export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onQuote }) => {
   const [activeServiceId, setActiveServiceId] = useState<string>(SERVICES[0]?.id || 'airport-service');
   const isFr = language === 'FR';
 
@@ -147,7 +148,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onSe
                 <div className="pt-2 flex flex-wrap items-center gap-3">
                   <button
                     type="button"
-                    onClick={() => onSelectService(activeService)}
+                    onClick={() => onQuote({ service: isFr ? activeService.titleFr : activeService.titleEn })}
                     className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-md active:scale-98"
                   >
                     <span>{isFr ? 'Réserver ce service' : 'Reserve this service'}</span>

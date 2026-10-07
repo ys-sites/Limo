@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   ArrowLeft, Check, Users, Luggage, ShieldCheck, 
-  MessageSquare, User, Mail, Phone, Wifi, ChevronRight,
+  User, Mail, Phone, Wifi, ChevronRight,
   ExternalLink, Loader2, CheckCircle2, AlertCircle, FileText
 } from 'lucide-react';
 import { Vehicle } from '../types/limo';
@@ -73,18 +73,10 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
       setStatus('error');
       setErrorMessage(
         language === 'FR'
-          ? "Impossible d'envoyer la demande. Veuillez nous joindre directement via WhatsApp."
-          : "Unable to send quote request. Please reach out to us via WhatsApp."
+          ? "Impossible d'envoyer la demande. Appelez-nous directement au 514-243-8141."
+          : "Unable to send quote request. Please call us directly at 514-243-8141."
       );
     }
-  };
-
-  const generateWhatsAppUrl = () => {
-    const text = `Bonjour Limo Raf, je souhaite réserver le ${vehicle.name} :
-Nom: ${name || 'Client VIP'}
-Téléphone: ${phone || 'À confirmer'}
-Courriel: ${email || 'À confirmer'}${specialNotes ? `\nNotes: ${specialNotes}` : ''}`;
-    return `https://api.whatsapp.com/send/?phone=15142438141&text=${encodeURIComponent(text)}`;
   };
 
   return (
@@ -249,17 +241,6 @@ Courriel: ${email || 'À confirmer'}${specialNotes ? `\nNotes: ${specialNotes}` 
                 </a>
               )}
 
-              {/* Direct WhatsApp Quote Button */}
-              <a
-                href={generateWhatsAppUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs flex items-center justify-center gap-2 transition-colors border border-emerald-500/30"
-              >
-                <MessageSquare className="w-4 h-4" />
-                <span>{language === 'FR' ? 'Réserver via WhatsApp Direct' : 'Direct WhatsApp Reservation'}</span>
-              </a>
-
               <p className="text-[11px] text-neutral-500 text-center font-normal pt-1">
                 {language === 'FR'
                   ? 'Tarifs fixes · 60 min attente gratuite aéroport YUL · Chauffeur certifié'
@@ -375,13 +356,11 @@ Courriel: ${email || 'À confirmer'}${specialNotes ? `\nNotes: ${specialNotes}` 
 
                 <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
                   <a
-                    href={generateWhatsAppUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-sm"
+                    href={`tel:${CLIENT_INFO.phoneRaw}`}
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-neutral-900 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-sm hover:bg-black transition-colors"
                   >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>{language === 'FR' ? 'Confirmer sur WhatsApp' : 'Confirm on WhatsApp'}</span>
+                    <Phone className="w-4 h-4 text-[#D7B65D]" />
+                    <span className="tabular-nums">{language === 'FR' ? `Une question ? ${CLIENT_INFO.phone}` : `Questions? ${CLIENT_INFO.phone}`}</span>
                   </a>
                   <button
                     onClick={() => setStatus('idle')}

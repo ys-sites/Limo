@@ -7,14 +7,16 @@ import { LimoLogo } from './ui/LimoLogo';
 interface NavbarProps {
   language: 'FR' | 'EN';
   onToggleLanguage: (lang: 'FR' | 'EN') => void;
-  onOpenBooking: () => void;
+  onQuote: () => void;
+  onCallback: () => void;
   onNavigateHome?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ 
   language, 
   onToggleLanguage, 
-  onOpenBooking,
+  onQuote,
+  onCallback,
   onNavigateHome 
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -135,14 +137,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Column 3: Right Action Cluster (Takes flex-1 to guarantee dead-center nav) */}
           <div className="flex-1 flex items-center justify-end gap-2.5 sm:gap-3 shrink-0 whitespace-nowrap">
             {/* Direct Phone Number - Refined luxury pill on desktop */}
-            <a
-              href={`tel:${CLIENT_INFO.phoneRaw}`}
-              className="hidden min-[1380px]:inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-neutral-800/80 bg-neutral-900/60 hover:bg-neutral-800/80 text-neutral-300 hover:text-white text-xs font-semibold tabular-nums tracking-tight transition-all"
+            <button
+              onClick={onCallback}
+              className="hidden min-[1380px]:inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-neutral-800/80 bg-neutral-900/60 hover:bg-neutral-800/80 text-neutral-300 hover:text-white text-xs font-semibold tabular-nums tracking-tight transition-all cursor-pointer"
               aria-label="Appeler Limo Raf"
             >
               <Phone className="w-3.5 h-3.5 text-[#D7B65D]" />
               <span>{CLIENT_INFO.phone}</span>
-            </a>
+            </button>
 
             {/* Language Switcher (FR / EN) */}
             <div className="flex items-center h-9 text-[11px] font-bold tracking-wider text-neutral-400 border border-neutral-800 rounded-lg overflow-hidden bg-neutral-900/80 shrink-0">
@@ -173,7 +175,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Solid Primary CTA Button */}
             <button
               type="button"
-              onClick={onOpenBooking}
+              onClick={onQuote}
               className="hidden sm:inline-flex items-center justify-center h-9 px-5 rounded-lg bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-bold text-xs uppercase tracking-[0.12em] transition-all cursor-pointer shadow-sm active:scale-98 shrink-0 whitespace-nowrap"
             >
               {language === 'FR' ? 'Réserver' : 'Book'}
@@ -241,7 +243,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
-                onOpenBooking();
+                onQuote();
               }}
               className="w-full py-4 bg-[#D7B65D] text-neutral-950 font-semibold text-xs uppercase tracking-[0.16em] transition-colors"
             >
@@ -249,13 +251,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <div className="flex items-center justify-between text-xs text-neutral-400 pt-2">
-              <a
-                href={`tel:${CLIENT_INFO.phoneRaw}`}
-                className="flex items-center gap-2 hover:text-white tabular-nums"
+              <button
+                onClick={() => { setMobileMenuOpen(false); onCallback(); }}
+                className="flex items-center gap-2 hover:text-white tabular-nums cursor-pointer"
               >
                 <Phone className="w-3.5 h-3.5 text-[#D7B65D]" />
                 <span>{CLIENT_INFO.phone}</span>
-              </a>
+              </button>
               <a
                 href={`https://api.whatsapp.com/send/?phone=${CLIENT_INFO.phoneRaw}&text=Bonjour%20Limo%20Raf`}
                 target="_blank"

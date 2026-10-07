@@ -9,9 +9,10 @@ import { LUXURY_EASE, scrollToAnchor } from '../lib/motion';
 interface HeroProps {
   language: 'FR' | 'EN';
   onReserve: (booking: BookingState) => void;
+  onCallback: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ language, onReserve }) => {
+export const Hero: React.FC<HeroProps> = ({ language, onReserve, onCallback }) => {
   const isFr = language === 'FR';
   const containerRef = useRef<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -121,14 +122,14 @@ export const Hero: React.FC<HeroProps> = ({ language, onReserve }) => {
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
 
-              <a
-                href={`tel:${CLIENT_INFO.phoneRaw}`}
-                className="inline-flex items-center gap-2 text-sm text-neutral-300 hover:text-white tabular-nums tracking-tight transition-colors py-2"
+              <button
+                onClick={onCallback}
+                className="inline-flex items-center gap-2 text-sm text-neutral-300 hover:text-white tabular-nums tracking-tight transition-colors py-2 cursor-pointer"
                 aria-label="Appeler Limo Raf"
               >
                 <Phone className="w-4 h-4 text-[#D7B65D]" />
                 <span>{CLIENT_INFO.phone}</span>
-              </a>
+              </button>
             </motion.div>
           </div>
 

@@ -10,12 +10,12 @@ import {
 
 interface CoverageMapSectionProps {
   language: 'FR' | 'EN';
-  onOpenBooking?: () => void;
+  onQuote?: () => void;
 }
 
 export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
   language,
-  onOpenBooking
+  onQuote
 }) => {
   const isFr = language === 'FR';
 
@@ -137,11 +137,11 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
               </div>
 
               {/* Action Button */}
-              {onOpenBooking && (
+              {onQuote && (
                 <div className="pt-1">
                   <button
                     type="button"
-                    onClick={onOpenBooking}
+                    onClick={onQuote}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs tracking-wider uppercase transition-colors cursor-pointer"
                   >
                     <span>{isFr ? 'Réserver une liaison longue distance' : 'Book a long-distance transfer'}</span>

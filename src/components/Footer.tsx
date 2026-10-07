@@ -7,9 +7,10 @@ interface FooterProps {
   language: 'FR' | 'EN';
   onNavigateHome?: () => void;
   onSelectVehicle?: (slug: string) => void;
+  onCallback?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSelectVehicle }) => {
+export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSelectVehicle, onCallback }) => {
   const isFr = language === 'FR';
 
   return (
@@ -56,9 +57,9 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSele
             <ul className="space-y-2.5 text-sm text-neutral-400 font-light">
               <li className="flex items-center gap-2.5">
                 <Phone className="w-3.5 h-3.5 text-[#D7B65D] shrink-0" />
-                <a href={`tel:${CLIENT_INFO.phoneRaw}`} className="hover:text-white transition-colors tabular-nums">
+                <button onClick={onCallback} className="hover:text-white transition-colors tabular-nums cursor-pointer text-left">
                   {CLIENT_INFO.phone}
-                </a>
+                </button>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-3.5 h-3.5 text-[#D7B65D] shrink-0" />

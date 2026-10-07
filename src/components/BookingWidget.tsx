@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Mail, Phone, Car, ChevronDown, CheckCircle2, MessageSquare, AlertCircle, Loader2, FileText } from 'lucide-react';
+import { User, Mail, Phone, Car, ChevronDown, CheckCircle2, AlertCircle, Loader2, FileText } from 'lucide-react';
 import { BookingState } from '../types/limo';
 import { CLIENT_INFO, FLEET } from '../data/limoData';
 import { FORMSUBMIT_EMAIL } from '../config/formConfig';
@@ -92,15 +92,6 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
     setStatus('idle');
   };
 
-  const generateWhatsAppUrl = () => {
-    const text = `Bonjour Limo Raf, je souhaite réserver un véhicule :
-Nom : ${name}
-Téléphone : ${phone}
-Courriel : ${email}
-Véhicule : ${selectedVehicle}${notes ? `\nNotes : ${notes}` : ''}`;
-    return `https://api.whatsapp.com/send/?phone=${CLIENT_INFO.phoneRaw}&text=${encodeURIComponent(text)}`;
-  };
-
   return (
     <div
       className={`bg-[#0C0E12]/70 backdrop-blur-2xl rounded-none border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_30px_80px_-20px_rgba(0,0,0,0.8)] p-6 sm:p-7 w-full max-w-[390px] sm:max-w-[410px] text-neutral-200 ${className}`}
@@ -154,13 +145,11 @@ Véhicule : ${selectedVehicle}${notes ? `\nNotes : ${notes}` : ''}`;
 
           <div className="space-y-2.5 pt-2">
             <a
-              href={generateWhatsAppUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-2.5 px-3 text-xs text-neutral-300 hover:text-white border border-neutral-800 hover:border-neutral-700 flex items-center justify-center gap-2 transition-colors"
+              href={`tel:${CLIENT_INFO.phoneRaw}`}
+              className="w-full py-2.5 px-3 text-xs text-neutral-300 hover:text-white border border-neutral-800 hover:border-neutral-700 flex items-center justify-center gap-2 transition-colors tabular-nums"
             >
-              <MessageSquare className="w-3.5 h-3.5 text-[#25D366]" />
-              <span>{isFr ? 'Confirmer sur WhatsApp' : 'Confirm on WhatsApp'}</span>
+              <Phone className="w-3.5 h-3.5 text-[#D7B65D]" />
+              <span>{isFr ? `Une question ? ${CLIENT_INFO.phone}` : `Questions? Call ${CLIENT_INFO.phone}`}</span>
             </a>
 
             <button
@@ -295,18 +284,7 @@ Véhicule : ${selectedVehicle}${notes ? `\nNotes : ${notes}` : ''}`;
             )}
           </button>
 
-          {/* Subtle WhatsApp Direct link */}
-          <div className="pt-1 text-center">
-            <a
-              href={CLIENT_INFO.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[11px] text-neutral-400 hover:text-white transition-colors"
-            >
-              <MessageSquare className="w-3 h-3 text-[#25D366]" />
-              <span>{isFr ? 'Ou réserver par WhatsApp →' : 'Or book via WhatsApp →'}</span>
-            </a>
-          </div>
+
         </form>
       )}
     </div>

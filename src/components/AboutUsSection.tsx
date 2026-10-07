@@ -5,10 +5,10 @@ import { ShinyText } from './ui/ShinyText';
 
 interface AboutUsSectionProps {
   language: 'FR' | 'EN';
-  onBookNow?: () => void;
+  onQuote?: () => void;
 }
 
-export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onBookNow }) => {
+export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuote }) => {
   const isFr = language === 'FR';
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
@@ -276,7 +276,7 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onBook
                   type="button"
                   onClick={() => {
                     setActiveModal(null);
-                    onBookNow?.();
+                    onQuote?.();
                   }}
                   className="px-6 py-2.5 rounded-md bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs shadow-sm cursor-pointer transition-colors"
                 >

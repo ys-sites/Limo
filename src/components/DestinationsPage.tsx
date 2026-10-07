@@ -6,15 +6,15 @@ import { ShinyText } from './ui/ShinyText';
 interface DestinationsPageProps {
   language: 'FR' | 'EN';
   onBack: () => void;
-  onOpenBooking: () => void;
-  onBookDestination?: (destination: string) => void;
+  onInquiry: (destination?: string) => void;
+  onCallback: () => void;
 }
 
 export const DestinationsPage: React.FC<DestinationsPageProps> = ({
   language,
   onBack,
-  onOpenBooking,
-  onBookDestination,
+  onInquiry,
+  onCallback,
 }) => {
   const isFr = language === 'FR';
   const [activeTab, setActiveTab] = useState<'quebec' | 'ontario' | 'usa'>('quebec');
@@ -61,13 +61,13 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
           </button>
 
           <div className="flex items-center gap-2">
-            <a
-              href={`tel:${CLIENT_INFO.phoneRaw}`}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-neutral-300 text-xs font-medium text-neutral-700 hover:text-black"
+            <button
+              onClick={onCallback}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-neutral-300 text-xs font-medium text-neutral-700 hover:text-black cursor-pointer"
             >
               <Phone className="w-3.5 h-3.5 text-[#C4963A]" />
               <span className="tabular-nums">{CLIENT_INFO.phone}</span>
-            </a>
+            </button>
           </div>
         </div>
 
@@ -172,7 +172,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
                 <div className="pt-4 mt-4 border-t border-neutral-100 flex items-center justify-between">
                   <span className="text-[11px] text-neutral-500 font-medium">Porte-à-porte</span>
                   <button
-                    onClick={onOpenBooking}
+                    onClick={() => onInquiry(dest.name)}
                     className="w-7 h-7 rounded-full bg-neutral-100 group-hover:bg-[#D7B65D] text-neutral-700 group-hover:text-neutral-950 flex items-center justify-center transition-colors"
                   >
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -216,7 +216,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
                 <div className="pt-4 mt-4 border-t border-neutral-100 flex items-center justify-between">
                   <span className="text-[11px] text-neutral-500 font-medium">Liaison d’affaires</span>
                   <button
-                    onClick={onOpenBooking}
+                    onClick={() => onInquiry(dest.name)}
                     className="w-7 h-7 rounded-full bg-neutral-100 group-hover:bg-[#D7B65D] text-neutral-700 group-hover:text-neutral-950 flex items-center justify-center transition-colors"
                   >
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -267,7 +267,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
                   <div className="pt-4 mt-4 border-t border-neutral-100 flex items-center justify-between">
                     <span className="text-[11px] text-neutral-500 font-medium">Transfrontalier VIP</span>
                     <button
-                      onClick={onOpenBooking}
+                      onClick={() => onInquiry(dest.name)}
                       className="w-7 h-7 rounded-full bg-neutral-100 group-hover:bg-[#D7B65D] text-neutral-700 group-hover:text-neutral-950 flex items-center justify-center transition-colors"
                     >
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -292,7 +292,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
-              onClick={onOpenBooking}
+              onClick={() => onInquiry()}
               className="px-7 py-3 rounded-md bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-bold text-xs uppercase tracking-wider shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
             >
               {isFr ? 'Calculer Votre Trajet Longue Distance' : 'Calculate Long Distance Journey'}
