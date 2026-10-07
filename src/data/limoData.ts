@@ -187,9 +187,10 @@ export const FLEET: Vehicle[] = [
     image: carYukon,
     galleryImages: [
       '/client_assets/1-slide-gmc-yukon-limo-0.jpg',
-      '/client_assets/yukon_interior_1.jpg',
-      '/client_assets/yukon_interior_2.jpg',
-      '/client_assets/yukon_interior_3.jpg'
+      '/client_assets/4-slide-gmc-yukon-limo.jpg',
+      '/client_assets/3-slide-gmc-yukon-limo-1.jpg',
+      '/client_assets/2-slide-gmc-yukon-limo-1.jpg',
+      '/client_assets/background-gmc-yukon-denali.jpg'
     ],
     taglineEn: 'The GMC Yukon Denali XL is a spacious and versatile luxury SUV that offers a premium travel experience.',
     taglineFr: 'Le GMC Yukon Denali XL est un VUS de luxe spacieux et polyvalent offrant une expérience de voyage haut de gamme.',
@@ -263,9 +264,10 @@ export const FLEET: Vehicle[] = [
     image: carEscalade,
     galleryImages: [
       '/client_assets/1-slide-escalade.jpg',
-      '/client_assets/escalade_interior_1.jpg',
-      '/client_assets/escalade_interior_2.jpg',
-      '/client_assets/escalade_interior_3.jpg'
+      '/client_assets/cadillac-escalade-interior.jpg',
+      '/client_assets/escalade-interior-3-1.jpg',
+      '/client_assets/escalade-interior-2-1.jpg',
+      '/client_assets/background-escalade-limo.jpg'
     ],
     taglineEn: 'The flagship American luxury SUV with presidential presence and ultra-quiet cabin.',
     taglineFr: 'Le porte-étendard du luxe avec une prestance imposante et un habitacle ultra silencieux.',
@@ -338,11 +340,11 @@ export const FLEET: Vehicle[] = [
     color: 'Noir / Jet Black',
     image: carXt6,
     galleryImages: [
-      '/client_assets/Cadillac-xt6-min.jpg',
-      '/client_assets/xt6_interior_1.jpg',
-      '/client_assets/xt6_interior_2.jpg',
-      '/client_assets/xt6_interior_3.jpg',
-      '/client_assets/xt6_interior_4.jpg'
+      '/client_assets/xt6-interior2.jpg',
+      '/client_assets/Cadillac-xt6-interior5.jpg',
+      '/client_assets/xt6-interior3.jpg',
+      '/client_assets/xt6-interior4-1.jpg',
+      '/client_assets/background-cadillac-xt6.jpg'
     ],
     taglineEn: 'Agile urban luxury with sleek aerodynamic styling and tailored executive cabin.',
     taglineFr: 'Luxe urbain agile avec des lignes aérodynamiques épurées et un habitacle feutré.',
