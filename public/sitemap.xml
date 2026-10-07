@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://limoraf.vercel.app/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://limoraf.vercel.app/images/hero_luxury_limo_cadillac_1791294116681.jpg</image:loc>
+      <image:title>Limo Raf - Chauffeur privé à Montréal, Cadillac Escalade</image:title>
+    </image:image>
+  </url>
+</urlset>

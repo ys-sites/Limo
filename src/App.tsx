@@ -62,6 +62,17 @@ export default function App() {
     ? FLEET.find((v) => v.slug === activeVehicleSlug || v.id === activeVehicleSlug)
     : null;
 
+  // SEO: keep document title in sync with the current view
+  useEffect(() => {
+    if (activeVehicle) {
+      document.title = `${activeVehicle.name} | Limo Raf Chauffeur Privé Montréal`;
+    } else if (isDestinationsPage) {
+      document.title = 'Destinations Canada & États-Unis | Limo Raf Chauffeur Privé';
+    } else {
+      document.title = 'Limo Raf - Chauffeur Privé à Montréal | Limousine de Luxe YUL';
+    }
+  }, [activeVehicle, isDestinationsPage]);
+
   // Initial booking state tailored for Montreal & Limo Raf
   const [bookingState, setBookingState] = useState<BookingState>({
     serviceType: 'distance',
