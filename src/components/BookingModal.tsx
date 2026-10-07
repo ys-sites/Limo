@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Check, Users, Luggage, ShieldCheck, ArrowRight, Calendar, Clock, MapPin, Sparkles, MessageSquare, Phone } from 'lucide-react';
 import { BookingState, Vehicle } from '../types/limo';
 import { FLEET, CLIENT_INFO } from '../data/limoData';
+import { FORMSUBMIT_EMAIL } from '../config/formConfig';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -56,11 +57,45 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const taxesFees = Math.round(baseRate * 0.14975); // TPS & TVQ Quebec
   const totalAmount = baseRate + gratuity + taxesFees;
 
-  const handleConfirmReservation = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleConfirmReservation = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const randomCode = `RAF-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
     setConfirmedCode(randomCode);
-    setStep(3);
+
+    try {
+      await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          booking_code: randomCode,
+          name,
+          email,
+          phone,
+          pickup_location: booking.pickupAddress,
+          destination: booking.dropoffAddress,
+          date: booking.date,
+          time: `${booking.timeHour}:${booking.timeMinute} ${booking.timePeriod}`,
+          vehicle: selectedVehicle.name,
+          flight_number: flightNo,
+          notes: specialNotes,
+          total_estimate: `$${totalAmount} CAD`,
+          _subject: `Nouvelle réservation Limo Raf [${randomCode}] - ${name}`,
+          _template: 'table',
+          _captcha: 'false'
+        })
+      });
+    } catch (err) {
+      console.error('Modal FormSubmit Error:', err);
+    } finally {
+      setIsSubmitting(false);
+      setStep(3);
+    }
   };
 
   const generateWhatsAppMessage = () => {
@@ -166,8 +201,8 @@ Notes: ${specialNotes}`;
                       >
                         <div className="flex items-center justify-between mb-2">
                           <span className="font-bold text-sm text-neutral-900">{vehicle.name}</span>
-                          <span className="text-xs font-semibold text-amber-700 font-mono">
-                            ${vehicle.hourlyRate}/h
+                          <span className="text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">
+                            {language === 'FR' ? 'Sur devis' : 'On request'}
                           </span>
                         </div>
 
@@ -191,23 +226,23 @@ Notes: ${specialNotes}`;
                 </div>
               </div>
 
-              {/* Price Calculation Card */}
+              {/* Luxury Guarantee Card (No Prices Shown) */}
               <div className="bg-[#1C1614] text-white rounded-2xl p-5 space-y-3">
                 <div className="flex items-center justify-between text-xs text-neutral-300">
-                  <span>{language === 'FR' ? 'Tarif de base estimé' : 'Estimated Base Rate'}</span>
-                  <span className="font-mono text-white font-medium">${baseRate} CAD</span>
+                  <span className="font-semibold">{language === 'FR' ? 'Service de Chauffeur VIP Limo Raf' : 'Limo Raf VIP Chauffeur Service'}</span>
+                  <span className="text-amber-400 font-medium">{language === 'FR' ? 'Tarif tout compris sur devis' : 'All-inclusive quote'}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs text-neutral-400">
-                  <span>{language === 'FR' ? 'Frais de service & pourboire chauffeur (15%)' : 'Chauffeur Gratuity (15%)'}</span>
-                  <span className="font-mono text-white">${gratuity} CAD</span>
+                  <span>{language === 'FR' ? 'Attente offerte à l\'arrivée YUL' : 'Complimentary YUL Airport Wait'}</span>
+                  <span className="text-white font-medium">60 minutes</span>
                 </div>
                 <div className="flex items-center justify-between text-xs text-neutral-400">
-                  <span>{language === 'FR' ? 'Taxes gouvernementales QC (TPS/TVQ)' : 'Taxes (TPS/TVQ)'}</span>
-                  <span className="font-mono text-white">${taxesFees} CAD</span>
+                  <span>{language === 'FR' ? 'Prestations à bord' : 'On-Board Amenities'}</span>
+                  <span className="text-white font-medium">{language === 'FR' ? 'Wi-Fi, Bouteilles d\'eau, Prises' : 'Wi-Fi, Mineral Water, Chargers'}</span>
                 </div>
-                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-sm font-bold">
-                  <span className="text-amber-400">{language === 'FR' ? 'Total garanti' : 'Guaranteed Total'}</span>
-                  <span className="font-mono text-xl text-amber-400">${totalAmount} CAD</span>
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-neutral-300">
+                  <span className="text-amber-400">{language === 'FR' ? 'Paiement en ligne sécurisé' : 'Secure Online Payment'}</span>
+                  <span className="text-neutral-300">{language === 'FR' ? 'Lien de paiement envoyé sur confirmation' : 'Payment link sent upon dispatch'}</span>
                 </div>
               </div>
 
@@ -216,9 +251,9 @@ Notes: ${specialNotes}`;
                 <button
                   type="button"
                   onClick={() => setStep(2)}
-                  className="px-7 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-950 bg-amber-400 hover:bg-amber-300 rounded-xl flex items-center gap-2 cursor-pointer shadow-md transition-all active:scale-95"
+                  className="px-7 py-3 rounded-xl bg-black hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 cursor-pointer transition-transform active:scale-95 shadow-md"
                 >
-                  <span>{language === 'FR' ? 'Détails du passager' : 'Passenger Details'}</span>
+                  <span>{language === 'FR' ? 'Book Now · Coordonnées' : 'Book Now · Passenger Details'}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>

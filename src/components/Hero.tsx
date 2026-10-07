@@ -36,16 +36,16 @@ export const Hero: React.FC<HeroProps> = ({ language, onReserve }) => {
               <span>{language === 'FR' ? 'Service 24/7 Grand Montréal · YUL · Laval · Tremblant' : '24/7 Greater Montreal · YUL Airport · Laval · Tremblant'}</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[62px] font-bold text-white tracking-tight leading-[1.08] font-sans">
+            <h1 className="text-4xl sm:text-5xl lg:text-[60px] font-bold text-white tracking-tight leading-[1.08] font-sans">
               {language === 'FR' ? (
                 <>
-                  Votre chauffeur privé <br />
-                  de prestige à Montréal
+                  Votre chauffeur <br />
+                  vous attend.
                 </>
               ) : (
                 <>
-                  Your Premier Limo <br />
-                  chauffeur service
+                  Your chauffeur <br />
+                  awaits.
                 </>
               )}
             </h1>

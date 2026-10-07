@@ -6,16 +6,31 @@ interface NavbarProps {
   language: 'FR' | 'EN';
   onToggleLanguage: (lang: 'FR' | 'EN') => void;
   onOpenBooking: () => void;
+  onNavigateHome?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ language, onToggleLanguage, onOpenBooking }) => {
+export const Navbar: React.FC<NavbarProps> = ({ 
+  language, 
+  onToggleLanguage, 
+  onOpenBooking,
+  onNavigateHome 
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleBrandClick = (e: React.MouseEvent) => {
+    if (onNavigateHome) {
+      e.preventDefault();
+      onNavigateHome();
+      window.history.pushState(null, '', '#');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return (
     <header className="absolute top-0 left-0 right-0 z-30 w-full transition-all bg-gradient-to-b from-black/80 via-black/35 to-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
         {/* Left: Brand name matching client's identity */}
-        <a href="#" className="flex items-center gap-2 group">
+        <a href="#" onClick={handleBrandClick} className="flex items-center gap-2 group cursor-pointer">
           <div className="flex flex-col">
             <span className="text-xl sm:text-2xl font-bold tracking-[0.18em] text-white uppercase font-sans group-hover:text-amber-400 transition-colors">
               {CLIENT_INFO.brandName}
