@@ -5,7 +5,7 @@ import { CityDestination } from '../types/limo';
 import { AccordionGallery, AccordionGalleryItem } from './ui/AccordionGallery';
 import { ShinyText } from './ui/ShinyText';
 import { FoldText } from './ui/FoldText';
-import { Sparkles, ArrowUpRight } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 interface TopCitiesSectionProps {
   language: 'FR' | 'EN';
@@ -19,6 +19,11 @@ export const TopCitiesSection: React.FC<TopCitiesSectionProps> = ({
   onViewAllDestinations
 }) => {
   const isFr = language === 'FR';
+
+  const isTouchDevice =
+    typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+      ? window.matchMedia('(hover: none)').matches
+      : false;
 
   const galleryItems: AccordionGalleryItem[] = TOP_CITIES.slice(0, 5).map((city) => ({
     image: city.image,
@@ -37,8 +42,8 @@ export const TopCitiesSection: React.FC<TopCitiesSectionProps> = ({
 
   return (
     <section id="cities" className="py-24 lg:py-32 bg-[#08090C] text-white relative overflow-hidden border-t border-neutral-900">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[600px] h-[400px] bg-[#D7B65D]/5 rounded-full blur-[160px] pointer-events-none" />
+      {/* Background ambient lighting (reduced on mobile for GPU performance) */}
+      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[300px] h-[240px] sm:w-[600px] sm:h-[400px] bg-[#D7B65D]/5 rounded-full blur-[100px] sm:blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header with ShinyText and FoldText */}
@@ -68,8 +73,12 @@ export const TopCitiesSection: React.FC<TopCitiesSectionProps> = ({
             <FoldText
               text={
                 isFr
-                  ? "Survolez chaque destination pour explorer nos liaisons régulières d'exception avec chauffeur dédié."
-                  : "Hover over each destination to explore our signature chauffeured corridors with dedicated service."
+                  ? isTouchDevice
+                    ? "Touchez chaque destination pour explorer nos liaisons régulières d'exception avec chauffeur dédié."
+                    : "Survolez chaque destination pour explorer nos liaisons régulières d'exception avec chauffeur dédié."
+                  : isTouchDevice
+                    ? "Tap each destination to explore our signature chauffeured corridors with dedicated service."
+                    : "Hover over each destination to explore our signature chauffeured corridors with dedicated service."
               }
               trigger="scroll"
               duration={0.65}
@@ -126,14 +135,6 @@ export const TopCitiesSection: React.FC<TopCitiesSectionProps> = ({
                 {isFr ? 'Toutes les destinations →' : 'All destinations →'}
               </button>
             )}
-            <button
-              type="button"
-              onClick={() => onSelectCity(TOP_CITIES[0])}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#D7B65D] via-[#F5D577] to-[#D7B65D] text-neutral-950 font-bold text-xs uppercase tracking-wider hover:scale-105 active:scale-95 transition-all shadow-md shadow-[#D7B65D]/20 cursor-pointer"
-            >
-              <span>{isFr ? 'Réserver un trajet' : 'Book a route'}</span>
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[3]" />
-            </button>
           </div>
         </div>
       </div>

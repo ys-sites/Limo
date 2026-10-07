@@ -58,10 +58,8 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   const isFr = language === 'FR';
   const label = isFr ? 'Discuter avec nous' : 'Chat with us';
 
-  const [mounted,  setMounted]  = useState(false);
   const [entered,  setEntered]  = useState(false);  // entrance slide-up
   const [expanded, setExpanded] = useState(false);  // desktop hover
-  const [autoOpen, setAutoOpen] = useState(false);  // mobile auto-pulse
 
   // Guard against hover state sticking on touch devices
   const supportsHoverRef = useRef<boolean | null>(null);
@@ -75,39 +73,15 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   };
 
   useEffect(() => {
-    setMounted(true);
     // Entrance: slight delay so the page content loads first
     const t = setTimeout(() => setEntered(true), 900);
     return () => clearTimeout(t);
   }, []);
 
-  // Mobile: auto-expand after 15 s, repeat every 45 s for 10 s each
-  useEffect(() => {
-    if (!mounted) return;
-    if (typeof window === 'undefined') return;
-    if (!window.matchMedia('(max-width: 767px)').matches) return;
-
-    let closeTimeout: ReturnType<typeof setTimeout>;
-    let interval:     ReturnType<typeof setInterval>;
-
-    const openThenClose = () => {
-      setAutoOpen(true);
-      closeTimeout = setTimeout(() => setAutoOpen(false), 10_000);
-    };
-
-    const openTimeout = setTimeout(() => {
-      openThenClose();
-      interval = setInterval(openThenClose, 45_000);
-    }, 15_000);
-
-    return () => {
-      clearTimeout(openTimeout);
-      clearTimeout(closeTimeout);
-      clearInterval(interval);
-    };
-  }, [mounted]);
-
-  const isExpanded = expanded || autoOpen;
+  // Auto-expand removed: the pill kept covering page content on mobile and
+  // felt intrusive. The compact circle remains the single WhatsApp CTA;
+  // the pill still expands on hover for desktop pointers.
+  const isExpanded = expanded;
 
   const handleMouseEnter = () => { if (getSupportsHover()) setExpanded(true); };
   const handleMouseLeave = () => setExpanded(false);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowUpRight, Users, Luggage, MessageSquare, Info, Sparkles } from 'lucide-react';
-import { FLEET, CLIENT_INFO } from '../data/limoData';
+import { Users, Luggage, Info, Sparkles } from 'lucide-react';
+import { FLEET } from '../data/limoData';
 import { Vehicle } from '../types/limo';
 import { ShinyText } from './ui/ShinyText';
 
@@ -61,13 +61,13 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
           </div>
         </div>
 
-        {/* Filters matching screenshot: TOUS (active black pill), VUS VIP, etc. */}
-        <div className="flex items-center justify-center sm:justify-start gap-3 sm:gap-4 overflow-x-auto pb-4 mb-10 text-xs font-semibold uppercase tracking-wider">
+        {/* Filters: all visible at once (wraps on mobile, no swipe) */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 pb-4 mb-10 text-xs font-semibold uppercase tracking-wider">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id)}
-              className={`px-6 py-2.5 rounded-lg transition-all cursor-pointer ${
+              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
                 selectedCategory === cat.id
                   ? 'bg-black text-white shadow-md scale-[1.02]'
                   : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
@@ -160,6 +160,8 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                       <motion.img
                         src={vehicle.image}
                         alt={`${vehicle.name} - Limo Raf Chauffeur Privé Montréal`}
+                        loading="lazy"
+                        decoding="async"
                         initial={{ scale: 0.95, opacity: 0.9 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.45, delay: 0.05 + idx * 0.04, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
@@ -181,8 +183,8 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                     </div>
                   </div>
 
-                  {/* Vehicle Tagline & Bottom CTA Controls */}
-                  <div className="z-10 pt-2 border-t border-neutral-200/60 flex items-center justify-between">
+                  {/* Vehicle Tagline & Details Link */}
+                  <div className="z-10 pt-2 border-t border-neutral-200/60 flex items-center justify-start">
                     <button
                       type="button"
                       onClick={() => onViewVehicleDetails(vehicle.slug)}
@@ -190,29 +192,6 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                     >
                       {language === 'FR' ? 'Détails & photos →' : 'Details & photos →'}
                     </button>
-
-                    <div className="flex items-center gap-2">
-                      <a
-                        href={CLIENT_INFO.whatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-8 h-8 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 flex items-center justify-center transition-colors"
-                        title="WhatsApp Quote"
-                      >
-                        <MessageSquare className="w-3.5 h-3.5" />
-                      </a>
-
-                      {/* Book now with gold circle arrow button */}
-                      <button
-                        onClick={() => onSelectVehicle(vehicle)}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-neutral-900 hover:bg-black text-white text-xs font-medium cursor-pointer shadow-sm transition-transform active:scale-95"
-                      >
-                        <span>Book Now</span>
-                        <div className="w-4 h-4 rounded-full bg-[#D7B65D] flex items-center justify-center text-neutral-950">
-                          <ArrowUpRight className="w-2.5 h-2.5" />
-                        </div>
-                      </button>
-                    </div>
                   </div>
                 </motion.div>
               );

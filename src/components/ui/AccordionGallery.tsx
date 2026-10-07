@@ -77,6 +77,13 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
       ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
       : false;
 
+  // Touch devices (mobile/tablet): taps only play the expand animation —
+  // they never navigate or open another view.
+  const isTouchDevice =
+    typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+      ? window.matchMedia('(hover: none)').matches
+      : false;
+
   const applyLayout = useCallback(
     (animate: boolean) => {
       const panels = panelRefs.current;
@@ -164,6 +171,13 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
   };
 
   const handleClick = (i: number, e: React.MouseEvent) => {
+    // On touch devices taps only expand the panel (play the hover animation).
+    // They never trigger navigation or open another view.
+    if (isTouchDevice) {
+      e.preventDefault();
+      if (i !== active) setActive(i);
+      return;
+    }
     if (i !== active) {
       e.preventDefault();
       setActive(i);
@@ -210,8 +224,9 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
                   src={item.image}
                   alt={item.alt || item.label || item.cityName || ''}
                   draggable="false"
-                  loading="eager"
-                  decoding="sync"
+                  loading={i === defaultIndex ? 'eager' : 'lazy'}
+                  decoding="async"
+                  fetchPriority={i === defaultIndex ? 'high' : 'auto'}
                 />
               </div>
               <div className="ag-panel__overlay" aria-hidden="true" />

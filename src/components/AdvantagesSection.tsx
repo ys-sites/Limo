@@ -1,14 +1,13 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ShieldCheck, UserCheck, Car, Clock, Sparkles, Headphones, Award, CheckCircle2, ArrowRight } from 'lucide-react';
+import { ShieldCheck, UserCheck, Car, Clock, Sparkles, Headphones, Award, CheckCircle2 } from 'lucide-react';
 import { ShinyText } from './ui/ShinyText';
 
 interface AdvantagesSectionProps {
   language: 'FR' | 'EN';
-  onBookNow?: () => void;
 }
 
-export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ language, onBookNow }) => {
+export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ language }) => {
   const isFr = language === 'FR';
 
   const advantages = [
@@ -174,20 +173,6 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ language, 
             );
           })}
         </div>
-
-        {/* Bottom CTA to Book */}
-        {onBookNow && (
-          <div className="mt-12 text-center">
-            <button
-              type="button"
-              onClick={onBookNow}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer active:scale-98"
-            >
-              <span>{isFr ? 'Réserver votre chauffeur' : 'Book your chauffeur'}</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );

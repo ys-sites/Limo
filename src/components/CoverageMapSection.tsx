@@ -185,8 +185,8 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
   return (
     <section id="coverage" className="py-24 lg:py-32 bg-[#090A0D] text-white relative overflow-hidden border-t border-neutral-900">
       {/* Subtle ambient lighting */}
-      <div className="absolute top-1/4 -left-40 w-96 h-96 bg-[#D7B65D]/5 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#D7B65D]/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/4 -left-40 w-56 h-56 sm:w-96 sm:h-96 bg-[#D7B65D]/5 rounded-full blur-[100px] sm:blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-56 h-56 sm:w-96 sm:h-96 bg-[#D7B65D]/5 rounded-full blur-[100px] sm:blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header: Clean Editorial Hierarchy */}

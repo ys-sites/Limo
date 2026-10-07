@@ -22,10 +22,9 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSele
             <a
               href="#"
               onClick={(e) => {
-                if (onNavigateHome) {
-                  e.preventDefault();
-                  onNavigateHome();
-                }
+                // Placeholder link: do nothing until a real destination is provided
+                e.preventDefault();
+                onNavigateHome?.();
               }}
               className="inline-block group"
               aria-label="Limo Raf - Accueil"
@@ -93,10 +92,9 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSele
                 <a
                   href="#"
                   onClick={(e) => {
-                    if (onNavigateHome) {
-                      e.preventDefault();
-                      onNavigateHome();
-                    }
+                    // Placeholder link: do nothing until a real destination is provided
+                    e.preventDefault();
+                    onNavigateHome?.();
                   }}
                   className="hover:text-white transition-colors"
                 >
@@ -141,8 +139,11 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSele
                 <li key={v.id}>
                   <a
                     href={`#/vehicles/${v.slug}`}
-                    onClick={() => {
-                      if (onSelectVehicle) onSelectVehicle(v.slug);
+                    onClick={(e) => {
+                      // Always handle via the app router so the hash never
+                      // changes without the page state updating
+                      e.preventDefault();
+                      onSelectVehicle?.(v.slug);
                     }}
                     className="hover:text-white transition-colors block"
                   >

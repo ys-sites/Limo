@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowUpRight, Plane, Navigation, Clock, Heart, Compass, GlassWater, Sparkles, MessageSquare } from 'lucide-react';
-import { SERVICES, CLIENT_INFO } from '../data/limoData';
+import { ArrowUpRight, Plane, Navigation, Clock, Heart, Compass, GlassWater, Sparkles } from 'lucide-react';
+import { SERVICES } from '../data/limoData';
 import { ServiceItem } from '../types/limo';
 import { ShinyText } from './ui/ShinyText';
 
@@ -28,9 +28,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onSe
 
   return (
     <section id="services" className="py-20 lg:py-28 bg-[#0A0C10] text-white relative overflow-hidden border-t border-neutral-900">
-      {/* Subtle ambient glow */}
-      <div className="absolute top-1/4 -right-40 w-[500px] h-[500px] bg-[#D7B65D]/5 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -left-40 w-[500px] h-[500px] bg-[#D7B65D]/3 rounded-full blur-[160px] pointer-events-none" />
+      {/* Subtle ambient glow (reduced on mobile for GPU performance) */}
+      <div className="absolute top-1/4 -right-40 w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] bg-[#D7B65D]/5 rounded-full blur-[100px] sm:blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -left-40 w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] bg-[#D7B65D]/3 rounded-full blur-[100px] sm:blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header with 04 */}
@@ -65,8 +65,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onSe
           </div>
         </div>
 
-        {/* Clean Responsive Service Selector Tabs */}
-        <div className="flex items-center justify-start lg:justify-center gap-2 overflow-x-auto pb-4 mb-8 sm:mb-10 no-scrollbar">
+        {/* Service selector: all options visible at once (wraps on mobile, no swipe) */}
+        <div className="flex flex-wrap items-center justify-center gap-2 pb-4 mb-8 sm:mb-10">
           {SERVICES.map((service) => {
             const Icon = serviceIcons[service.id] || Sparkles;
             const title = isFr ? service.titleFr : service.titleEn;
@@ -143,7 +143,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onSe
                   ))}
                 </div>
 
-                {/* Action Bar */}
+                {/* Action Bar: single booking CTA */}
                 <div className="pt-2 flex flex-wrap items-center gap-3">
                   <button
                     type="button"
@@ -153,16 +153,6 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onSe
                     <span>{isFr ? 'Réserver ce service' : 'Reserve this service'}</span>
                     <ArrowUpRight className="w-4 h-4 stroke-[2.2]" />
                   </button>
-
-                  <a
-                    href={CLIENT_INFO.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-3.5 rounded-full bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-300 hover:text-white text-xs font-medium transition-colors"
-                  >
-                    <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>WhatsApp VIP</span>
-                  </a>
                 </div>
               </div>
             </div>

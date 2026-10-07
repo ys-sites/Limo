@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion, useScroll } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -11,11 +11,20 @@ import { CoverageMapSection } from './components/CoverageMapSection';
 import { TopCitiesSection } from './components/TopCitiesSection';
 import { ReviewsMarquee } from './components/ReviewsMarquee';
 import { Footer } from './components/Footer';
-import { BookingModal } from './components/BookingModal';
-import { VehicleDetailPage } from './components/VehicleDetailPage';
-import { DestinationsPage } from './components/DestinationsPage';
 import { BookingState, Vehicle, ServiceItem, CityDestination } from './types/limo';
 import { FLEET } from './data/limoData';
+
+// Code-split below-the-fold / on-demand views so the initial bundle stays lean.
+// Features are unchanged — these load on first interaction.
+const BookingModal = React.lazy(() =>
+  import('./components/BookingModal').then((m) => ({ default: m.BookingModal }))
+);
+const VehicleDetailPage = React.lazy(() =>
+  import('./components/VehicleDetailPage').then((m) => ({ default: m.VehicleDetailPage }))
+);
+const DestinationsPage = React.lazy(() =>
+  import('./components/DestinationsPage').then((m) => ({ default: m.DestinationsPage }))
+);
 
 export default function App() {
   const [language, setLanguage] = useState<'FR' | 'EN'>('FR');
@@ -136,6 +145,7 @@ export default function App() {
 
       {/* Main Content: Dedicated Vehicle Subpage OR Destinations Subpage OR Homepage */}
       <main className="flex-1">
+        <Suspense fallback={null}>
         {activeVehicle ? (
           /* Subpage Detail of Selected Vehicle */
           <VehicleDetailPage
@@ -194,7 +204,6 @@ export default function App() {
             {/* 5. Section 05: Pourquoi nous choisir / Why Choose Us (6 dashed gold cards) */}
             <AdvantagesSection
               language={language}
-              onBookNow={() => setIsBookingOpen(true)}
             />
 
             {/* Section: Destinations Phares avec AccordionGallery */}
@@ -219,21 +228,33 @@ export default function App() {
             <ReviewsMarquee language={language} />
           </>
         )}
+        </Suspense>
       </main>
 
       {/* Pure Black Luxury Footer (matching screenshot, newsletter removed) */}
-      <Footer language={language} />
+      <Footer
+        language={language}
+        onNavigateHome={() => {
+          setActiveVehicleSlug(null);
+          setIsDestinationsPage(false);
+          window.history.pushState(null, '', '#');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onSelectVehicle={(slug) => handleViewVehicleDetails(slug)}
+      />
 
       {/* Floating Instant WhatsApp Button matching YS-MARKETING-SOLUTION */}
       <WhatsAppButton language={language} />
 
       {/* Interactive Reservation Concierge Modal */}
-      <BookingModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-        initialBooking={bookingState}
-        language={language}
-      />
+      <Suspense fallback={null}>
+        <BookingModal
+          isOpen={isBookingOpen}
+          onClose={() => setIsBookingOpen(false)}
+          initialBooking={bookingState}
+          language={language}
+        />
+      </Suspense>
     </div>
   );
 }

@@ -180,23 +180,13 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onBook
           </div>
         </div>
 
-        {/* Editorial Text Statement & Button */}
+        {/* Editorial Text Statement */}
         <div className="mt-16 sm:mt-20 max-w-2xl mx-auto text-center space-y-6">
           <p className="text-lg sm:text-xl text-neutral-800 leading-relaxed font-normal">
             {isFr
               ? "Que ce soit pour un voyage d'affaires, une escapade de loisir ou une occasion spéciale, nos limousines avec chauffeur privé vous garantissent d'arriver avec style, confort et ponctualité."
               : "Whether you're traveling for business, leisure, or a special occasion, our chauffeur-driven limousines ensure you arrive in style, comfort, and on time."}
           </p>
-
-          <div>
-            <button
-              type="button"
-              onClick={onBookNow}
-              className="inline-block px-7 py-3 text-xs font-semibold text-neutral-950 bg-[#D7B65D] hover:bg-[#C4963A] active:scale-[0.98] rounded-md transition-all shadow-sm cursor-pointer"
-            >
-              {isFr ? 'Réserver Votre Chauffeur VIP' : 'Reserve Your VIP Chauffeur'}
-            </button>
-          </div>
         </div>
       </div>
 
