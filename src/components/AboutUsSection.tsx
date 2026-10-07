@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, ArrowUpRight, X, Shield, Sparkles } from 'lucide-react';
 import { ShinyText } from './ui/ShinyText';
+import { srcSetFor } from '../lib/images';
 
 interface AboutUsSectionProps {
   language: 'FR' | 'EN';
@@ -66,6 +67,8 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
             <img
               decoding="async"
               src="/images/about_discretion_vip.webp"
+              srcSet={srcSetFor('/images/about_discretion_vip.webp')}
+              sizes="(max-width: 767px) 60vw, 33vw"
               alt="Excellence et discrétion Limo Raf"
               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
@@ -109,6 +112,8 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
             <img
               decoding="async"
               src="/images/about_chauffeur_vip.webp"
+              srcSet={srcSetFor('/images/about_chauffeur_vip.webp')}
+              sizes="(max-width: 767px) 60vw, 33vw"
               alt="Chauffeurs VIP Limo Raf"
               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
               loading="lazy"

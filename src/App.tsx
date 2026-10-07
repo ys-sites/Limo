@@ -16,21 +16,19 @@ import { QuotePrefill } from './lib/contact';
 
 // Code-split below-the-fold / on-demand views so the initial bundle stays lean.
 // Features are unchanged — these load on first interaction.
-const VehicleDetailPage = React.lazy(() =>
-  import('./components/VehicleDetailPage').then((m) => ({ default: m.VehicleDetailPage }))
-);
-const DestinationsPage = React.lazy(() =>
-  import('./components/DestinationsPage').then((m) => ({ default: m.DestinationsPage }))
-);
-const QuoteModal = React.lazy(() =>
-  import('./components/QuoteModal').then((m) => ({ default: m.QuoteModal }))
-);
+const loadVehicleDetailPage = () => import('./components/VehicleDetailPage');
+const loadDestinationsPage = () => import('./components/DestinationsPage');
+const loadQuoteModal = () => import('./components/QuoteModal');
+const loadDestinationInquiryModal = () => import('./components/DestinationInquiryModal');
+const loadCallbackModal = () => import('./components/CallbackModal');
+
+const VehicleDetailPage = React.lazy(() => loadVehicleDetailPage().then((m) => ({ default: m.VehicleDetailPage })));
+const DestinationsPage = React.lazy(() => loadDestinationsPage().then((m) => ({ default: m.DestinationsPage })));
+const QuoteModal = React.lazy(() => loadQuoteModal().then((m) => ({ default: m.QuoteModal })));
 const DestinationInquiryModal = React.lazy(() =>
-  import('./components/DestinationInquiryModal').then((m) => ({ default: m.DestinationInquiryModal }))
+  loadDestinationInquiryModal().then((m) => ({ default: m.DestinationInquiryModal }))
 );
-const CallbackModal = React.lazy(() =>
-  import('./components/CallbackModal').then((m) => ({ default: m.CallbackModal }))
-);
+const CallbackModal = React.lazy(() => loadCallbackModal().then((m) => ({ default: m.CallbackModal })));
 
 export default function App() {
   const [language, setLanguage] = useState<'FR' | 'EN'>('FR');
@@ -54,6 +52,24 @@ export default function App() {
 
   const openQuote = (prefill?: QuotePrefill) => setQuoteModal({ open: true, prefill });
   const openDestInquiry = (destination?: string) => setDestModal({ open: true, destination });
+
+  // Once the home page is idle, fetch subpage and popup code in the background
+  // so opening them is instant instead of waiting on a network request
+  useEffect(() => {
+    const prefetch = () => {
+      loadVehicleDetailPage();
+      loadDestinationsPage();
+      loadQuoteModal();
+      loadDestinationInquiryModal();
+      loadCallbackModal();
+    };
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(prefetch, { timeout: 4000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const t = setTimeout(prefetch, 2500);
+    return () => clearTimeout(t);
+  }, []);
 
   // Blacklane-style smooth scroll progress indicator
   const { scrollYProgress } = useScroll();
@@ -99,7 +115,7 @@ export default function App() {
   const handleViewVehicleDetails = (slug: string) => {
     setActiveVehicleSlug(slug);
     window.history.pushState(null, '', `#/vehicles/${slug}`);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   // Open dedicated all-destinations subpage
@@ -107,7 +123,7 @@ export default function App() {
     setActiveVehicleSlug(null);
     setIsDestinationsPage(true);
     window.history.pushState(null, '', '#/destinations');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   // Reserve button clicked from Navbar or Hero -> smooth glide to Hero reservation card & focus name field
@@ -151,7 +167,7 @@ export default function App() {
           setActiveVehicleSlug(null);
           setIsDestinationsPage(false);
           window.history.pushState(null, '', '#');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0, behavior: 'instant' });
         }}
       />
 
@@ -225,7 +241,7 @@ export default function App() {
               onViewAllDestinations={() => {
                 setIsDestinationsPage(true);
                 window.history.pushState(null, '', '#/destinations');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'instant' });
               }}
             />
 
@@ -250,7 +266,7 @@ export default function App() {
           setActiveVehicleSlug(null);
           setIsDestinationsPage(false);
           window.history.pushState(null, '', '#');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0, behavior: 'instant' });
         }}
         onSelectVehicle={(slug) => handleViewVehicleDetails(slug)}
       />

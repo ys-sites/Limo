@@ -5,6 +5,7 @@ import { SERVICES } from '../data/limoData';
 import { ServiceItem } from '../types/limo';
 import { QuotePrefill } from '../lib/contact';
 import { ShinyText } from './ui/ShinyText';
+import { srcSetFor } from '../lib/images';
 
 interface ServicesSectionProps {
   language: 'FR' | 'EN';
@@ -107,6 +108,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onQu
                   loading="lazy"
                   decoding="async"
                   src={activeService.image}
+                  srcSet={srcSetFor(activeService.image)}
+                  sizes="(max-width: 767px) 60vw, 40vw"
                   alt={isFr ? activeService.titleFr : activeService.titleEn}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                 />

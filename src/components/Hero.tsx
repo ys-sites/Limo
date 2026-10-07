@@ -4,6 +4,7 @@ import { BookingWidget } from './BookingWidget';
 import { HERO_IMAGE, CLIENT_INFO } from '../data/limoData';
 import { Phone, ArrowRight } from 'lucide-react';
 import { LUXURY_EASE, scrollToAnchor } from '../lib/motion';
+import { srcSetFor } from '../lib/images';
 
 interface HeroProps {
   language: 'FR' | 'EN';
@@ -46,6 +47,8 @@ export const Hero: React.FC<HeroProps> = ({
           animate={{ scale: 1 }}
           transition={{ duration: 1.8, ease: LUXURY_EASE }}
           src={HERO_IMAGE}
+          srcSet={srcSetFor(HERO_IMAGE)}
+          sizes="100vw"
           alt="Limo Raf Chauffeur Privé Montréal Cadillac Escalade"
           className="w-full h-full object-cover object-center"
           fetchPriority="high"

@@ -7,6 +7,7 @@ import {
   Snowflake,
   Coffee
 } from 'lucide-react';
+import { srcSetFor } from '../lib/images';
 
 interface CoverageMapSectionProps {
   language: 'FR' | 'EN';
@@ -69,6 +70,8 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
               <img
                 decoding="async"
                 src="/images/fleet_cadillac_escalade_1791294159140.webp"
+                srcSet={srcSetFor('/images/fleet_cadillac_escalade_1791294159140.webp')}
+                sizes="(max-width: 767px) 60vw, 45vw"
                 alt="Cadillac Escalade ESV Limo Raf Longue Distance"
                 className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 ease-out"
                 loading="lazy"

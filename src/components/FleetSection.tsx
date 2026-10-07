@@ -5,6 +5,7 @@ import { FLEET } from '../data/limoData';
 import { Vehicle } from '../types/limo';
 import { QuotePrefill } from '../lib/contact';
 import { ShinyText } from './ui/ShinyText';
+import { preloadImages, srcSetFor } from '../lib/images';
 
 interface FleetSectionProps {
   language: 'FR' | 'EN';
@@ -109,6 +110,8 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
               return (
                 <motion.div
                   key={vehicle.id}
+                  // Start fetching the detail page photos as soon as the card is hovered / touched
+                  onPointerEnter={() => preloadImages(vehicle.galleryImages)}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ 
@@ -117,7 +120,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                     ease: [0.16, 1, 0.3, 1] as [number, number, number, number] 
                   }}
                   className={`${colSpanClass} bg-white/55 hover:bg-white/70 rounded-3xl p-6 sm:p-7 flex flex-col justify-between ${
-                    isFlagship ? 'min-h-[460px]' : 'min-h-[430px]'
+                    isFlagship ? 'sm:min-h-[460px]' : 'sm:min-h-[430px]'
                   } border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_20px_50px_-20px_rgba(0,0,0,0.15)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_28px_60px_-20px_rgba(0,0,0,0.22)] transition-[background-color,box-shadow] duration-300 group relative overflow-hidden`}
                 >
                   {/* Top: Title, Category & Capacity Badge */}
@@ -160,6 +163,8 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                     <div className="w-full flex items-center justify-center relative">
                       <motion.img
                         src={vehicle.image}
+                        srcSet={srcSetFor(vehicle.image)}
+                        sizes="(max-width: 767px) 60vw, 40vw"
                         alt={`${vehicle.name} - Limo Raf Chauffeur Privé Montréal`}
                         loading="lazy"
                         decoding="async"

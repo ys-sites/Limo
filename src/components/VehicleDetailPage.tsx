@@ -8,6 +8,7 @@ import { Vehicle } from '../types/limo';
 import { CLIENT_INFO, FLEET } from '../data/limoData';
 import { FORMSUBMIT_EMAIL, ONLINE_PAYMENT_URL } from '../config/formConfig';
 import { ShinyText } from './ui/ShinyText';
+import { srcSetFor } from '../lib/images';
 
 interface VehicleDetailPageProps {
   vehicle: Vehicle;
@@ -497,6 +498,8 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
                       loading="lazy"
                       decoding="async"
                       src={other.image}
+                      srcSet={srcSetFor(other.image)}
+                      sizes="240px"
                       alt={other.name}
                       className="max-h-24 w-auto object-contain group-hover:scale-105 transition-transform"
                     />

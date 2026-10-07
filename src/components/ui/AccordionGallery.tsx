@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import './AccordionGallery.css';
+import { srcSetFor } from '../../lib/images';
 
 export interface AccordionGalleryItem {
   image: string;
@@ -222,6 +223,8 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
               <div className="ag-panel__media" ref={(el) => { mediaRefs.current[i] = el; }}>
                 <img
                   src={item.image}
+                  srcSet={srcSetFor(item.image)}
+                  sizes="(max-width: 767px) 60vw, 50vw"
                   alt={item.alt || item.label || item.cityName || ''}
                   draggable="false"
                   loading={i === defaultIndex ? 'eager' : 'lazy'}
