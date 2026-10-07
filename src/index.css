@@ -81,9 +81,9 @@ p {
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.18),
     inset 0 0 24px rgba(215, 182, 93, 0.04),
     0 24px 80px rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(24px) saturate(140%);
-  -webkit-backdrop-filter: blur(24px) saturate(140%);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .liquid-glass-card:hover {
@@ -98,8 +98,8 @@ p {
 /* Liquid Glass Pill / Badges */
 .liquid-glass-pill {
   background: rgba(18, 20, 26, 0.68);
-  backdrop-filter: blur(18px) saturate(150%);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
   border: 1px solid rgba(215, 182, 93, 0.3);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.15),
@@ -111,8 +111,8 @@ p {
   background:
     radial-gradient(ellipse at 50% 0%, rgba(215, 182, 93, 0.09), transparent 50%),
     linear-gradient(180deg, rgba(22, 25, 33, 0.82) 0%, rgba(10, 11, 15, 0.92) 100%);
-  backdrop-filter: blur(32px) saturate(140%);
-  -webkit-backdrop-filter: blur(32px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow:
     inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22),
@@ -123,8 +123,8 @@ p {
 /* Liquid Glass Navigation Bar */
 .liquid-glass-nav {
   background: rgba(7, 8, 10, 0.78);
-  backdrop-filter: blur(28px) saturate(150%);
-  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
@@ -142,11 +142,9 @@ p {
 /* Liquid Glass Form Input */
 .liquid-glass-input {
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  transition: all 0.25s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .liquid-glass-input:focus {
@@ -160,13 +158,11 @@ p {
 /* Liquid Glass Light Card (For light/stone backgrounds #ECE7DE & #F6F6F6) */
 .liquid-glass-light-card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.86) 0%, rgba(255, 255, 255, 0.72) 100%);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.95);
   box-shadow:
     inset 0 1px 1px 0 rgba(255, 255, 255, 1),
     0 14px 34px -10px rgba(0, 0, 0, 0.06);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .liquid-glass-light-card:hover {
@@ -179,8 +175,6 @@ p {
 /* Liquid Glass Light Pill / Badge */
 .liquid-glass-light-pill {
   background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.95);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 1),

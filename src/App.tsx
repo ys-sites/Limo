@@ -12,9 +12,6 @@ import { TopCitiesSection } from './components/TopCitiesSection';
 import { ReviewsMarquee } from './components/ReviewsMarquee';
 import { Footer } from './components/Footer';
 import { FLEET } from './data/limoData';
-import { QuoteModal } from './components/QuoteModal';
-import { DestinationInquiryModal } from './components/DestinationInquiryModal';
-import { CallbackModal } from './components/CallbackModal';
 import { QuotePrefill } from './lib/contact';
 
 // Code-split below-the-fold / on-demand views so the initial bundle stays lean.
@@ -24,6 +21,15 @@ const VehicleDetailPage = React.lazy(() =>
 );
 const DestinationsPage = React.lazy(() =>
   import('./components/DestinationsPage').then((m) => ({ default: m.DestinationsPage }))
+);
+const QuoteModal = React.lazy(() =>
+  import('./components/QuoteModal').then((m) => ({ default: m.QuoteModal }))
+);
+const DestinationInquiryModal = React.lazy(() =>
+  import('./components/DestinationInquiryModal').then((m) => ({ default: m.DestinationInquiryModal }))
+);
+const CallbackModal = React.lazy(() =>
+  import('./components/CallbackModal').then((m) => ({ default: m.CallbackModal }))
 );
 
 export default function App() {
@@ -35,6 +41,16 @@ export default function App() {
   const [quoteModal, setQuoteModal] = useState<{ open: boolean; prefill?: QuotePrefill }>({ open: false });
   const [destModal, setDestModal] = useState<{ open: boolean; destination?: string }>({ open: false });
   const [callbackOpen, setCallbackOpen] = useState(false);
+
+  // Popups load on first open, then stay mounted so their close animations still play
+  const [modalsLoaded, setModalsLoaded] = useState({ quote: false, dest: false, callback: false });
+  useEffect(() => {
+    setModalsLoaded((m) => ({
+      quote: m.quote || quoteModal.open,
+      dest: m.dest || destModal.open,
+      callback: m.callback || callbackOpen,
+    }));
+  }, [quoteModal.open, destModal.open, callbackOpen]);
 
   const openQuote = (prefill?: QuotePrefill) => setQuoteModal({ open: true, prefill });
   const openDestInquiry = (destination?: string) => setDestModal({ open: true, destination });
@@ -121,9 +137,6 @@ export default function App() {
         style={{ scaleX: scrollYProgress, transformOrigin: '0%' }}
         className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#D7B65D] via-[#F5D577] to-[#D7B65D] z-50 pointer-events-none shadow-sm shadow-[#D7B65D]/50"
       />
-
-      {/* Subtle tactile noise texture overlay */}
-      <div className="fixed inset-0 pointer-events-none z-40 bg-noise opacity-[0.025]" />
 
       {/* Top Bar Navigation floating over hero */}
       <Navbar
@@ -246,23 +259,31 @@ export default function App() {
       <WhatsAppButton language={language} />
 
       {/* Contact popups: general quote / destinations inquiry / callback request */}
-      <QuoteModal
-        isOpen={quoteModal.open}
-        onClose={() => setQuoteModal({ open: false })}
-        language={language}
-        prefill={quoteModal.prefill}
-      />
-      <DestinationInquiryModal
-        isOpen={destModal.open}
-        onClose={() => setDestModal({ open: false })}
-        language={language}
-        destination={destModal.destination}
-      />
-      <CallbackModal
-        isOpen={callbackOpen}
-        onClose={() => setCallbackOpen(false)}
-        language={language}
-      />
+      <Suspense fallback={null}>
+        {(modalsLoaded.quote || quoteModal.open) && (
+          <QuoteModal
+            isOpen={quoteModal.open}
+            onClose={() => setQuoteModal({ open: false })}
+            language={language}
+            prefill={quoteModal.prefill}
+          />
+        )}
+        {(modalsLoaded.dest || destModal.open) && (
+          <DestinationInquiryModal
+            isOpen={destModal.open}
+            onClose={() => setDestModal({ open: false })}
+            language={language}
+            destination={destModal.destination}
+          />
+        )}
+        {(modalsLoaded.callback || callbackOpen) && (
+          <CallbackModal
+            isOpen={callbackOpen}
+            onClose={() => setCallbackOpen(false)}
+            language={language}
+          />
+        )}
+      </Suspense>
     </div>
   );
 }

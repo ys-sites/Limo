@@ -64,7 +64,8 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
             onClick={() => setActiveModal('excellence')}
           >
             <img
-              src="/images/about_discretion_vip.jpg"
+              decoding="async"
+              src="/images/about_discretion_vip.webp"
               alt="Excellence et discrétion Limo Raf"
               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
@@ -106,7 +107,8 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
             onClick={() => setActiveModal('chauffeurs')}
           >
             <img
-              src="/images/about_chauffeur_vip.jpg"
+              decoding="async"
+              src="/images/about_chauffeur_vip.webp"
               alt="Chauffeurs VIP Limo Raf"
               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
               loading="lazy"

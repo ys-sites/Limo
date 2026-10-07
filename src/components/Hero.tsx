@@ -42,14 +42,17 @@ export const Hero: React.FC<HeroProps> = ({
         className="absolute inset-0 z-0 will-change-transform"
       >
         <motion.img
-          initial={shouldReduceMotion ? { scale: 1, filter: 'blur(0px)' } : { scale: 1.08, filter: 'blur(4px)' }}
-          animate={{ scale: 1, filter: 'blur(0px)' }}
+          initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.08 }}
+          animate={{ scale: 1 }}
           transition={{ duration: 1.8, ease: LUXURY_EASE }}
           src={HERO_IMAGE}
           alt="Limo Raf Chauffeur Privé Montréal Cadillac Escalade"
-          className="w-full h-full object-cover object-center filter brightness-[0.72]"
+          className="w-full h-full object-cover object-center"
           fetchPriority="high"
+          decoding="async"
         />
+        {/* Darkens the photo; cheaper than a CSS brightness filter on a full-screen layer */}
+        <div className="absolute inset-0 bg-black/[0.28]" />
         {/* Deep luxury linear gradients */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#07080A]/95 via-[#07080A]/65 to-[#07080A]/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#07080A] via-transparent to-[#07080A]/60" />

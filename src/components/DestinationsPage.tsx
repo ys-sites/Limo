@@ -263,7 +263,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
         )}
 
         {/* Bottom Booking CTA Banner */}
-        <div className="mt-16 text-center bg-white/70 backdrop-blur-xl p-8 sm:p-10 rounded-3xl border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] max-w-3xl mx-auto">
+        <div className="mt-16 text-center bg-white/70 p-8 sm:p-10 rounded-3xl border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-neutral-900 mb-2 font-sans">
             {isFr ? 'Vous avez un itinéraire sur mesure en tête ?' : 'Have a custom route in mind?'}
           </h2>

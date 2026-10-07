@@ -67,7 +67,8 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
             {/* Visual: Pristine Cadillac Escalade */}
             <div className="lg:col-span-7 relative h-64 sm:h-80 lg:h-[380px] overflow-hidden bg-neutral-950">
               <img
-                src="/images/fleet_cadillac_escalade_1791294159140.jpg"
+                decoding="async"
+                src="/images/fleet_cadillac_escalade_1791294159140.webp"
                 alt="Cadillac Escalade ESV Limo Raf Longue Distance"
                 className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 ease-out"
                 loading="lazy"

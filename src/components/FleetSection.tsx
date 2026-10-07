@@ -68,7 +68,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
             <button
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id)}
-              className={`w-full sm:w-auto px-1 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all cursor-pointer whitespace-nowrap text-center text-[10px] sm:text-xs backdrop-blur-md ${
+              className={`w-full sm:w-auto px-1 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all cursor-pointer whitespace-nowrap text-center text-[10px] sm:text-xs ${
                 selectedCategory === cat.id
                   ? 'bg-black text-white shadow-md scale-[1.02]'
                   : 'bg-white/60 hover:bg-white/85 text-neutral-700 border border-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]'
@@ -116,9 +116,9 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                     delay: idx * 0.06, 
                     ease: [0.16, 1, 0.3, 1] as [number, number, number, number] 
                   }}
-                  className={`${colSpanClass} bg-white/55 backdrop-blur-xl hover:bg-white/70 rounded-3xl p-6 sm:p-7 flex flex-col justify-between ${
+                  className={`${colSpanClass} bg-white/55 hover:bg-white/70 rounded-3xl p-6 sm:p-7 flex flex-col justify-between ${
                     isFlagship ? 'min-h-[460px]' : 'min-h-[430px]'
-                  } border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_20px_50px_-20px_rgba(0,0,0,0.15)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_28px_60px_-20px_rgba(0,0,0,0.22)] transition-all duration-300 group relative overflow-hidden`}
+                  } border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_20px_50px_-20px_rgba(0,0,0,0.15)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_28px_60px_-20px_rgba(0,0,0,0.22)] transition-[background-color,box-shadow] duration-300 group relative overflow-hidden`}
                 >
                   {/* Top: Title, Category & Capacity Badge */}
                   <div className="flex items-start justify-between gap-4 z-10">
@@ -139,7 +139,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                     </div>
 
                     {/* Passenger & Luggage quick badge */}
-                    <div className="flex items-center gap-3 bg-white/80 backdrop-blur-xs px-3 py-1.5 rounded-full border border-neutral-200/80 text-[11px] text-neutral-600 font-medium shrink-0">
+                    <div className="flex items-center gap-3 bg-white/80 px-3 py-1.5 rounded-full border border-neutral-200/80 text-[11px] text-neutral-600 font-medium shrink-0">
                       <span className="flex items-center gap-1">
                         <Users className="w-3.5 h-3.5 text-neutral-500" />
                         <span>{vehicle.passengers}</span>

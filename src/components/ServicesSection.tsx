@@ -104,6 +104,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onQu
               {/* Image with dedicated aspect ratio for both mobile and desktop */}
               <div className="lg:col-span-6 relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] lg:aspect-[16/11] w-full bg-neutral-950 group">
                 <img
+                  loading="lazy"
+                  decoding="async"
                   src={activeService.image}
                   alt={isFr ? activeService.titleFr : activeService.titleEn}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"

@@ -114,7 +114,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
               <img
                 src={allImages[activeImageIndex]}
                 alt={`${vehicle.name} Limo Raf Montréal`}
-                className="w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
 
               {/* Tag pill */}
@@ -140,6 +140,8 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
                     }`}
                   >
                     <img
+                      loading="lazy"
+                      decoding="async"
                       src={img}
                       alt={`${vehicle.name} view ${idx + 1}`}
                       className="w-full h-full object-cover object-center"
@@ -492,6 +494,8 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
                 <div>
                   <div className="w-full aspect-[16/10] bg-[#F8F6F0] rounded-2xl flex items-center justify-center p-3 mb-4 overflow-hidden">
                     <img
+                      loading="lazy"
+                      decoding="async"
                       src={other.image}
                       alt={other.name}
                       className="max-h-24 w-auto object-contain group-hover:scale-105 transition-transform"

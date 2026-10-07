@@ -1,24 +1,24 @@
 import { Vehicle, ServiceItem, CityDestination } from '../types/limo';
 
 // High-resolution photography and transparent vehicle assets
-import heroImage from '../assets/images/hero_luxury_limo_cadillac_1791294116681.jpg';
-import serviceCorporateTravel from '../assets/images/service_corporate_travel_1791294137972.jpg';
-import serviceAirportTransfer from '../assets/images/service_airport_transfer_1791294128362.jpg';
-import serviceSpecialEvents from '../assets/images/service_special_events_1791294148674.jpg';
+import heroImage from '../assets/images/hero_luxury_limo_cadillac_1791294116681.webp';
+import serviceCorporateTravel from '../assets/images/service_corporate_travel_1791294137972.webp';
+import serviceAirportTransfer from '../assets/images/service_airport_transfer_1791294128362.webp';
+import serviceSpecialEvents from '../assets/images/service_special_events_1791294148674.webp';
 
 // Transparent PNG cutout vehicle showcases
-import carEscalade from '../assets/images/cadillac_escalade_esv.png';
-import carYukon from '../assets/images/gmc_yukon_denali_xl.png';
-import carSuburban from '../assets/images/chevrolet_suburban_premier.png';
-import carXt6 from '../assets/images/cadillac_xt6_sport.png';
-import carLyriq from '../assets/images/cadillac_lyriq_electric.png';
+import carEscalade from '../assets/images/cadillac_escalade_esv.webp';
+import carYukon from '../assets/images/gmc_yukon_denali_xl.webp';
+import carSuburban from '../assets/images/chevrolet_suburban_premier.webp';
+import carXt6 from '../assets/images/cadillac_xt6_sport.webp';
+import carLyriq from '../assets/images/cadillac_lyriq_electric.webp';
 
 // Local Canadian regional destination postcards
-import cityMontreal from '../assets/images/city_montreal.jpg';
-import cityLaval from '../assets/images/city_laval.jpg';
-import cityTremblant from '../assets/images/city_tremblant.jpg';
-import cityQuebec from '../assets/images/city_quebec.jpg';
-import cityOttawa from '../assets/images/city_ottawa.jpg';
+import cityMontreal from '../assets/images/city_montreal.webp';
+import cityLaval from '../assets/images/city_laval.webp';
+import cityTremblant from '../assets/images/city_tremblant.webp';
+import cityQuebec from '../assets/images/city_quebec.webp';
+import cityOttawa from '../assets/images/city_ottawa.webp';
 
 export const HERO_IMAGE = heroImage;
 
@@ -47,7 +47,7 @@ export const SERVICES: ServiceItem[] = [
     subtitleFr: 'Aéroport Montréal-Trudeau YUL & Régions',
     descriptionEn: 'Arrive smoothly with real-time flight tracking, 60 minutes complimentary wait time, terminal meet-and-greet with personalized tablet signage, and full luggage assistance.',
     descriptionFr: 'Voyagez sans stress avec suivi des vols en temps réel, 60 minutes d\'attente offerte, accueil personnalisé à l\'intérieur du terminal avec tablette et prise en charge intégrale des bagages.',
-    image: '/images/service_airport_transfer_1791294128362.jpg',
+    image: '/images/service_airport_transfer_1791294128362.webp',
     featuresEn: [
       'Real-time flight status sync (YUL, YHU, YMX)',
       'Terminal meet & greet with executive tablet',
@@ -69,7 +69,7 @@ export const SERVICES: ServiceItem[] = [
     subtitleFr: 'Liaisons interurbaines Canada & USA',
     descriptionEn: 'Avoid crowded airports and train stations. Travel between Montreal, Mont-Tremblant, Quebec City, Ottawa, Toronto, and US destinations (Boston, New York, Burlington, Plattsburgh) in pristine comfort.',
     descriptionFr: 'Évitez les gares et aéroports bondés. Voyagez en toute sérénité entre Montréal, Mont-Tremblant, Québec, Ottawa, Toronto et vers les États-Unis (New York, Boston, Plattsburgh, Burlington).',
-    image: '/images/service_corporate_travel_1791294137972.jpg',
+    image: '/images/service_corporate_travel_1791294137972.webp',
     featuresEn: [
       'Fixed flat-rate intercity pricing with zero hidden fees',
       'Private door-to-door transit between major cities',
@@ -91,7 +91,7 @@ export const SERVICES: ServiceItem[] = [
     subtitleFr: 'Mise à disposition avec chauffeur privé',
     descriptionEn: 'Reserve a dedicated chauffeur from 2 to 24 hours. They will be on standby for your meetings, shopping trips, or multi-destination schedules with maximum flexibility.',
     descriptionFr: 'Mise à disposition avec chauffeur privé à l\'heure pour vos rendez-vous d\'affaires, réunions ou journées shopping de prestige. Chauffeur dédié en attente continue.',
-    image: '/images/about_discretion_vip.jpg',
+    image: '/images/about_discretion_vip.webp',
     featuresEn: [
       'Confidential cabin environment with tinted privacy',
       'High-speed Wi-Fi & device charging ports',
@@ -113,7 +113,7 @@ export const SERVICES: ServiceItem[] = [
     subtitleFr: 'Transport de prestige pour votre grand jour',
     descriptionEn: 'Sublime the most beautiful day of your life with exceptional VIP transportation. Impeccable vehicles, white-glove etiquette, red carpet and chilled champagne on request.',
     descriptionFr: 'Sublimez le plus beau jour de votre vie avec un transport d\'exception. Véhicules immaculés, service attentionné, tapis rouge et élégance absolue.',
-    image: '/images/service_special_events_1791294148674.jpg',
+    image: '/images/service_special_events_1791294148674.webp',
     featuresEn: [
       'Pristine showroom vehicle styling inside & out',
       'Red carpet arrival & chilled champagne service',
@@ -135,7 +135,7 @@ export const SERVICES: ServiceItem[] = [
     subtitleFr: 'Montréal, Vieux-Port & Laurentides en luxe',
     descriptionEn: 'Discover Montreal, the Old Port, Mont-Royal, and the Laurentians in absolute luxury with an expert local chauffeur knowledgeable of the best panoramic spots and dining.',
     descriptionFr: 'Découvrez Montréal, le Vieux-Port et les Laurentides dans un confort absolu avec un chauffeur expert de la région et des meilleures adresses gastronomiques.',
-    image: '/images/about_chauffeur_vip.jpg',
+    image: '/images/about_chauffeur_vip.webp',
     featuresEn: [
       'Custom panoramic sightseeing itineraries',
       'Local bilingual chauffeur recommendations',
@@ -157,7 +157,7 @@ export const SERVICES: ServiceItem[] = [
     subtitleFr: 'Galas, soirées VIP & retour en sécurité',
     descriptionEn: 'Arrive in majestic style at galas, concerts, VIP nights, Grand Prix F1 Montreal, and milestone celebrations. Enjoy your evening with total peace of mind and safe return home.',
     descriptionFr: 'Arrivez avec style lors de vos galas, soirées VIP, concerts, Grand Prix F1 de Montréal ou événements corporatifs. Profitez de votre soirée avec un retour chez vous en toute sécurité.',
-    image: '/images/service_special_events_1791294148674.jpg',
+    image: '/images/service_special_events_1791294148674.webp',
     featuresEn: [
       'VIP club & venue red-carpet drop-off',
       'Night-long standby chauffeur availability',
@@ -415,9 +415,9 @@ export const FLEET: Vehicle[] = [
     color: 'Noir / Jet Black',
     image: carSuburban,
     galleryImages: [
-      '/images/fleet_png/chevrolet_suburban_premier.png',
-      '/client_assets/service-limo.png',
-      '/client_assets/chauffeur-voiture-de-luxe.png'
+      '/images/fleet_png/chevrolet_suburban_premier.webp',
+      '/client_assets/service-limo.webp',
+      '/client_assets/chauffeur-voiture-de-luxe.webp'
     ],
     taglineEn: 'The benchmark of space and smooth riding comfort for groups, delegations, and heavy baggage.',
     taglineFr: 'La référence de l\'espace et du confort feutré pour groupes et bagages volumineux.',
@@ -490,7 +490,7 @@ export const FLEET: Vehicle[] = [
     color: 'Noir / Jet Black',
     image: carLyriq,
     galleryImages: [
-      '/images/fleet_png/cadillac_lyriq_electric.png',
+      '/images/fleet_png/cadillac_lyriq_electric.webp',
       '/client_assets/wordwide-768x576-1.jpg'
     ],
     taglineEn: 'Zero-emission next-generation luxury with whisper-quiet electric drive and 33-inch LED display.',
