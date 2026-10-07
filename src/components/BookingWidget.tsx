@@ -103,7 +103,7 @@ Véhicule : ${selectedVehicle}${notes ? `\nNotes : ${notes}` : ''}`;
 
   return (
     <div
-      className={`bg-[#0C0E12]/92 backdrop-blur-md rounded-none border border-neutral-800/90 p-6 sm:p-7 w-full max-w-[390px] sm:max-w-[410px] text-neutral-200 shadow-2xl ${className}`}
+      className={`bg-[#0C0E12]/70 backdrop-blur-2xl rounded-none border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_30px_80px_-20px_rgba(0,0,0,0.8)] p-6 sm:p-7 w-full max-w-[390px] sm:max-w-[410px] text-neutral-200 ${className}`}
     >
       {/* Header */}
       <div className="mb-5 pb-4 border-b border-neutral-800/80">

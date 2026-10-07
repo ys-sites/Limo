@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           isVisible ? 'translate-y-0' : '-translate-y-full'
         } ${
           isScrolled
-            ? 'bg-[#07080A]/95 backdrop-blur-md border-b border-neutral-800/80 shadow-2xl'
+            ? 'bg-[#07080A]/70 backdrop-blur-2xl border-b border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]'
             : 'bg-gradient-to-b from-black/85 via-black/40 to-transparent'
         }`}
       >
@@ -194,7 +194,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Full-Screen Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-[#07080A] flex flex-col justify-between p-6 sm:p-10 text-white overflow-y-auto animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 bg-[#07080A]/80 backdrop-blur-2xl flex flex-col justify-between p-6 sm:p-10 text-white overflow-y-auto animate-in fade-in duration-200">
           {/* Mobile Header Top */}
           <div className="flex items-center justify-between border-b border-neutral-800 pb-5">
             <div className="flex items-center">

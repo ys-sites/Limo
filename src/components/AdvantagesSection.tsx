@@ -127,7 +127,7 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ language }
             return (
               <div
                 key={adv.number}
-                className="sticky rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-9 bg-white border border-neutral-200/90 shadow-xl shadow-black/5 hover:border-[#D7B65D]/50 transition-all duration-300"
+                className="sticky rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-9 bg-white/70 backdrop-blur-xl border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_20px_50px_-20px_rgba(0,0,0,0.18)] hover:border-[#D7B65D]/50 transition-all duration-300"
                 style={{
                   top: `calc(4.5rem + ${idx * 1.25}rem)`,
                   zIndex: idx + 10,

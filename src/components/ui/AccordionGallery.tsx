@@ -232,9 +232,9 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
               <div className="ag-panel__overlay" aria-hidden="true" />
             </div>
 
-            {/* Top white badge with city name matching screenshot */}
+            {/* Top glass badge with city name */}
             <div className="ag-panel__top-badge">
-              <span className="px-3 py-1 text-[11px] font-bold text-neutral-900 bg-white/95 backdrop-blur-md rounded-lg shadow-md border border-white/60">
+              <span className="px-3 py-1 text-[11px] font-bold text-neutral-900 bg-white/60 backdrop-blur-xl rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_20px_-8px_rgba(0,0,0,0.4)] border border-white/70">
                 {item.cityName || item.label}
               </span>
             </div>

@@ -141,7 +141,7 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onBook
 
           {/* Card 3: 5 Engagements / Checkmarks */}
           <div
-            className="relative rounded-2xl overflow-hidden aspect-[4/3] sm:h-76 lg:h-84 w-full shadow-md group cursor-pointer transition-transform duration-300 hover:-translate-y-1 bg-white p-5 flex flex-col justify-between border border-black/5"
+            className="relative rounded-2xl overflow-hidden aspect-[4/3] sm:h-76 lg:h-84 w-full shadow-md group cursor-pointer transition-transform duration-300 hover:-translate-y-1 bg-white/70 backdrop-blur-xl p-5 flex flex-col justify-between border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]"
             onClick={() => setActiveModal('engagements')}
           >
             {/* Top label */}

@@ -220,7 +220,6 @@ export default function App() {
             {/* 6. Section 06: Destinations Phares Canada & USA (Coverage Map) */}
             <CoverageMapSection
               language={language}
-              onSelectCity={(cityName) => handleSelectCity(cityName)}
               onOpenBooking={() => setIsBookingOpen(true)}
             />
 

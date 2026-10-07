@@ -61,16 +61,16 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
           </div>
         </div>
 
-        {/* Filters: all visible at once (wraps on mobile, no swipe) */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 pb-4 mb-10 text-xs font-semibold uppercase tracking-wider">
+        {/* Filters: exactly 1 row on mobile (4 equal columns), wrap on desktop */}
+        <div className="grid grid-cols-4 sm:flex sm:flex-wrap sm:items-center sm:justify-center gap-2 sm:gap-4 pb-4 mb-10 text-xs font-semibold uppercase tracking-wider">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id)}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+              className={`w-full sm:w-auto px-1 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all cursor-pointer whitespace-nowrap text-center text-[10px] sm:text-xs backdrop-blur-md ${
                 selectedCategory === cat.id
                   ? 'bg-black text-white shadow-md scale-[1.02]'
-                  : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
+                  : 'bg-white/60 hover:bg-white/85 text-neutral-700 border border-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]'
               }`}
             >
               {language === 'FR' ? cat.labelFr : cat.labelEn}
@@ -115,9 +115,9 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                     delay: idx * 0.06, 
                     ease: [0.16, 1, 0.3, 1] as [number, number, number, number] 
                   }}
-                  className={`${colSpanClass} bg-[#F6F6F6] hover:bg-[#F3F3F3] rounded-3xl p-6 sm:p-7 flex flex-col justify-between ${
+                  className={`${colSpanClass} bg-white/55 backdrop-blur-xl hover:bg-white/70 rounded-3xl p-6 sm:p-7 flex flex-col justify-between ${
                     isFlagship ? 'min-h-[460px]' : 'min-h-[430px]'
-                  } border border-neutral-200/60 shadow-sm hover:shadow-xl transition-all duration-300 group relative overflow-hidden`}
+                  } border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_20px_50px_-20px_rgba(0,0,0,0.15)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_28px_60px_-20px_rgba(0,0,0,0.22)] transition-all duration-300 group relative overflow-hidden`}
                 >
                   {/* Top: Title, Category & Capacity Badge */}
                   <div className="flex items-start justify-between gap-4 z-10">

@@ -96,37 +96,46 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
           </p>
         </div>
 
-        {/* 3 Regional Tabs */}
-        <div className="flex items-center justify-center gap-2 sm:gap-4 mb-10 overflow-x-auto pb-2">
+        {/* 3 Regional Tabs: equal columns, aligned, all visible */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-10 max-w-2xl mx-auto">
           <button
             onClick={() => setActiveTab('quebec')}
-            className={`px-6 py-3 rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase transition-all cursor-pointer ${
+            className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 rounded-xl text-center transition-all cursor-pointer min-h-[88px] sm:min-h-0 ${
               activeTab === 'quebec'
                 ? 'bg-neutral-900 text-white shadow-md'
                 : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200'
             }`}
           >
-            🍁 {isFr ? 'Québec & Régions' : 'Quebec & Regions'}
+            <span className="text-lg sm:text-base leading-none">🍁</span>
+            <span className="text-[10px] sm:text-sm font-bold tracking-wider uppercase leading-tight">
+              {isFr ? 'Québec & Régions' : 'Quebec & Regions'}
+            </span>
           </button>
           <button
             onClick={() => setActiveTab('ontario')}
-            className={`px-6 py-3 rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase transition-all cursor-pointer ${
+            className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 rounded-xl text-center transition-all cursor-pointer min-h-[88px] sm:min-h-0 ${
               activeTab === 'ontario'
                 ? 'bg-neutral-900 text-white shadow-md'
                 : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200'
             }`}
           >
-            🏛️ {isFr ? 'Corridor Ontario' : 'Ontario Corridor'}
+            <span className="text-lg sm:text-base leading-none">🏛️</span>
+            <span className="text-[10px] sm:text-sm font-bold tracking-wider uppercase leading-tight">
+              {isFr ? 'Corridor Ontario' : 'Ontario Corridor'}
+            </span>
           </button>
           <button
             onClick={() => setActiveTab('usa')}
-            className={`px-6 py-3 rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase transition-all cursor-pointer ${
+            className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 rounded-xl text-center transition-all cursor-pointer min-h-[88px] sm:min-h-0 ${
               activeTab === 'usa'
                 ? 'bg-neutral-900 text-white shadow-md'
                 : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200'
             }`}
           >
-            🇺🇸 {isFr ? 'États-Unis (Transfrontalier)' : 'United States (Cross-Border)'}
+            <span className="text-lg sm:text-base leading-none">🇺🇸</span>
+            <span className="text-[10px] sm:text-sm font-bold tracking-wider uppercase leading-tight">
+              {isFr ? 'États-Unis (Transfrontalier)' : 'United States (Cross-Border)'}
+            </span>
           </button>
         </div>
 
@@ -136,7 +145,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
             {quebecDestinations.map((dest, i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl p-6 border border-neutral-200/80 hover:border-[#D7B65D] shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
+                className="bg-white/70 backdrop-blur-xl rounded-2xl p-6 border border-white/60 hover:border-[#D7B65D] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
@@ -180,7 +189,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
             {ontarioDestinations.map((dest, i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl p-6 border border-neutral-200/80 hover:border-[#D7B65D] shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
+                className="bg-white/70 backdrop-blur-xl rounded-2xl p-6 border border-white/60 hover:border-[#D7B65D] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
@@ -235,7 +244,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
               {usaDestinations.map((dest, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-2xl p-6 border border-neutral-200/80 hover:border-[#D7B65D] shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
+                  className="bg-white/70 backdrop-blur-xl rounded-2xl p-6 border border-white/60 hover:border-[#D7B65D] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
@@ -271,7 +280,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
         )}
 
         {/* Bottom Booking CTA Banner */}
-        <div className="mt-16 text-center bg-white p-8 sm:p-10 rounded-3xl border border-neutral-200 shadow-sm max-w-3xl mx-auto">
+        <div className="mt-16 text-center bg-white/70 backdrop-blur-xl p-8 sm:p-10 rounded-3xl border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-neutral-900 mb-2 font-sans">
             {isFr ? 'Vous avez un itinéraire sur mesure en tête ?' : 'Have a custom route in mind?'}
           </h2>
