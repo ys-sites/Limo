@@ -43,7 +43,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onQu
           </div>
 
           <div className="text-center max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#D7B65D]/10 border border-[#D7B65D]/30 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] mb-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full liquid-glass-pill border-[#D7B65D]/30 mb-3">
               <Sparkles className="w-3.5 h-3.5 text-[#D7B65D]" />
               <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.25em] text-[#D7B65D]">
                 {isFr ? '04 · SERVICES DE CHAUFFEUR' : '04 · CHAUFFEUR SERVICES'}
@@ -77,10 +77,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onQu
               <button
                 key={service.id}
                 onClick={() => setActiveServiceId(service.id)}
-                className={`w-full sm:w-auto flex items-center justify-center gap-2 px-2 sm:px-5 py-2.5 rounded-full text-[10px] sm:text-xs font-semibold tracking-wide whitespace-nowrap transition-all duration-200 cursor-pointer backdrop-blur-xl ${
+                className={`w-full sm:w-auto flex items-center justify-center gap-2 px-2.5 sm:px-5 py-2.5 rounded-full text-[10px] sm:text-xs font-semibold tracking-wide whitespace-nowrap transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-[#D7B65D] text-neutral-950 shadow-md font-bold'
-                    : 'bg-white/[0.06] hover:bg-white/[0.12] text-neutral-300 hover:text-white border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]'
+                    ? 'bg-[#D7B65D] text-neutral-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_4px_16px_rgba(215,182,93,0.3)] font-bold'
+                    : 'liquid-glass-pill text-neutral-300 hover:text-white hover:border-[#D7B65D]/40'
                 }`}
               >
                 <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-neutral-950' : 'text-[#D7B65D]'}`} />
@@ -98,7 +98,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onQu
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-white/[0.04] border border-white/10 rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 relative overflow-hidden backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_24px_70px_-24px_rgba(0,0,0,0.85)]"
+            className="liquid-glass-panel rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 relative overflow-hidden"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
               {/* Image with dedicated aspect ratio for both mobile and desktop */}
@@ -112,7 +112,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onQu
 
                 {/* Quiet Subtitle Badge */}
                 <div className="absolute bottom-3.5 left-3.5 sm:bottom-4 sm:left-4 z-10">
-                  <span className="px-3 py-1.5 rounded-lg bg-neutral-950/80 backdrop-blur-md border border-neutral-800 text-[11px] font-semibold text-[#D7B65D] tracking-wide flex items-center gap-1.5">
+                  <span className="px-3 py-1.5 rounded-lg liquid-glass-pill text-[11px] font-semibold text-[#D7B65D] tracking-wide flex items-center gap-1.5 border-white/20">
                     <ActiveIcon className="w-3.5 h-3.5" />
                     <span>{isFr ? activeService.subtitleFr : activeService.subtitleEn}</span>
                   </span>
@@ -135,7 +135,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onQu
                 </div>
 
                 {/* 4 Clean En-Dash Bullet Points */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-4 border-t border-neutral-800/80">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-4 border-t border-white/10">
                   {(isFr ? activeService.featuresFr : activeService.featuresEn).map((feat, i) => (
                     <div key={i} className="flex items-start gap-2 text-xs text-neutral-300 font-normal leading-snug">
                       <span className="text-[#D7B65D] font-bold select-none">—</span>
@@ -149,7 +149,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onQu
                   <button
                     type="button"
                     onClick={() => onQuote({ service: isFr ? activeService.titleFr : activeService.titleEn })}
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-md active:scale-98"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_4px_16px_rgba(215,182,93,0.3)] active:scale-[0.98]"
                   >
                     <span>{isFr ? 'Réserver ce service' : 'Reserve this service'}</span>
                     <ArrowUpRight className="w-4 h-4 stroke-[2.2]" />

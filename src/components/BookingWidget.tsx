@@ -73,18 +73,18 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
     setNotes('');
     setStatus('idle');
   };
-
   return (
     <div
-      className={`bg-[#0C0E12]/70 backdrop-blur-2xl rounded-none border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_30px_80px_-20px_rgba(0,0,0,0.8)] p-6 sm:p-7 w-full max-w-[390px] sm:max-w-[410px] text-neutral-200 ${className}`}
+      id="booking-card"
+      className={`liquid-glass-panel rounded-none p-6 sm:p-7 w-full max-w-[390px] sm:max-w-[410px] text-neutral-200 ${className}`}
     >
       {/* Header */}
-      <div className="mb-5 pb-4 border-b border-neutral-800/80">
-        <div className="flex items-center justify-between mb-1">
+      <div className="mb-5 pb-4 border-b border-white/10">
+        <div className="flex items-center justify-between mb-1.5">
           <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#D7B65D]">
             {isFr ? 'Réservation directe' : 'Direct booking'}
           </span>
-          <span className="text-[11px] text-neutral-500 tabular-nums">
+          <span className="px-2 py-0.5 rounded-full liquid-glass-pill text-[10px] font-bold text-[#D7B65D] tabular-nums">
             24/7
           </span>
         </div>
@@ -100,8 +100,8 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
 
       {status === 'success' ? (
         <div className="space-y-4 py-2 animate-in fade-in duration-300">
-          <div className="w-10 h-10 rounded-full bg-[#D7B65D]/15 text-[#D7B65D] flex items-center justify-center mx-auto">
-            <CheckCircle2 className="w-5 h-5" />
+          <div className="w-12 h-12 rounded-full liquid-glass-pill text-[#D7B65D] flex items-center justify-center mx-auto border-[#D7B65D]/40">
+            <CheckCircle2 className="w-6 h-6" />
           </div>
 
           <div className="text-center space-y-1.5">
@@ -128,7 +128,7 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
           <div className="space-y-2.5 pt-2">
             <a
               href={`tel:${CLIENT_INFO.phoneRaw}`}
-              className="w-full py-2.5 px-3 text-xs text-neutral-300 hover:text-white border border-neutral-800 hover:border-neutral-700 flex items-center justify-center gap-2 transition-colors tabular-nums"
+              className="w-full py-2.5 px-3 text-xs text-neutral-300 hover:text-white liquid-glass-pill hover:border-[#D7B65D]/50 flex items-center justify-center gap-2 transition-all tabular-nums"
             >
               <Phone className="w-3.5 h-3.5 text-[#D7B65D]" />
               <span>{isFr ? `Une question ? ${CLIENT_INFO.phone}` : `Questions? Call ${CLIENT_INFO.phone}`}</span>
@@ -137,7 +137,7 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
             <button
               type="button"
               onClick={handleReset}
-              className="w-full py-2 text-xs text-neutral-500 hover:text-neutral-300 transition-colors cursor-pointer"
+              className="w-full py-2 text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer"
             >
               {isFr ? 'Nouvelle demande' : 'New request'}
             </button>
@@ -158,7 +158,7 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
               {isFr ? 'Nom complet *' : 'Full name *'}
             </label>
             <div className="relative">
-              <User className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-3 pointer-events-none" />
+              <User className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-3 pointer-events-none" />
               <input
                 type="text"
                 name="name"
@@ -166,7 +166,7 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder={isFr ? 'Alexandre Tremblay' : 'John Smith'}
-                className="w-full pl-9 pr-3 py-2 text-xs text-white bg-neutral-900/80 border border-neutral-800 focus:outline-none focus:border-[#D7B65D] placeholder:text-neutral-600 transition-colors"
+                className="w-full pl-9 pr-3 py-2 text-xs text-white liquid-glass-input rounded-none focus:outline-none placeholder:text-neutral-500"
               />
             </div>
           </div>
@@ -177,7 +177,7 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
               {isFr ? 'Courriel *' : 'Email *'}
             </label>
             <div className="relative">
-              <Mail className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-3 pointer-events-none" />
+              <Mail className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-3 pointer-events-none" />
               <input
                 type="email"
                 name="email"
@@ -185,7 +185,7 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nom@entreprise.com"
-                className="w-full pl-9 pr-3 py-2 text-xs text-white bg-neutral-900/80 border border-neutral-800 focus:outline-none focus:border-[#D7B65D] placeholder:text-neutral-600 transition-colors"
+                className="w-full pl-9 pr-3 py-2 text-xs text-white liquid-glass-input rounded-none focus:outline-none placeholder:text-neutral-500"
               />
             </div>
           </div>
@@ -196,7 +196,7 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
               {isFr ? 'Téléphone *' : 'Phone *'}
             </label>
             <div className="relative">
-              <Phone className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-3 pointer-events-none" />
+              <Phone className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-3 pointer-events-none" />
               <input
                 type="tel"
                 name="phone"
@@ -204,7 +204,7 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+1 514 000-0000"
-                className="w-full pl-9 pr-3 py-2 text-xs text-white bg-neutral-900/80 border border-neutral-800 focus:outline-none focus:border-[#D7B65D] placeholder:text-neutral-600 transition-colors tabular-nums"
+                className="w-full pl-9 pr-3 py-2 text-xs text-white liquid-glass-input rounded-none focus:outline-none placeholder:text-neutral-500 tabular-nums"
               />
             </div>
           </div>
@@ -220,15 +220,15 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
                 name="vehicle"
                 value={selectedVehicle}
                 onChange={(e) => setSelectedVehicle(e.target.value)}
-                className="w-full pl-9 pr-8 py-2 text-xs text-white bg-neutral-900/80 border border-neutral-800 appearance-none focus:outline-none focus:border-[#D7B65D] cursor-pointer"
+                className="w-full pl-9 pr-8 py-2 text-xs text-white liquid-glass-input rounded-none appearance-none focus:outline-none cursor-pointer"
               >
                 {FLEET.map((v) => (
-                  <option key={v.id} value={v.name} className="bg-neutral-950 text-white">
+                  <option key={v.id} value={v.name} className="bg-[#0C0E14] text-white">
                     {v.name} ({isFr ? v.categoryLabelFr : v.categoryLabelEn})
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-neutral-500 absolute right-3 top-3 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 text-neutral-400 absolute right-3 top-3 pointer-events-none" />
             </div>
           </div>
 
@@ -238,14 +238,14 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
               {isFr ? 'Détails du trajet (optionnel)' : 'Trip details (optional)'}
             </label>
             <div className="relative">
-              <FileText className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-2.5 pointer-events-none" />
+              <FileText className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-2.5 pointer-events-none" />
               <input
                 type="text"
                 name="notes"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder={isFr ? 'ex. YUL Trudeau, vol AC872, 14 h' : 'e.g. YUL airport, flight AC872, 2 PM'}
-                className="w-full pl-9 pr-3 py-2 text-xs text-white bg-neutral-900/80 border border-neutral-800 focus:outline-none focus:border-[#D7B65D] placeholder:text-neutral-600 transition-colors"
+                className="w-full pl-9 pr-3 py-2 text-xs text-white liquid-glass-input rounded-none focus:outline-none placeholder:text-neutral-500"
               />
             </div>
           </div>
@@ -254,7 +254,7 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
           <button
             type="submit"
             disabled={status === 'submitting'}
-            className="w-full mt-2 py-3.5 px-4 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 bg-[#D7B65D] hover:bg-[#C4963A] transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60"
+            className="w-full mt-2 py-3.5 px-4 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 bg-[#D7B65D] hover:bg-[#C4963A] transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_4px_20px_rgba(215,182,93,0.35)] active:scale-[0.98]"
           >
             {status === 'submitting' ? (
               <>
@@ -265,8 +265,6 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
               <span>{isFr ? 'Demander une réservation' : 'Request reservation'}</span>
             )}
           </button>
-
-
         </form>
       )}
     </div>

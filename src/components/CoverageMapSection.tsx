@@ -34,9 +34,11 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-3xl mb-14 sm:mb-16"
         >
-          <div className="flex items-center gap-2.5 text-[#D7B65D] font-sans font-semibold text-xs uppercase tracking-[0.2em] mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full liquid-glass-pill border-[#D7B65D]/30 mb-3.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#D7B65D]" />
-            <span>{isFr ? '07 · Liaisons & corridors' : '07 · Corridors & coverage'}</span>
+            <span className="text-[11px] font-semibold text-[#D7B65D] uppercase tracking-[0.2em]">
+              {isFr ? '07 · Liaisons & corridors' : '07 · Corridors & coverage'}
+            </span>
           </div>
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight leading-[1.15] mb-4">
@@ -59,7 +61,7 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-14 rounded-2xl overflow-hidden border border-white/10 bg-white/[0.04] backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] relative group"
+          className="mb-14 rounded-2xl overflow-hidden liquid-glass-panel relative group"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
             {/* Visual: Pristine Cadillac Escalade */}
@@ -72,7 +74,7 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0C0D11] via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-[#0C0D11]/40 lg:to-[#0C0D11]" />
 
-              <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-sm bg-black/80 backdrop-blur-md border border-[#D7B65D]/30 text-[11px] font-semibold text-neutral-200 tracking-wider uppercase">
+              <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-lg liquid-glass-pill text-[11px] font-semibold text-neutral-200 tracking-wider uppercase border-white/20">
                 {isFr ? 'VUS exécutif longue distance' : 'Executive Long-Distance SUV'}
               </div>
             </div>
@@ -95,42 +97,42 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
 
               {/* 4 Quiet Feature Cards */}
               <div className="grid grid-cols-2 gap-2.5 pt-1">
-                <div className="p-3 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
+                <div className="p-3 rounded-xl liquid-glass-card border-white/10 hover:border-[#D7B65D]/50 transition-colors">
                   <div className="flex items-center gap-1.5 text-xs text-neutral-200 font-medium mb-0.5">
                     <ShieldCheck className="w-3.5 h-3.5 text-[#D7B65D] shrink-0" />
                     <span>{isFr ? 'Douanes USA' : 'US Customs'}</span>
                   </div>
-                  <span className="text-neutral-500 text-[11px] block">
+                  <span className="text-neutral-400 text-[11px] block">
                     {isFr ? 'Passage fluide Lacolle' : 'Expedited border transit'}
                   </span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
+                <div className="p-3 rounded-xl liquid-glass-card border-white/10 hover:border-[#D7B65D]/50 transition-colors">
                   <div className="flex items-center gap-1.5 text-xs text-neutral-200 font-medium mb-0.5">
                     <Wifi className="w-3.5 h-3.5 text-[#D7B65D] shrink-0" />
                     <span>{isFr ? 'Bureau roulant' : 'Mobile office'}</span>
                   </div>
-                  <span className="text-neutral-500 text-[11px] block">
+                  <span className="text-neutral-400 text-[11px] block">
                     {isFr ? 'Wi-Fi 5G & prises USB' : '5G Wi-Fi & USB power'}
                   </span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
+                <div className="p-3 rounded-xl liquid-glass-card border-white/10 hover:border-[#D7B65D]/50 transition-colors">
                   <div className="flex items-center gap-1.5 text-xs text-neutral-200 font-medium mb-0.5">
                     <Snowflake className="w-3.5 h-3.5 text-[#D7B65D] shrink-0" />
                     <span>{isFr ? 'Traction intégrale' : 'All-Weather AWD'}</span>
                   </div>
-                  <span className="text-neutral-500 text-[11px] block">
+                  <span className="text-neutral-400 text-[11px] block">
                     {isFr ? 'Sécurité 4 saisons' : 'Year-round winter tires'}
                   </span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-neutral-900/60 border border-neutral-800/80">
+                <div className="p-3 rounded-xl liquid-glass-card border-white/10 hover:border-[#D7B65D]/50 transition-colors">
                   <div className="flex items-center gap-1.5 text-xs text-neutral-200 font-medium mb-0.5">
                     <Coffee className="w-3.5 h-3.5 text-[#D7B65D] shrink-0" />
                     <span>{isFr ? 'À votre rythme' : 'Your schedule'}</span>
                   </div>
-                  <span className="text-neutral-500 text-[11px] block">
+                  <span className="text-neutral-400 text-[11px] block">
                     {isFr ? 'Pauses libres sur l’itinéraire' : 'Flexible bespoke stops'}
                   </span>
                 </div>
@@ -142,7 +144,7 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
                   <button
                     type="button"
                     onClick={onQuote}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs tracking-wider uppercase transition-colors cursor-pointer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs tracking-wider uppercase transition-all cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_4px_16px_rgba(215,182,93,0.3)] active:scale-[0.98]"
                   >
                     <span>{isFr ? 'Réserver une liaison longue distance' : 'Book a long-distance transfer'}</span>
                     <ArrowUpRight className="w-4 h-4 stroke-[2]" />

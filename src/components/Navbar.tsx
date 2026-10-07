@@ -7,6 +7,8 @@ import { LimoLogo } from './ui/LimoLogo';
 interface NavbarProps {
   language: 'FR' | 'EN';
   onToggleLanguage: (lang: 'FR' | 'EN') => void;
+  onReserveClick: () => void;
+  onOpenDestinations?: () => void;
   onQuote: () => void;
   onCallback: () => void;
   onNavigateHome?: () => void;
@@ -15,6 +17,8 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ 
   language, 
   onToggleLanguage, 
+  onReserveClick,
+  onOpenDestinations,
   onQuote,
   onCallback,
   onNavigateHome 
@@ -71,6 +75,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
+    if (targetId === 'cities' && onOpenDestinations) {
+      setMobileMenuOpen(false);
+      onOpenDestinations();
+      return;
+    }
     if (onNavigateHome) {
       onNavigateHome();
     }
@@ -98,7 +107,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           isVisible ? 'translate-y-0' : '-translate-y-full'
         } ${
           isScrolled
-            ? 'bg-[#07080A]/70 backdrop-blur-2xl border-b border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]'
+            ? 'liquid-glass-nav'
             : 'bg-gradient-to-b from-black/85 via-black/40 to-transparent'
         }`}
       >
@@ -136,24 +145,24 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Column 3: Right Action Cluster (Takes flex-1 to guarantee dead-center nav) */}
           <div className="flex-1 flex items-center justify-end gap-2.5 sm:gap-3 shrink-0 whitespace-nowrap">
-            {/* Direct Phone Number - Refined luxury pill on desktop */}
+            {/* Direct Phone Number - Refined liquid glass pill on desktop */}
             <button
               onClick={onCallback}
-              className="hidden min-[1380px]:inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-neutral-800/80 bg-neutral-900/60 hover:bg-neutral-800/80 text-neutral-300 hover:text-white text-xs font-semibold tabular-nums tracking-tight transition-all cursor-pointer"
+              className="hidden min-[1380px]:inline-flex items-center gap-2 h-9 px-3.5 rounded-lg liquid-glass-pill hover:border-[#D7B65D]/60 text-neutral-300 hover:text-white text-xs font-semibold tabular-nums tracking-tight transition-all cursor-pointer"
               aria-label="Appeler Limo Raf"
             >
               <Phone className="w-3.5 h-3.5 text-[#D7B65D]" />
               <span>{CLIENT_INFO.phone}</span>
             </button>
 
-            {/* Language Switcher (FR / EN) */}
-            <div className="flex items-center h-9 text-[11px] font-bold tracking-wider text-neutral-400 border border-neutral-800 rounded-lg overflow-hidden bg-neutral-900/80 shrink-0">
+            {/* Language Switcher (FR / EN) - Liquid glass capsule */}
+            <div className="flex items-center h-9 text-[11px] font-bold tracking-wider text-neutral-400 liquid-glass-pill rounded-lg overflow-hidden shrink-0 p-0.5">
               <button
                 type="button"
                 onClick={() => onToggleLanguage('FR')}
-                className={`px-3 h-full transition-colors cursor-pointer flex items-center justify-center ${
+                className={`px-2.5 h-full rounded-md transition-all cursor-pointer flex items-center justify-center ${
                   language === 'FR'
-                    ? 'bg-[#D7B65D] text-neutral-950 font-bold'
+                    ? 'bg-[#D7B65D] text-neutral-950 font-bold shadow-xs'
                     : 'hover:text-white'
                 }`}
               >
@@ -162,9 +171,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 type="button"
                 onClick={() => onToggleLanguage('EN')}
-                className={`px-3 h-full transition-colors cursor-pointer flex items-center justify-center ${
+                className={`px-2.5 h-full rounded-md transition-all cursor-pointer flex items-center justify-center ${
                   language === 'EN'
-                    ? 'bg-[#D7B65D] text-neutral-950 font-bold'
+                    ? 'bg-[#D7B65D] text-neutral-950 font-bold shadow-xs'
                     : 'hover:text-white'
                 }`}
               >
@@ -175,8 +184,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Solid Primary CTA Button */}
             <button
               type="button"
-              onClick={onQuote}
-              className="hidden sm:inline-flex items-center justify-center h-9 px-5 rounded-lg bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-bold text-xs uppercase tracking-[0.12em] transition-all cursor-pointer shadow-sm active:scale-98 shrink-0 whitespace-nowrap"
+              onClick={onReserveClick}
+              className="hidden sm:inline-flex items-center justify-center h-9 px-5 rounded-lg bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-bold text-xs uppercase tracking-[0.12em] transition-all cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_4px_16px_rgba(215,182,93,0.3)] active:scale-98 shrink-0 whitespace-nowrap"
             >
               {language === 'FR' ? 'Réserver' : 'Book'}
             </button>
@@ -185,7 +194,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden h-9 w-9 rounded-lg border border-neutral-800 bg-neutral-900/80 flex items-center justify-center text-neutral-300 hover:text-white cursor-pointer shrink-0"
+              className="xl:hidden h-9 w-9 rounded-lg liquid-glass-pill flex items-center justify-center text-neutral-300 hover:text-white cursor-pointer shrink-0"
               aria-label={mobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -196,9 +205,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Full-Screen Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-[#07080A]/80 backdrop-blur-2xl flex flex-col justify-between p-6 sm:p-10 text-white overflow-y-auto animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 bg-[#07080A]/90 backdrop-blur-3xl flex flex-col justify-between p-6 sm:p-10 text-white overflow-y-auto animate-in fade-in duration-200">
           {/* Mobile Header Top */}
-          <div className="flex items-center justify-between border-b border-neutral-800 pb-5">
+          <div className="flex items-center justify-between border-b border-white/10 pb-5">
             <div className="flex items-center">
               <LimoLogo
                 variant="horizontal"
@@ -209,10 +218,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-white cursor-pointer"
+              className="w-10 h-10 rounded-full liquid-glass-pill flex items-center justify-center text-neutral-400 hover:text-white cursor-pointer"
               aria-label="Fermer"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             </button>
           </div>
 
@@ -223,7 +232,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => handleNavClick(e, link.id)}
-                className="group flex items-baseline justify-between border-b border-neutral-900 pb-3"
+                className="group flex items-baseline justify-between border-b border-white/5 pb-3"
               >
                 <span className="font-display text-2xl sm:text-3xl text-neutral-200 group-hover:text-[#D7B65D] transition-colors">
                   {language === 'FR' ? link.labelFr : link.labelEn}
@@ -238,14 +247,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Bottom Info: Phone, WhatsApp, and Booking CTA */}
-          <div className="space-y-4 pt-4 border-t border-neutral-800">
+          <div className="space-y-4 pt-4 border-t border-white/10">
             <button
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
-                onQuote();
+                onReserveClick();
               }}
-              className="w-full py-4 bg-[#D7B65D] text-neutral-950 font-semibold text-xs uppercase tracking-[0.16em] transition-colors"
+              className="w-full py-4 bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs uppercase tracking-[0.16em] transition-colors cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]"
             >
               {language === 'FR' ? 'Réserver un trajet' : 'Book a ride'}
             </button>

@@ -10,7 +10,7 @@ interface CallbackModalProps {
 }
 
 const inputCls =
-  'w-full pl-9 pr-3 py-2.5 text-sm text-white bg-neutral-900/80 border border-neutral-800 focus:outline-none focus:border-[#D7B65D] placeholder:text-neutral-600 transition-colors';
+  'w-full pl-9 pr-3 py-2.5 text-sm text-white liquid-glass-input rounded-lg placeholder:text-neutral-500 transition-all';
 const labelCls = 'block text-[11px] uppercase tracking-[0.12em] text-neutral-400 mb-1.5';
 
 export const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose, language }) => {
@@ -56,9 +56,9 @@ export const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose, l
   return (
     <div className="fixed inset-0 z-[95] flex items-end sm:items-center justify-center" role="dialog" aria-modal="true">
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full sm:max-w-md bg-[#0C0E12]/90 backdrop-blur-2xl border border-white/10 sm:rounded-2xl rounded-t-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] p-6 sm:p-8 animate-in slide-in-from-bottom-4 duration-300">
+      <div className="relative w-full sm:max-w-md liquid-glass-panel sm:rounded-2xl rounded-t-2xl p-6 sm:p-8 animate-in slide-in-from-bottom-4 duration-300">
         <button onClick={onClose} aria-label="Close"
-          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors cursor-pointer">
+          className="absolute top-4 right-4 w-8 h-8 rounded-full liquid-glass-pill flex items-center justify-center text-neutral-400 hover:text-white transition-all cursor-pointer">
           <X className="w-4 h-4" />
         </button>
 
@@ -73,13 +73,13 @@ export const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose, l
                 ? <>Merci <strong className="text-white">{name}</strong>, on vous rappelle au <span className="text-white tabular-nums">{phone}</span> très bientôt.</>
                 : <>Thank you <strong className="text-white">{name}</strong>, we'll call you back at <span className="text-white tabular-nums">{phone}</span> very soon.</>}
             </p>
-            <button onClick={onClose} className="px-8 py-3 text-xs font-bold uppercase tracking-widest bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 rounded-lg transition-colors cursor-pointer">
+            <button onClick={onClose} className="px-8 py-3 text-xs font-bold uppercase tracking-widest bg-gradient-to-b from-[#E5C778] via-[#D7B65D] to-[#B89235] hover:brightness-110 text-neutral-950 rounded-lg shadow-md transition-all cursor-pointer">
               {isFr ? 'Fermer' : 'Close'}
             </button>
           </div>
         ) : (
           <>
-            <div className="w-11 h-11 rounded-full bg-[#D7B65D]/15 text-[#D7B65D] flex items-center justify-center mb-4">
+            <div className="w-12 h-12 rounded-full liquid-glass-pill text-[#D7B65D] flex items-center justify-center mb-4">
               <PhoneCall className="w-5 h-5" />
             </div>
             <h3 className="font-display text-2xl text-white mb-1">
@@ -132,7 +132,7 @@ export const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose, l
               </div>
 
               <button type="submit" disabled={status === 'submitting'}
-                className="w-full py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-neutral-950 bg-[#D7B65D] hover:bg-[#C4963A] rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60">
+                className="w-full py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-neutral-950 bg-gradient-to-b from-[#E5C778] via-[#D7B65D] to-[#B89235] hover:brightness-110 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_20px_rgba(215,182,93,0.25)] rounded-lg transition-all active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60">
                 {status === 'submitting' ? (
                   <><Loader2 className="w-4 h-4 animate-spin" />{isFr ? 'Envoi…' : 'Sending…'}</>
                 ) : (
@@ -140,9 +140,9 @@ export const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose, l
                 )}
               </button>
 
-              <div className="text-center">
+              <div className="text-center pt-1">
                 <a href={`tel:${CLIENT_INFO.phoneRaw}`}
-                  className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors">
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full liquid-glass-pill text-xs text-neutral-300 hover:text-white transition-all">
                   <Phone className="w-3.5 h-3.5 text-[#D7B65D]" />
                   <span className="tabular-nums">{isFr ? 'Ou appelez maintenant : ' : 'Or call now: '}{CLIENT_INFO.phone}</span>
                 </a>

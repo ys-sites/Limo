@@ -7,10 +7,17 @@ import { LUXURY_EASE, scrollToAnchor } from '../lib/motion';
 
 interface HeroProps {
   language: 'FR' | 'EN';
+  onReserveClick?: () => void;
+  onViewAllDestinations?: () => void;
   onCallback: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ language, onCallback }) => {
+export const Hero: React.FC<HeroProps> = ({ 
+  language, 
+  onReserveClick, 
+  onViewAllDestinations, 
+  onCallback 
+}) => {
   const isFr = language === 'FR';
   const containerRef = useRef<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -104,25 +111,43 @@ export const Hero: React.FC<HeroProps> = ({ language, onCallback }) => {
                 : "Airport runs, business days and long drives in a black SUV, with a chauffeur who knows the road."}
             </motion.p>
 
-            {/* Action Buttons: Solid primary CTA + Direct phone text link */}
+            {/* Action Buttons: Solid primary CTA + Liquid Glass View All Destinations + Direct Phone */}
             <motion.div
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.55, ease: LUXURY_EASE }}
-              className="pt-2 flex flex-wrap items-center gap-6"
+              className="pt-2 flex flex-wrap items-center gap-4 sm:gap-5"
             >
               <button
                 type="button"
-                onClick={() => scrollToAnchor('#fleet', -80)}
-                className="group inline-flex items-center gap-3 px-7 py-4 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 bg-[#D7B65D] hover:bg-[#C4963A] transition-colors cursor-pointer"
+                onClick={onReserveClick || (() => {
+                  const card = document.getElementById('booking-card');
+                  if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const input = card.querySelector('input[name="name"]') as HTMLInputElement | null;
+                    if (input) setTimeout(() => input.focus(), 350);
+                  }
+                })}
+                className="group inline-flex items-center gap-3 px-7 py-4 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 bg-[#D7B65D] hover:bg-[#C4963A] transition-all cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_6px_24px_rgba(215,182,93,0.35)] active:scale-[0.98]"
               >
                 <span>{isFr ? 'Réserver un trajet' : 'Book a ride'}</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
 
+              {onViewAllDestinations && (
+                <button
+                  type="button"
+                  onClick={onViewAllDestinations}
+                  className="group inline-flex items-center gap-2.5 px-6 py-4 text-xs font-semibold uppercase tracking-[0.14em] text-white liquid-glass-pill hover:border-[#D7B65D]/60 hover:text-white transition-all cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_10px_30px_rgba(0,0,0,0.5)] active:scale-[0.98]"
+                >
+                  <span>{isFr ? 'Toutes les destinations' : 'All destinations'}</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#D7B65D] transition-transform duration-200 group-hover:translate-x-1" />
+                </button>
+              )}
+
               <button
                 onClick={onCallback}
-                className="inline-flex items-center gap-2 text-sm text-neutral-300 hover:text-white tabular-nums tracking-tight transition-colors py-2 cursor-pointer"
+                className="inline-flex items-center gap-2 text-sm text-neutral-300 hover:text-white tabular-nums tracking-tight transition-all py-2 px-3 rounded-lg hover:bg-white/[0.05] cursor-pointer"
                 aria-label="Appeler Limo Raf"
               >
                 <Phone className="w-4 h-4 text-[#D7B65D]" />

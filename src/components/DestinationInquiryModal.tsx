@@ -18,7 +18,7 @@ const ALL_DESTINATIONS = [
 ];
 
 const inputCls =
-  'w-full pl-9 pr-3 py-2.5 text-sm text-white bg-neutral-900/80 border border-neutral-800 focus:outline-none focus:border-[#D7B65D] placeholder:text-neutral-600 transition-colors';
+  'w-full pl-9 pr-3 py-2.5 text-sm text-white liquid-glass-input rounded-lg placeholder:text-neutral-500 transition-all';
 const labelCls = 'block text-[11px] uppercase tracking-[0.12em] text-neutral-400 mb-1.5';
 
 export const DestinationInquiryModal: React.FC<DestinationInquiryModalProps> = ({
@@ -82,9 +82,9 @@ export const DestinationInquiryModal: React.FC<DestinationInquiryModalProps> = (
   return (
     <div className="fixed inset-0 z-[90] flex items-end sm:items-center justify-center" role="dialog" aria-modal="true">
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto bg-[#0C0E12]/90 backdrop-blur-2xl border border-white/10 sm:rounded-2xl rounded-t-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] p-6 sm:p-8 animate-in slide-in-from-bottom-4 duration-300">
+      <div className="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto liquid-glass-panel sm:rounded-2xl rounded-t-2xl p-6 sm:p-8 animate-in slide-in-from-bottom-4 duration-300">
         <button onClick={onClose} aria-label="Close"
-          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors cursor-pointer">
+          className="absolute top-4 right-4 w-8 h-8 rounded-full liquid-glass-pill flex items-center justify-center text-neutral-400 hover:text-white transition-all cursor-pointer">
           <X className="w-4 h-4" />
         </button>
 
@@ -99,15 +99,15 @@ export const DestinationInquiryModal: React.FC<DestinationInquiryModalProps> = (
                 ? <>Merci <strong className="text-white">{name}</strong>. On vous rappelle au <span className="text-white tabular-nums">{phone}</span> avec votre devis pour <strong className="text-[#D7B65D]">{dest}</strong>.</>
                 : <>Thank you <strong className="text-white">{name}</strong>. We'll call you back at <span className="text-white tabular-nums">{phone}</span> with your quote for <strong className="text-[#D7B65D]">{dest}</strong>.</>}
             </p>
-            <button onClick={onClose} className="mt-2 px-8 py-3 text-xs font-bold uppercase tracking-widest bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 rounded-lg transition-colors cursor-pointer">
+            <button onClick={onClose} className="mt-2 px-8 py-3 text-xs font-bold uppercase tracking-widest bg-gradient-to-b from-[#E5C778] via-[#D7B65D] to-[#B89235] hover:brightness-110 text-neutral-950 rounded-lg shadow-md transition-all cursor-pointer">
               {isFr ? 'Fermer' : 'Close'}
             </button>
           </div>
         ) : (
           <>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D7B65D] mb-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D7B65D] mb-3">
               {isFr ? 'Liaison longue distance' : 'Long-distance transfer'}
-            </p>
+            </div>
             <h3 className="font-display text-2xl sm:text-3xl text-white mb-1">
               {isFr ? 'Votre trajet sur mesure' : 'Your custom trip'}
             </h3>
@@ -208,7 +208,7 @@ export const DestinationInquiryModal: React.FC<DestinationInquiryModalProps> = (
               </div>
 
               <button type="submit" disabled={status === 'submitting'}
-                className="w-full py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-neutral-950 bg-[#D7B65D] hover:bg-[#C4963A] rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60">
+                className="w-full py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-neutral-950 bg-gradient-to-b from-[#E5C778] via-[#D7B65D] to-[#B89235] hover:brightness-110 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_20px_rgba(215,182,93,0.25)] rounded-lg transition-all active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60">
                 {status === 'submitting' ? (
                   <><Loader2 className="w-4 h-4 animate-spin" />{isFr ? 'Envoi…' : 'Sending…'}</>
                 ) : (

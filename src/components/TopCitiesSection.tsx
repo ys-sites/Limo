@@ -56,7 +56,7 @@ export const TopCitiesSection: React.FC<TopCitiesSectionProps> = ({
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-3xl mx-auto mb-14 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D7B65D]/10 border border-[#D7B65D]/30 mb-4 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full liquid-glass-pill border-[#D7B65D]/30 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-[#F5D577]" />
             <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#F5D577]">
               {isFr ? 'DESTINATIONS DE LUXE' : 'PRESTIGE DESTINATIONS'}
@@ -117,7 +117,7 @@ export const TopCitiesSection: React.FC<TopCitiesSectionProps> = ({
         </motion.div>
 
         {/* Bottom CTA bar: liquid glass */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-6 rounded-2xl bg-white/[0.05] border border-white/10 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-6 rounded-2xl liquid-glass-panel">
           <div className="text-xs sm:text-sm text-neutral-300">
             <span className="font-bold text-[#F5D577]">
               {isFr ? 'Trajets longue distance sur mesure :' : 'Bespoke long distance transit :'}
@@ -132,7 +132,7 @@ export const TopCitiesSection: React.FC<TopCitiesSectionProps> = ({
               <button
                 type="button"
                 onClick={onViewAllDestinations}
-                className="px-5 py-2.5 rounded-full border border-neutral-700 hover:border-[#D7B65D] text-xs font-bold uppercase tracking-wider text-neutral-200 hover:text-[#D7B65D] transition-all cursor-pointer"
+                className="px-5 py-2.5 rounded-full liquid-glass-pill hover:border-[#D7B65D]/60 text-xs font-semibold uppercase tracking-wider text-neutral-200 hover:text-white transition-all cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] active:scale-[0.98]"
               >
                 {isFr ? 'Toutes les destinations →' : 'All destinations →'}
               </button>

@@ -156,7 +156,7 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({ language = 'FR' 
         {/* Header with Google 5.0 Rating Badge */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-neutral-300 shadow-xs mb-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full liquid-glass-light-pill border-white/90 shadow-xs mb-3">
               <GoogleIcon />
               <span className="text-[11px] font-bold text-neutral-800 tracking-wide">
                 Google Reviews · 5.0 ★★★★★
@@ -178,7 +178,7 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({ language = 'FR' 
             </p>
           </div>
 
-          <div className="flex items-center gap-3 bg-white px-5 py-3 rounded-2xl border border-neutral-300/80 shadow-xs">
+          <div className="flex items-center gap-3 liquid-glass-light-card px-5 py-3 rounded-2xl border-white/90 shadow-xs">
             <div className="flex items-center text-[#D7B65D]">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-current" />
@@ -202,7 +202,7 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({ language = 'FR' 
           {duplicatedReviews.map((rev, idx) => (
             <div
               key={`${rev.author}-${idx}`}
-              className="w-[320px] sm:w-[380px] bg-white rounded-3xl p-6 sm:p-7 border border-neutral-300/80 hover:border-[#D7B65D] shadow-xs hover:shadow-xl transition-all duration-300 shrink-0 flex flex-col justify-between group cursor-grab select-none"
+              className="w-[320px] sm:w-[380px] liquid-glass-light-card rounded-3xl p-6 sm:p-7 shrink-0 flex flex-col justify-between group cursor-grab select-none"
             >
               <div>
                 {/* Top: Google Icon + Rating + Time */}
@@ -225,13 +225,13 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({ language = 'FR' 
               </div>
 
               {/* Author */}
-              <div className="pt-3.5 border-t border-neutral-100 flex items-center justify-between">
+              <div className="pt-3.5 border-t border-neutral-200/60 flex items-center justify-between">
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-neutral-900 tracking-tight group-hover:text-[#C4963A] transition-colors">
                     {rev.author}
                   </h4>
                 </div>
-                <div className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0" title="Avis vérifié Google">
+                <div className="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-500/20" title="Avis vérifié Google">
                   <CheckCircle className="w-3.5 h-3.5" />
                 </div>
               </div>

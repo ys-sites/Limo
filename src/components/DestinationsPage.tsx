@@ -54,7 +54,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
         <div className="mb-8 flex items-center justify-between">
           <button
             onClick={onBack}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-neutral-300 hover:border-black text-xs font-semibold text-neutral-800 hover:text-black transition-all cursor-pointer shadow-xs"
+            className="liquid-glass-light-pill inline-flex items-center gap-2 px-4 py-2 rounded-lg border-white/90 hover:border-black text-xs font-semibold text-neutral-800 hover:text-black transition-all cursor-pointer shadow-xs"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>{isFr ? 'Retour à l’accueil' : 'Back to Home'}</span>
@@ -63,7 +63,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={onCallback}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-neutral-300 text-xs font-medium text-neutral-700 hover:text-black cursor-pointer"
+              className="liquid-glass-light-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-white/90 text-xs font-medium text-neutral-700 hover:text-black cursor-pointer"
             >
               <Phone className="w-3.5 h-3.5 text-[#C4963A]" />
               <span className="tabular-nums">{CLIENT_INFO.phone}</span>
@@ -73,7 +73,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
 
         {/* Hero Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#D7B65D]/15 border border-[#D7B65D]/40 mb-3.5">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full liquid-glass-light-pill border-[#D7B65D]/40 mb-3.5">
             <Globe className="w-3.5 h-3.5 text-[#C4963A]" />
             <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#C4963A]">
               {isFr ? 'RAYONNEMENT GÉOGRAPHIQUE ÉTENDU' : 'EXTENDED REGIONAL COVERAGE'}
@@ -102,8 +102,8 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
             onClick={() => setActiveTab('quebec')}
             className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 rounded-xl text-center transition-all cursor-pointer min-h-[88px] sm:min-h-0 ${
               activeTab === 'quebec'
-                ? 'bg-neutral-900 text-white shadow-md'
-                : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200'
+                ? 'bg-neutral-950 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_10px_25px_rgba(0,0,0,0.15)] border border-neutral-800'
+                : 'liquid-glass-light-pill text-neutral-700 hover:bg-white/95 border-white/90'
             }`}
           >
             <span className="text-lg sm:text-base leading-none">🍁</span>
@@ -115,8 +115,8 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
             onClick={() => setActiveTab('ontario')}
             className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 rounded-xl text-center transition-all cursor-pointer min-h-[88px] sm:min-h-0 ${
               activeTab === 'ontario'
-                ? 'bg-neutral-900 text-white shadow-md'
-                : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200'
+                ? 'bg-neutral-950 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_10px_25px_rgba(0,0,0,0.15)] border border-neutral-800'
+                : 'liquid-glass-light-pill text-neutral-700 hover:bg-white/95 border-white/90'
             }`}
           >
             <span className="text-lg sm:text-base leading-none">🏛️</span>
@@ -128,8 +128,8 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
             onClick={() => setActiveTab('usa')}
             className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 rounded-xl text-center transition-all cursor-pointer min-h-[88px] sm:min-h-0 ${
               activeTab === 'usa'
-                ? 'bg-neutral-900 text-white shadow-md'
-                : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200'
+                ? 'bg-neutral-950 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_10px_25px_rgba(0,0,0,0.15)] border border-neutral-800'
+                : 'liquid-glass-light-pill text-neutral-700 hover:bg-white/95 border-white/90'
             }`}
           >
             <span className="text-lg sm:text-base leading-none">🇺🇸</span>
@@ -145,7 +145,8 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
             {quebecDestinations.map((dest, i) => (
               <div
                 key={i}
-                className="bg-white/70 backdrop-blur-xl rounded-2xl p-6 border border-white/60 hover:border-[#D7B65D] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
+                onClick={() => onInquiry(dest.name)}
+                className="liquid-glass-light-card rounded-2xl p-6 flex flex-col justify-between group cursor-pointer active:scale-[0.99] transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
@@ -169,14 +170,11 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
                   </p>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-neutral-100 flex items-center justify-between">
+                <div className="pt-4 mt-4 border-t border-neutral-200/60 flex items-center justify-between">
                   <span className="text-[11px] text-neutral-500 font-medium">Porte-à-porte</span>
-                  <button
-                    onClick={() => onInquiry(dest.name)}
-                    className="w-7 h-7 rounded-full bg-neutral-100 group-hover:bg-[#D7B65D] text-neutral-700 group-hover:text-neutral-950 flex items-center justify-center transition-colors"
-                  >
+                  <div className="w-7 h-7 rounded-full liquid-glass-light-pill group-hover:bg-[#D7B65D] text-neutral-700 group-hover:text-neutral-950 flex items-center justify-center transition-colors">
                     <ArrowUpRight className="w-3.5 h-3.5" />
-                  </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -189,7 +187,8 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
             {ontarioDestinations.map((dest, i) => (
               <div
                 key={i}
-                className="bg-white/70 backdrop-blur-xl rounded-2xl p-6 border border-white/60 hover:border-[#D7B65D] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
+                onClick={() => onInquiry(dest.name)}
+                className="liquid-glass-light-card rounded-2xl p-6 flex flex-col justify-between group cursor-pointer active:scale-[0.99] transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
@@ -213,14 +212,11 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
                   </p>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-neutral-100 flex items-center justify-between">
+                <div className="pt-4 mt-4 border-t border-neutral-200/60 flex items-center justify-between">
                   <span className="text-[11px] text-neutral-500 font-medium">Liaison d’affaires</span>
-                  <button
-                    onClick={() => onInquiry(dest.name)}
-                    className="w-7 h-7 rounded-full bg-neutral-100 group-hover:bg-[#D7B65D] text-neutral-700 group-hover:text-neutral-950 flex items-center justify-center transition-colors"
-                  >
+                  <div className="w-7 h-7 rounded-full liquid-glass-light-pill group-hover:bg-[#D7B65D] text-neutral-700 group-hover:text-neutral-950 flex items-center justify-center transition-colors">
                     <ArrowUpRight className="w-3.5 h-3.5" />
-                  </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -230,7 +226,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
         {/* Tab 3: USA */}
         {activeTab === 'usa' && (
           <div className="space-y-4 max-w-4xl mx-auto">
-            <div className="p-5 rounded-2xl bg-[#D7B65D]/10 border border-[#D7B65D]/30 mb-6 flex items-start gap-3.5">
+            <div className="p-5 rounded-2xl liquid-glass-light-card mb-6 flex items-start gap-3.5 border-[#D7B65D]/40">
               <Shield className="w-5 h-5 text-[#C4963A] shrink-0 mt-0.5" />
               <div className="text-xs sm:text-sm text-neutral-800 leading-relaxed font-light">
                 <span className="font-bold text-neutral-900">Expertise Douanière & Chauffeurs Accrédités : </span>
@@ -244,7 +240,8 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
               {usaDestinations.map((dest, i) => (
                 <div
                   key={i}
-                  className="bg-white/70 backdrop-blur-xl rounded-2xl p-6 border border-white/60 hover:border-[#D7B65D] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
+                  onClick={() => onInquiry(dest.name)}
+                  className="liquid-glass-light-card rounded-2xl p-6 flex flex-col justify-between group cursor-pointer active:scale-[0.99] transition-all duration-300"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
@@ -266,12 +263,9 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
 
                   <div className="pt-4 mt-4 border-t border-neutral-100 flex items-center justify-between">
                     <span className="text-[11px] text-neutral-500 font-medium">Transfrontalier VIP</span>
-                    <button
-                      onClick={() => onInquiry(dest.name)}
-                      className="w-7 h-7 rounded-full bg-neutral-100 group-hover:bg-[#D7B65D] text-neutral-700 group-hover:text-neutral-950 flex items-center justify-center transition-colors"
-                    >
+                    <div className="w-7 h-7 rounded-full bg-neutral-100 group-hover:bg-[#D7B65D] text-neutral-700 group-hover:text-neutral-950 flex items-center justify-center transition-colors">
                       <ArrowUpRight className="w-3.5 h-3.5" />
-                    </button>
+                    </div>
                   </div>
                 </div>
               ))}

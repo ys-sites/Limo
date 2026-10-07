@@ -86,6 +86,34 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Open dedicated all-destinations subpage
+  const handleOpenDestinations = () => {
+    setActiveVehicleSlug(null);
+    setIsDestinationsPage(true);
+    window.history.pushState(null, '', '#/destinations');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Reserve button clicked from Navbar or Hero -> smooth glide to Hero reservation card & focus name field
+  const handleReserveClick = () => {
+    if (activeVehicleSlug || isDestinationsPage) {
+      setActiveVehicleSlug(null);
+      setIsDestinationsPage(false);
+      window.history.pushState(null, '', '#');
+    }
+
+    setTimeout(() => {
+      const widget = document.getElementById('booking-card') || document.getElementById('hero');
+      if (widget) {
+        widget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const nameInput = widget.querySelector('input[name="name"]') as HTMLInputElement | null;
+        if (nameInput) {
+          setTimeout(() => nameInput.focus(), 350);
+        }
+      }
+    }, 60);
+  };
+
   return (
     <div className="min-h-screen bg-[#07080A] text-white flex flex-col font-sans selection:bg-[#D7B65D] selection:text-neutral-950 relative">
       {/* Blacklane-style Top Scroll Progress Gold Line */}
@@ -101,6 +129,8 @@ export default function App() {
       <Navbar
         language={language}
         onToggleLanguage={setLanguage}
+        onReserveClick={handleReserveClick}
+        onOpenDestinations={handleOpenDestinations}
         onQuote={() => openQuote()}
         onCallback={() => setCallbackOpen(true)}
         onNavigateHome={() => {
@@ -145,6 +175,8 @@ export default function App() {
             {/* 1. Hero Section with Cadillac Escalade background & floating reservation card */}
             <Hero
               language={language}
+              onReserveClick={handleReserveClick}
+              onViewAllDestinations={handleOpenDestinations}
               onCallback={() => setCallbackOpen(true)}
             />
 

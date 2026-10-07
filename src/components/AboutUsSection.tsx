@@ -73,7 +73,7 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
 
             {/* Top-left label on image */}
             <div className="absolute top-4 left-4 z-10">
-              <div className="bg-white/95 backdrop-blur-xs px-4 py-1.5 rounded-lg shadow-sm border border-black/5">
+              <div className="liquid-glass-light-pill px-4 py-1.5 rounded-lg border border-white/95 shadow-[inset_0_1px_0_rgba(255,255,255,1),0_8px_20px_rgba(0,0,0,0.15)]">
                 <span className="text-xs font-semibold text-neutral-900 tracking-tight">
                   {isFr ? 'Excellence & Discrétion' : 'Excellence & Privacy'}
                 </span>
@@ -91,7 +91,7 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
 
             {/* Bottom-right button on image */}
             <div className="absolute bottom-4 right-4 z-10">
-              <div className="flex items-center gap-1.5 bg-black/85 hover:bg-black text-white pl-3.5 pr-1.5 py-1.5 rounded-full text-[11px] font-medium backdrop-blur-xs transition-all shadow-md">
+              <div className="flex items-center gap-1.5 bg-neutral-950/85 hover:bg-neutral-950 text-white pl-3.5 pr-1.5 py-1.5 rounded-full text-[11px] font-medium backdrop-blur-md border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_8px_20px_rgba(0,0,0,0.3)] transition-all">
                 <span>{isFr ? 'En savoir plus' : 'Explore more'}</span>
                 <div className="w-5 h-5 rounded-full bg-white text-neutral-900 flex items-center justify-center">
                   <ArrowUpRight className="w-3 h-3" />
@@ -115,7 +115,7 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
 
             {/* Top-left label */}
             <div className="absolute top-4 left-4 z-10">
-              <div className="bg-white/95 backdrop-blur-xs px-4 py-1.5 rounded-lg shadow-sm border border-black/5">
+              <div className="liquid-glass-light-pill px-4 py-1.5 rounded-lg border border-white/95 shadow-[inset_0_1px_0_rgba(255,255,255,1),0_8px_20px_rgba(0,0,0,0.15)]">
                 <span className="text-xs font-semibold text-neutral-900 tracking-tight">
                   {isFr ? 'Chauffeurs Professionnels' : 'Professional Chauffeurs'}
                 </span>
@@ -133,7 +133,7 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
 
             {/* Bottom-right round button on image */}
             <div className="absolute bottom-4 right-4 z-10">
-              <div className="w-8 h-8 rounded-full bg-white text-neutral-900 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+              <div className="w-8 h-8 rounded-full bg-white/90 text-neutral-900 flex items-center justify-center shadow-md border border-white group-hover:scale-110 group-hover:bg-white transition-all">
                 <ArrowUpRight className="w-4 h-4" />
               </div>
             </div>
@@ -141,12 +141,12 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
 
           {/* Card 3: 5 Engagements / Checkmarks */}
           <div
-            className="relative rounded-2xl overflow-hidden aspect-[4/3] sm:h-76 lg:h-84 w-full shadow-md group cursor-pointer transition-transform duration-300 hover:-translate-y-1 bg-white/70 backdrop-blur-xl p-5 flex flex-col justify-between border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]"
+            className="liquid-glass-light-card relative rounded-2xl overflow-hidden aspect-[4/3] sm:h-76 lg:h-84 w-full p-5 sm:p-6 flex flex-col justify-between group cursor-pointer transition-transform duration-300 hover:-translate-y-1"
             onClick={() => setActiveModal('engagements')}
           >
             {/* Top label */}
             <div className="flex items-center justify-between">
-              <div className="bg-neutral-100 px-3.5 py-1.5 rounded-lg">
+              <div className="liquid-glass-light-pill px-3.5 py-1.5 rounded-lg border border-white/90">
                 <span className="text-xs font-semibold text-neutral-900 tracking-tight">
                   {isFr ? 'Nos 5 Engagements' : 'Our 5 Commitments'}
                 </span>
@@ -158,7 +158,7 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
             <div className="my-2 space-y-2">
               {valuesList.map((val, idx) => (
                 <div key={idx} className="flex items-center gap-2.5">
-                  <div className="w-4 h-4 rounded-full bg-[#D7B65D] flex items-center justify-center text-neutral-950 shrink-0">
+                  <div className="w-4 h-4 rounded-full bg-[#D7B65D] flex items-center justify-center text-neutral-950 shrink-0 shadow-xs">
                     <Check className="w-2.5 h-2.5 stroke-[3]" />
                   </div>
                   <span className="text-xs font-medium text-neutral-800 truncate">
@@ -170,7 +170,7 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
 
             {/* Bottom-right button */}
             <div className="flex items-center justify-end">
-              <div className="flex items-center gap-1.5 bg-black/85 hover:bg-black text-white pl-3.5 pr-1.5 py-1.5 rounded-full text-[11px] font-medium transition-all shadow-md">
+              <div className="flex items-center gap-1.5 bg-neutral-950/85 hover:bg-neutral-950 text-white pl-3.5 pr-1.5 py-1.5 rounded-full text-[11px] font-medium transition-all shadow-md">
                 <span>{isFr ? 'En savoir plus' : 'Explore more'}</span>
                 <div className="w-5 h-5 rounded-full bg-white text-neutral-900 flex items-center justify-center">
                   <ArrowUpRight className="w-3 h-3" />

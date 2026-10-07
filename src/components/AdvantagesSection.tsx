@@ -74,31 +74,31 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ language }
   ];
 
   return (
-    <section id="advantages" className="py-20 lg:py-28 bg-[#F6F6F6] text-neutral-900 relative overflow-hidden border-t border-neutral-200">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="advantages" className="py-14 sm:py-18 lg:py-20 bg-[#F6F6F6] text-neutral-900 relative overflow-hidden border-t border-neutral-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header with 05 */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mb-14 sm:mb-20 flex items-center justify-center"
+          className="relative mb-8 sm:mb-10 flex items-center justify-center"
         >
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 hidden md:block">
-            <span className="text-4xl sm:text-5xl font-light text-neutral-300 font-sans select-none">
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 hidden lg:block">
+            <span className="text-4xl font-light text-neutral-300 font-sans select-none">
               05
             </span>
           </div>
 
           <div className="text-center max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#D7B65D]/15 border border-[#D7B65D]/40 mb-3.5">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full liquid-glass-light-pill border-[#D7B65D]/40 mb-3">
               <Award className="w-3.5 h-3.5 text-[#C4963A]" />
-              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.25em] text-[#C4963A]">
+              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#C4963A]">
                 {isFr ? '05 · POURQUOI NOUS CHOISIR ?' : '05 · WHY CHOOSE US ?'}
               </span>
             </div>
 
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight mb-3 text-neutral-900 overflow-visible pb-1">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight mb-2 text-neutral-900 overflow-visible pb-1">
               <ShinyText
                 text={isFr ? 'Nos Avantages Exclusifs' : 'Our Exclusive Advantages'}
                 color="#171717"
@@ -116,9 +116,9 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ language }
           </div>
         </motion.div>
 
-        {/* Sticky Stacking Cards Container */}
-        <div className="relative space-y-6 sm:space-y-8 pb-10">
-          {advantages.map((adv, idx) => {
+        {/* 3 Little Boxes Per Line Grid (2 rows of 3 on desktop, 2 cols on tablet, compact on mobile) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          {advantages.map((adv) => {
             const Icon = adv.icon;
             const title = isFr ? adv.titleFr : adv.titleEn;
             const desc = isFr ? adv.descFr : adv.descEn;
@@ -127,42 +127,36 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ language }
             return (
               <div
                 key={adv.number}
-                className="sticky rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-9 bg-white/70 backdrop-blur-xl border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_20px_50px_-20px_rgba(0,0,0,0.18)] hover:border-[#D7B65D]/50 transition-all duration-300"
-                style={{
-                  top: `calc(4.5rem + ${idx * 1.25}rem)`,
-                  zIndex: idx + 10,
-                }}
+                className="liquid-glass-light-card rounded-2xl p-5 sm:p-6 flex flex-col justify-between group cursor-default transition-all duration-300"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-4 border-b border-neutral-100">
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-11 h-11 rounded-xl bg-[#D7B65D]/10 border border-[#D7B65D]/30 text-[#C4963A] flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 stroke-[2.2]" />
+                <div>
+                  {/* Card Header: Icon + Numeral Badge */}
+                  <div className="flex items-center justify-between mb-3.5">
+                    <div className="w-9 h-9 rounded-lg liquid-glass-light-pill border-[#D7B65D]/30 text-[#C4963A] flex items-center justify-center shrink-0 group-hover:bg-[#D7B65D] group-hover:text-neutral-950 transition-colors shadow-xs">
+                      <Icon className="w-4 h-4 stroke-[2.2]" />
                     </div>
-                    <div>
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#C4963A] block">
-                        {isFr ? `Engagement ${adv.number}` : `Commitment ${adv.number}`}
-                      </span>
-                      <h3 className="font-display text-xl sm:text-2xl lg:text-[26px] font-medium text-neutral-900 tracking-tight">
-                        {title}
-                      </h3>
-                    </div>
+                    <span className="text-[11px] font-bold tabular-nums text-neutral-400 group-hover:text-[#C4963A] transition-colors">
+                      #{adv.number}
+                    </span>
                   </div>
 
-                  <span className="font-display text-3xl sm:text-4xl text-neutral-200 font-light select-none self-end sm:self-auto">
-                    {adv.number}
-                  </span>
+                  {/* Title */}
+                  <h3 className="font-display text-lg sm:text-[19px] font-semibold text-neutral-900 tracking-tight mb-2 leading-snug">
+                    {title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-xs text-neutral-600 leading-relaxed font-normal mb-4">
+                    {desc}
+                  </p>
                 </div>
 
-                <p className="text-xs sm:text-sm text-neutral-600 font-light leading-relaxed mb-5">
-                  {desc}
-                </p>
-
-                {/* 3 Key Takeaway Highlights */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2">
+                {/* Takeaway Bullets */}
+                <div className="space-y-1.5 pt-3 border-t border-neutral-200/60">
                   {highlights.map((item, hIdx) => (
                     <div
                       key={hIdx}
-                      className="flex items-center gap-2 px-3 py-2 rounded-xl bg-neutral-50 border border-neutral-100 text-neutral-700 text-xs font-medium"
+                      className="flex items-center gap-2 text-[11px] sm:text-xs text-neutral-700"
                     >
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#C4963A] shrink-0" />
                       <span className="truncate">{item}</span>

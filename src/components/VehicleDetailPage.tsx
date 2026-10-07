@@ -86,7 +86,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-neutral-300/80 pb-4">
           <button
             onClick={onBack}
-            className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-700 hover:text-black transition-colors cursor-pointer group"
+            className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full liquid-glass-light-pill text-neutral-800 hover:text-black transition-all cursor-pointer group"
           >
             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
             <span>{language === 'FR' ? 'Retour à la flotte' : 'Back to Fleet'}</span>
@@ -170,7 +170,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
             </div>
 
             {/* Quick Specs Badges */}
-            <div className="grid grid-cols-3 gap-3 p-4 bg-white rounded-2xl border border-neutral-300/80 text-center shadow-xs">
+            <div className="grid grid-cols-3 gap-3 p-4 liquid-glass-light-card rounded-2xl text-center shadow-xs">
               <div className="space-y-1">
                 <div className="flex items-center justify-center gap-1 text-neutral-900">
                   <Users className="w-4 h-4 text-[#C4963A]" />
@@ -203,7 +203,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
             </div>
 
             {/* Booking / Payment Action Card */}
-            <div className="p-6 bg-white text-neutral-900 rounded-3xl space-y-4 shadow-lg border border-neutral-300/80">
+            <div className="p-6 liquid-glass-light-card text-neutral-900 rounded-3xl space-y-4 shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
                   <span className="text-[10px] uppercase font-bold tracking-wider text-[#C4963A]">
@@ -214,7 +214,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
                   </h3>
                 </div>
 
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-700 text-[11px] font-semibold">
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full liquid-glass-light-pill text-emerald-700 text-[11px] font-semibold">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   <span>{language === 'FR' ? 'Disponible 24/7' : 'Available 24/7'}</span>
                 </div>
@@ -267,7 +267,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
             {vehicle.detailSections.map((sec, idx) => (
               <div
                 key={idx}
-                className="p-8 rounded-3xl bg-white border border-neutral-300/80 hover:border-[#D7B65D] shadow-sm hover:shadow-md transition-all space-y-3"
+                className="p-8 rounded-3xl liquid-glass-light-card hover:border-[#D7B65D] shadow-xs hover:shadow-md transition-all space-y-3"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-xl bg-[#D7B65D]/20 text-[#C4963A] flex items-center justify-center font-bold text-xs">
@@ -285,7 +285,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
           </div>
 
           {/* Key Features Checklist */}
-          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-neutral-300/80 shadow-sm">
+          <div className="liquid-glass-light-card rounded-3xl p-8 sm:p-10 shadow-xs">
             <h3 className="text-lg sm:text-xl font-bold text-neutral-900 mb-6 font-sans">
               {language === 'FR' ? 'Équipements & Commodités de série' : 'Standard In-Cabin Amenities'}
             </h3>
@@ -304,13 +304,13 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
           </div>
 
           {/* Services Offered In This Vehicle */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-white border border-neutral-300/80 shadow-sm">
+          <div className="p-8 sm:p-10 rounded-3xl liquid-glass-light-card shadow-xs">
             <h3 className="text-lg sm:text-xl font-bold text-[#C4963A] mb-6 uppercase tracking-wider text-xs font-sans">
               {language === 'FR' ? 'SERVICES OFFERTS AVEC CE VÉHICULE' : 'SERVICES OFFERED IN THIS VEHICLE'}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {(language === 'FR' ? vehicle.servicesOfferedFr : vehicle.servicesOfferedEn).map((srv, i) => (
-                <div key={i} className="bg-[#F8F6F0] p-5 rounded-2xl border border-neutral-200/80 space-y-2">
+                <div key={i} className="liquid-glass-light-card p-5 rounded-2xl space-y-2">
                   <div className="w-8 h-8 rounded-lg bg-[#D7B65D]/20 text-[#C4963A] flex items-center justify-center">
                     <ShieldCheck className="w-4 h-4" />
                   </div>
@@ -325,9 +325,9 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
 
         {/* Streamlined Booking / Quote Form Section for this vehicle */}
         <div id="vehicle-reservation" className="max-w-2xl mx-auto scroll-mt-24 mb-20">
-          <div className="bg-white rounded-3xl border border-neutral-300/80 shadow-xl p-6 sm:p-10">
+          <div className="liquid-glass-light-card rounded-3xl shadow-xl p-6 sm:p-10">
             <div className="text-center max-w-xl mx-auto mb-8 space-y-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#C4963A] bg-[#D7B65D]/15 px-3 py-1 rounded-full">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#C4963A] liquid-glass-light-pill px-3 py-1 rounded-full inline-block">
                 {language === 'FR' ? 'Formulaire de réservation' : 'Reservation Form'}
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight font-sans">
@@ -487,7 +487,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
               <div
                 key={other.id}
                 onClick={() => onSelectOtherVehicle(other.slug)}
-                className="bg-white rounded-3xl p-5 border border-neutral-300/80 hover:border-[#D7B65D] shadow-xs hover:shadow-lg transition-all duration-300 cursor-pointer group flex flex-col justify-between"
+                className="liquid-glass-light-card rounded-3xl p-5 hover:border-[#D7B65D] shadow-xs hover:shadow-lg transition-all duration-300 cursor-pointer group flex flex-col justify-between"
               >
                 <div>
                   <div className="w-full aspect-[16/10] bg-[#F8F6F0] rounded-2xl flex items-center justify-center p-3 mb-4 overflow-hidden">
