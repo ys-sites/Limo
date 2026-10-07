@@ -1,55 +1,131 @@
 import { Vehicle, ServiceItem, CityDestination } from '../types/limo';
 
-// High-fidelity image asset imports (bundled and hash-fingerprinted by Vite for 100% production uptime)
+// High-resolution photography and transparent vehicle assets
 import heroImage from '../assets/images/hero_luxury_limo_cadillac_1791294116681.jpg';
 import serviceCorporateTravel from '../assets/images/service_corporate_travel_1791294137972.jpg';
 import serviceAirportTransfer from '../assets/images/service_airport_transfer_1791294128362.jpg';
 import serviceSpecialEvents from '../assets/images/service_special_events_1791294148674.jpg';
 
-import fleetCadillacEscalade from '../assets/images/fleet_cadillac_escalade_1791294159140.jpg';
-import fleetMercedesSClass from '../assets/images/fleet_mercedes_sclass_1791294176150.jpg';
-import fleetMercedesVClass from '../assets/images/fleet_mercedes_vclass_1791294185528.jpg';
+// Transparent PNG cutout vehicle showcases
+import carEscalade from '../assets/images/cadillac_escalade_esv.png';
+import carYukon from '../assets/images/gmc_yukon_denali_xl.png';
+import carSuburban from '../assets/images/chevrolet_suburban_premier.png';
+import carXt6 from '../assets/images/cadillac_xt6_sport.png';
+import carLyriq from '../assets/images/cadillac_lyriq_electric.png';
 
-import cityNewYork from '../assets/images/city_new_york_1791294196270.jpg';
-import cityAtlanta from '../assets/images/city_atlanta_1791294808227.jpg';
-import cityBoston from '../assets/images/city_boston_1791294828512.jpg';
-import cityChicago from '../assets/images/city_chicago_1791294206511.jpg';
-import cityHouston from '../assets/images/city_houston_1791294840878.jpg';
+// Local Canadian regional destination postcards
+import cityMontreal from '../assets/images/city_montreal.jpg';
+import cityLaval from '../assets/images/city_laval.jpg';
+import cityTremblant from '../assets/images/city_tremblant.jpg';
+import cityQuebec from '../assets/images/city_quebec.jpg';
+import cityOttawa from '../assets/images/city_ottawa.jpg';
 
 export const HERO_IMAGE = heroImage;
 
+// Client contact details
+export const CLIENT_INFO = {
+  brandName: 'LIMO RAF',
+  taglineEn: 'Ride with elegance',
+  taglineFr: 'Voyagez avec élégance',
+  phone: '(+1) 514-243-8141',
+  phoneRaw: '+15142438141',
+  email: 'info@limoraf.com',
+  address: '2340 Rue de Nevers, Terrebonne, QC J6Y 1T7',
+  availabilityEn: '24/7 Everyday · VIP Chauffeur Service',
+  availabilityFr: '24/7 Tous les jours · Service de Chauffeur VIP',
+  whatsappUrl: 'https://api.whatsapp.com/send/?phone=15142438141&text=Bonjour%2C%20je%20souhaite%20r%C3%A9server%20un%20trajet%20avec%20Limo%20Raf.',
+  facebookUrl: 'https://www.facebook.com/profile.php?id=100092709458328',
+  instagramUrl: 'https://www.instagram.com/montreal_limoraf/',
+};
+
 export const SERVICES: ServiceItem[] = [
   {
-    id: 'corporate-travel',
-    title: 'Corporate travel',
-    subtitle: 'Executive Business Transport',
-    description: 'Discreet, punctual chauffeured transportation tailored for C-suite executives, financial roadshows, and board meetings. Equipped with high-speed Wi-Fi and quiet cabins.',
-    image: serviceCorporateTravel,
-    features: ['Flight & itinerary monitoring', 'Confidential cabin environment', 'Dedicated chauffeur on standby', 'Bottled water & charging docks']
+    id: 'airport-transfers',
+    titleEn: 'Airport transfers',
+    titleFr: 'Transferts aéroport YUL',
+    subtitleEn: 'Montréal-Trudeau YUL & Regional Terminals',
+    subtitleFr: 'Aéroport Montréal-Trudeau YUL & Régions',
+    descriptionEn: 'Arrive smoothly with real-time flight tracking, 60 minutes complimentary wait time, terminal meet-and-greet with personalized tablet signage, and full luggage assistance.',
+    descriptionFr: 'Voyagez sans stress avec suivi des vols en temps réel, 60 minutes d\'attente offerte, accueil personnalisé à l\'intérieur du terminal avec tablette et prise en charge intégrale des bagages.',
+    image: serviceAirportTransfer,
+    featuresEn: [
+      'Real-time flight status sync (YUL, YHU, YMX)',
+      'Terminal meet & greet with executive tablet',
+      'Luggage handling & VIP curb priority',
+      'Door-to-door luxury transfer across Quebec'
+    ],
+    featuresFr: [
+      'Synchronisation des vols en direct (YUL, YHU, YMX)',
+      'Accueil personnalisé avec tablette au terminal',
+      'Prise en charge des bagages & accès VIP prioritaire',
+      'Liaison porte-à-porte de luxe partout au Québec'
+    ]
   },
   {
-    id: 'airport-transfers',
-    title: 'Airport transfers',
-    subtitle: 'Commercial & FBO Aviation',
-    description: 'With real-time flight tracking, 60 minutes complimentary wait time, and terminal meet-and-greet assistance with luggage, airport transfers are effortless and stress-free.',
-    image: serviceAirportTransfer,
-    features: ['Real-time flight status sync', 'Terminal meet & greet with tablet', 'Luggage handling service', 'Zero cancellation fee up to 2h']
+    id: 'corporate-travel',
+    titleEn: 'Corporate travel',
+    titleFr: 'Service corporatif & affaires',
+    subtitleEn: 'Executive Business Transport',
+    subtitleFr: 'Transport d\'affaires exécutif',
+    descriptionEn: 'Discreet, punctual chauffeured transportation tailored for C-suite executives, financial roadshows, and board meetings. Equipped with high-speed Wi-Fi and quiet, acoustic cabins.',
+    descriptionFr: 'Transport avec chauffeur discret et ponctuel, taillé sur mesure pour cadres de direction, conférences et roadshows financiers. Équipé du Wi-Fi haute vitesse et d\'un habitacle insonorisé.',
+    image: serviceCorporateTravel,
+    featuresEn: [
+      'Confidential cabin environment with tinted privacy',
+      'High-speed Wi-Fi & laptop fast charging docks',
+      'Dedicated bilingual chauffeur on standby',
+      'Flexible itinerary & multi-stop management'
+    ],
+    featuresFr: [
+      'Environnement de cabine confidentiel et vitres teintées',
+      'Wi-Fi haut débit & prises de recharge pour ordinateurs',
+      'Chauffeur bilingue dédié en attente continue',
+      'Gestion flexible des arrêts et réunions multiples'
+    ]
   },
   {
     id: 'special-events',
-    title: 'Special events',
-    subtitle: 'Galas, Weddings & VIP Occasions',
-    description: 'Arrive in majestic style at galas, red carpet premieres, weddings, and milestone celebrations. Enjoy fiber optic starlight headliners, champagne bar service, and white-glove etiquette.',
+    titleEn: 'Special events & weddings',
+    titleFr: 'Mariage & événements VIP',
+    subtitleEn: 'Galas, Weddings & VIP Occasions',
+    subtitleFr: 'Mariages, Galas & Cérémonies Prestigieuses',
+    descriptionEn: 'Arrive in majestic style at galas, red carpet premieres, weddings, Grand Prix F1 Montreal, and milestone celebrations with white-glove chauffeur etiquette.',
+    descriptionFr: 'Faites une entrée remarquée lors de votre mariage, du Grand Prix F1 de Montréal, d\'un gala ou d\'une soirée VIP avec un protocole de courtoisie digne des plus hauts standards.',
     image: serviceSpecialEvents,
-    features: ['Starlight panoramic ambiance', 'Chilled champagne bar setup', 'Red carpet arrival option', 'Custom route styling']
+    featuresEn: [
+      'Pristine showroom vehicle styling inside & out',
+      'Red carpet arrival & chilled champagne service',
+      'Uniformed white-glove professional chauffeur',
+      'Photo shoot standby & custom route planning'
+    ],
+    featuresFr: [
+      'Véhicules immaculés intérieur comme extérieur',
+      'Service tapis rouge & champagne sur demande',
+      'Chauffeur professionnel en tenue d\'apparat',
+      'Disponibilité pour séances photo & itinéraire sur mesure'
+    ]
   },
   {
-    id: 'intercity-trips',
-    title: 'Intercity trips',
-    subtitle: 'City-to-City Doorway Luxury',
-    description: 'Avoid crowded train stations and security lines. Travel between major metropolitan hubs in uninterrupted comfort, working or resting throughout the journey.',
+    id: 'long-distance',
+    titleEn: 'Long distance travel',
+    titleFr: 'Longue distance Canada & USA',
+    subtitleEn: 'Intercity Doorway Luxury',
+    subtitleFr: 'Liaisons interurbaines de luxe',
+    descriptionEn: 'Avoid crowded airports and train stations. Travel between Montreal, Mont-Tremblant, Quebec City, Ottawa, Toronto, and US cities (Boston, New York, Burlington, Plattsburgh) in total comfort.',
+    descriptionFr: 'Évitez les gares et aéroports bondés. Voyagez en tout confort entre Montréal, Mont-Tremblant, Québec, Ottawa, Toronto et vers les États-Unis (New York, Boston, Plattsburgh, Burlington).',
     image: serviceCorporateTravel,
-    features: ['Fixed flat-rate pricing', 'Private door-to-door transit', 'Spacious executive seating', 'Flexible rest stops']
+    featuresEn: [
+      'Fixed flat-rate intercity pricing with zero hidden fees',
+      'Private door-to-door transit between major hubs',
+      'Spacious reclining captain seats for work or rest',
+      'Cross-border US travel authorization & expertise'
+    ],
+    featuresFr: [
+      'Tarification forfaitaire claire sans frais cachés',
+      'Liaison privée porte-à-porte d\'un centre à l\'autre',
+      'Sièges capitaines inclinables grand confort',
+      'Chauffeurs certifiés pour voyages transfrontaliers USA'
+    ]
   }
 ];
 
@@ -57,173 +133,249 @@ export const FLEET: Vehicle[] = [
   {
     id: 'cadillac-escalade',
     name: 'Cadillac Escalade ESV',
-    category: 'SUV',
+    category: 'SUV_VIP',
+    categoryLabelEn: 'VIP Luxury SUV',
+    categoryLabelFr: 'VUS de Luxe VIP',
     hourlyRate: 140,
     dailyRate: 750,
     flatAirportRate: 195,
-    passengers: 8,
-    luggage: 6,
-    image: fleetCadillacEscalade,
-    tagline: 'The pinnacle of American luxury presence and spacious capability.',
-    features: [
-      'AKG Studio Reference 36-speaker sound',
-      'Rear seat entertainment displays',
-      'Ultra-quiet acoustic laminated glass',
-      'Panoramic sunroof & heated leather captain chairs',
-      'Extended cargo trunk space'
-    ],
-    popularFor: 'VIP groups, airport baggage runs & executive delegations'
-  },
-  {
-    id: 'mercedes-s-class',
-    name: 'Mercedes-Benz S-Class',
-    category: 'SEDAN',
-    hourlyRate: 70,
-    dailyRate: 520,
-    flatAirportRate: 145,
-    passengers: 3,
-    luggage: 3,
-    image: fleetMercedesSClass,
-    tagline: 'The undisputed worldwide standard for presidential chauffeur refinement.',
-    features: [
-      'Executive reclining rear seats with calf rests',
-      'Burmester High-End 4D Surround Sound',
-      'Active ambient lighting & scent ionization',
-      'Rear wireless device charging pads',
-      'Rear privacy motorized window shades'
-    ],
-    popularFor: 'Corporate leaders, private diners & airport transit'
-  },
-  {
-    id: 'mercedes-v-class',
-    name: 'Mercedes-Benz V-Class VIP',
-    category: 'LIMOUSINE',
-    hourlyRate: 85,
-    dailyRate: 600,
-    flatAirportRate: 165,
     passengers: 6,
-    luggage: 4,
-    image: fleetMercedesVClass,
-    tagline: 'First-class mobile boardroom on wheels with conference seating.',
-    features: [
-      'Face-to-face conference leather seats',
-      'Fold-out center conference table',
-      'Privacy partition & tinted acoustic windows',
-      'Apple TV & HDMI connectivity screens',
-      'Integrated refrigerator & bar compartments'
+    luggage: 5,
+    color: 'Noir / Jet Black',
+    image: carEscalade,
+    taglineEn: 'The flagship American luxury SUV with presidential presence and ultra-quiet cabin.',
+    taglineFr: 'Le porte-étendard du luxe avec une prestance imposante et un habitacle ultra silencieux.',
+    featuresEn: [
+      '6 Passengers · 5 Large Luggage pieces',
+      'Jet Black interior & exterior presentation',
+      'AKG Studio Reference 36-speaker premium audio',
+      'Panoramic sunroof & heated leather captain chairs',
+      'Extended ESV cargo space for maximum luggage'
     ],
-    popularFor: 'Boardroad shows, production crews & family luxury travel'
+    featuresFr: [
+      '6 Passagers · 5 Grands bagages',
+      'Intérieur et extérieur noir étincelant',
+      'Système audio haute fidélité AKG Studio Reference 36 haut-parleurs',
+      'Toit panoramique & fauteuils capitaines en cuir chauffants',
+      'Coffre allongé ESV pour une capacité de bagages optimale'
+    ],
+    popularForEn: 'YUL Airport VIP transfers, corporate delegations, weddings & VIP arrivals',
+    popularForFr: 'Transferts VIP aéroport YUL, délégations d\'affaires, mariages & arrivées de prestige'
   },
   {
-    id: 'audi-a8-lwb',
-    name: 'Audi A8 LWB Quattro',
-    category: 'LUXURY',
-    hourlyRate: 75,
-    dailyRate: 540,
+    id: 'gmc-yukon-denali',
+    name: 'GMC Yukon Denali XL',
+    category: 'SUV_VIP',
+    categoryLabelEn: 'VIP Executive SUV',
+    categoryLabelFr: 'VUS Exécutif VIP',
+    hourlyRate: 135,
+    dailyRate: 720,
+    flatAirportRate: 185,
+    passengers: 6,
+    luggage: 5,
+    color: 'Noir / Jet Black',
+    image: carYukon,
+    taglineEn: 'Commanding executive refinement with distinctive Denali chrome presence and cavernous comfort.',
+    taglineFr: 'Raffinement exécutif puissant avec la signature Denali et un confort d\'exception.',
+    featuresEn: [
+      '6 Passengers · 5 Large Luggage pieces',
+      'Signature Denali chrome grille and exterior styling',
+      'Bose Performance Series surround sound system',
+      'Independent rear executive climate controls',
+      'Quiet acoustic laminated glass'
+    ],
+    featuresFr: [
+      '6 Passagers · 5 Grands bagages',
+      'Grille chromée exclusive Denali et finition impeccable',
+      'Système ambiophonique Bose Performance Series',
+      'Climatisation arrière indépendante multizone',
+      'Vitrage acoustique insonorisant de pointe'
+    ],
+    popularForEn: 'Corporate roadshows, long-distance intercity trips & ski resort transit',
+    popularForFr: 'Tournées d\'affaires, trajets longue distance & séjours à Mont-Tremblant'
+  },
+  {
+    id: 'chevrolet-suburban',
+    name: 'Chevrolet Suburban Premier',
+    category: 'EXECUTIVE',
+    categoryLabelEn: 'Full-Size Luxury SUV',
+    categoryLabelFr: 'VUS Pleine Grandeur',
+    hourlyRate: 130,
+    dailyRate: 700,
+    flatAirportRate: 180,
+    passengers: 7,
+    luggage: 6,
+    color: 'Noir / Jet Black',
+    image: carSuburban,
+    taglineEn: 'The benchmark of space and smooth riding comfort for groups, delegations, and heavy baggage.',
+    taglineFr: 'La référence de l\'espace et du confort feutré pour groupes et bagages volumineux.',
+    featuresEn: [
+      '7 Passengers · 6 Large Luggage pieces',
+      'Jet Black executive exterior and leather interior',
+      'Maximum third-row passenger legroom in class',
+      'Smooth Magnetic Ride Control suspension',
+      'Integrated charging ports for all seat rows'
+    ],
+    featuresFr: [
+      '7 Passagers · 6 Grands bagages',
+      'Finition noire exécutive et cuir haut de gamme',
+      'Dégagement pour les jambes inégalé en 3e rangée',
+      'Suspension magnétique garantissant une douceur de roulement',
+      'Ports de recharge intégrés à chaque rangée'
+    ],
+    popularForEn: 'Group airport transfers, executive teams & international sports delegations',
+    popularForFr: 'Navettes aéroport de groupe, équipes de direction & délégations sportives'
+  },
+  {
+    id: 'cadillac-xt6',
+    name: 'Cadillac XT6 Sport',
+    category: 'EXECUTIVE',
+    categoryLabelEn: 'Midsize Luxury SUV',
+    categoryLabelFr: 'VUS Sport & Luxe',
+    hourlyRate: 110,
+    dailyRate: 600,
     flatAirportRate: 150,
-    passengers: 3,
-    luggage: 2,
-    image: fleetMercedesSClass,
-    tagline: 'Understated high-tech elegance with whisper-quiet ride comfort.',
-    features: [
-      'Bang & Olufsen 3D Advanced Sound',
-      'Valcona leather with diamond stitching',
-      'Rear seat remote touch control',
-      'Matrix LED reading lights',
-      'Adaptive air suspension'
+    passengers: 4,
+    luggage: 4,
+    color: 'Noir / Jet Black',
+    image: carXt6,
+    taglineEn: 'Agile urban luxury with sleek aerodynamic styling and tailored executive cabin.',
+    taglineFr: 'Luxe urbain agile avec des lignes aérodynamiques épurées et un habitacle feutré.',
+    featuresEn: [
+      '4-6 Passengers · 4 Luggage pieces',
+      'Jet Black Sport trim with carbon-accented cabin',
+      'Bose Performance 14-speaker sound system',
+      'Intelligent all-wheel drive for Quebec winter security',
+      'Bilingual chauffeur dedicated to your schedule'
     ],
-    popularFor: 'Diplomats, high-profile executives & nightlife arrivals'
+    featuresFr: [
+      '4-6 Passagers · 4 Bagages',
+      'Finition Sport noire avec accents fibre de carbone',
+      'Système audio Bose Performance 14 haut-parleurs',
+      'Traction intégrale intelligente parée pour l\'hiver québécois',
+      'Chauffeur bilingue dévoué à votre itinéraire'
+    ],
+    popularForEn: 'Dinner engagements, city meetings, Bell Centre events & private tours',
+    popularForFr: 'Dîners gastronomiques, rendez-vous d\'affaires, Centre Bell & sorties privées'
   },
   {
-    id: 'rolls-royce-ghost',
-    name: 'Rolls-Royce Ghost',
-    category: 'LUXURY',
-    hourlyRate: 180,
-    dailyRate: 1200,
-    flatAirportRate: 320,
+    id: 'cadillac-lyriq',
+    name: 'Cadillac Lyriq EV',
+    category: 'ELECTRIC',
+    categoryLabelEn: '100% Electric Luxury',
+    categoryLabelFr: '100% Électrique de Luxe',
+    hourlyRate: 125,
+    dailyRate: 650,
+    flatAirportRate: 165,
     passengers: 3,
     luggage: 3,
-    image: fleetMercedesSClass,
-    tagline: 'Pure automotive majesty and bespoke handcrafted serenity.',
-    features: [
-      'Starlight shooting star fiber-optic headliner',
-      'Effortless power-assisted coach doors',
-      'Lambswool floor mats & hand-stitched leather',
-      'Champagne cooler with crystal flutes',
-      'Whisper acoustic floor engineering'
+    color: 'Noir / Jet Black',
+    image: carLyriq,
+    taglineEn: 'Zero-emission next-generation luxury with whisper-quiet electric drive and 33-inch LED display.',
+    taglineFr: 'Le luxe zéro émission de nouvelle génération au silence absolu et écran LED 33 pouces.',
+    featuresEn: [
+      '3 Passengers · 3 Luggage pieces',
+      '100% All-electric zero emission VIP transport',
+      'Whisper-quiet electric powertrain with next-gen sound insulation',
+      '33-inch diagonal advanced curved LED cockpit display',
+      'Next-generation active noise cancellation'
     ],
-    popularFor: 'Weddings, red carpets & signature galas'
+    featuresFr: [
+      '3 Passagers · 3 Bagages',
+      'Transport VIP 100% électrique à zéro émission',
+      'Motorisation électrique ultra silencieuse',
+      'Écran incurvé haute résolution 33 pouces',
+      'Annulation active des bruits de roulement'
+    ],
+    popularForEn: 'Eco-conscious executive travel, corporate VIP transit & tech conferences',
+    popularForFr: 'Déplacements corporatifs écoresponsables & sommets technologiques'
   }
 ];
 
 export const TOP_CITIES: CityDestination[] = [
   {
-    id: 'new-york',
-    name: 'New York',
-    country: 'United States',
-    airportCode: 'JFK · LGA · EWR',
-    popularRoutes: ['JFK to Manhattan Midtown', 'Wall St to Greenwich, CT', 'Manhattan to East Hampton'],
-    image: cityNewYork,
-    description: 'From 5th Avenue penthouses to Wall Street boardrooms and Hamptons retreats.'
+    id: 'montreal',
+    name: 'Montréal',
+    region: 'Grand Montréal',
+    country: 'Canada',
+    airportCode: 'YUL · YHU · YMX',
+    popularRoutesEn: ['YUL Airport to Downtown', 'Old Montreal to Mont-Royal', 'Downtown to Casino de Montréal'],
+    popularRoutesFr: ['Aéroport YUL vers Centre-Ville', 'Vieux-Montréal vers Mont-Royal', 'Centre-Ville vers Casino de Montréal'],
+    image: cityMontreal,
+    descriptionEn: 'The cultural capital of Quebec: world-renowned gastronomy, Old Montreal cobblestone elegance, and international festivals.',
+    descriptionFr: 'La métropole culturelle : gastronomie de renommée mondiale, charme historique du Vieux-Montréal et festivals d\'envergure.'
   },
   {
-    id: 'atlanta',
-    name: 'Atlanta',
-    country: 'United States',
-    airportCode: 'ATL',
-    popularRoutes: ['Hartsfield-Jackson to Buckhead', 'Downtown to Alpharetta', 'Midtown to Reynolds Plantation'],
-    image: cityAtlanta,
-    description: 'Executive mobility through the busiest international air hub and Buckhead finance.'
+    id: 'laval',
+    name: 'Laval',
+    region: 'Rive-Nord',
+    country: 'Canada',
+    airportCode: 'Laval VIP',
+    popularRoutesEn: ['Centropolis to YUL Airport', 'Carrefour Laval to Downtown Montreal', 'Sainte-Dorothée Executive Transit'],
+    popularRoutesFr: ['Centropolis vers Aéroport YUL', 'Carrefour Laval vers Centre-Ville Montréal', 'Navette exécutive Sainte-Dorothée'],
+    image: cityLaval,
+    descriptionEn: 'The dynamic commercial and culinary hub of the North Shore, Centropolis nightlife, and thriving corporate headquarters.',
+    descriptionFr: 'Le pôle d\'affaires et de divertissement dynamique de la Rive-Nord, l\'animation du Centropolis et ses sièges corporatifs.'
   },
   {
-    id: 'boston',
-    name: 'Boston',
-    country: 'United States',
-    airportCode: 'BOS',
-    popularRoutes: ['Logan Airport to Back Bay', 'Cambridge to Cape Cod', 'Beacon Hill to Route 128 Biotech'],
-    image: cityBoston,
-    description: 'Connecting academic institutions, Cambridge biotech labs, and coastal escapes.'
+    id: 'mont-tremblant',
+    name: 'Mont-Tremblant',
+    region: 'Laurentides',
+    country: 'Canada',
+    airportCode: 'YTM · Tremblant',
+    popularRoutesEn: ['YUL Airport to Tremblant Resort', 'Montreal Downtown to Ski Chalets', 'Tremblant to Ottawa'],
+    popularRoutesFr: ['Aéroport YUL vers Station Tremblant', 'Montréal Centre-Ville vers Chalets de Ski', 'Tremblant vers Ottawa'],
+    image: cityTremblant,
+    descriptionEn: 'World-class Laurentian alpine ski resort, luxury private chalets, championship golf courses, and picturesque mountain escapes.',
+    descriptionFr: 'La prestigieuse station de ski des Laurentides, ses chalets privés d\'exception, parcours de golf et paysages alpins grandioses.'
   },
   {
-    id: 'chicago',
-    name: 'Chicago',
-    country: 'United States',
-    airportCode: 'ORD · MDW',
-    popularRoutes: ['O\'Hare to The Loop', 'Magnificent Mile to Lake Forest', 'Midway to Gold Coast'],
-    image: cityChicago,
-    description: 'Premier transit across the Loop, Magnificent Mile, and luxury lakefront estates.'
+    id: 'quebec-city',
+    name: 'Québec',
+    region: 'Capitale-Nationale',
+    country: 'Canada',
+    airportCode: 'YQB',
+    popularRoutesEn: ['Montreal to Château Frontenac', 'YQB Airport to Old Quebec', 'Parliament Hill to Grand Allée'],
+    popularRoutesFr: ['Montréal vers Château Frontenac', 'Aéroport YQB vers Vieux-Québec', 'Colline Parlementaire vers Grande Allée'],
+    image: cityQuebec,
+    descriptionEn: 'UNESCO World Heritage jewel, iconic Château Frontenac overlooking the St. Lawrence River, and timeless European grandeur.',
+    descriptionFr: 'Joyau du patrimoine mondial de l\'UNESCO, le majestueux Château Frontenac surplombant le fleuve Saint-Laurent et son cachet européen.'
   },
   {
-    id: 'houston',
-    name: 'Houston',
-    country: 'United States',
-    airportCode: 'IAH · HOU',
-    popularRoutes: ['Bush Intercontinental to Downtown', 'Galleria to Energy Corridor', 'River Oaks to The Woodlands'],
-    image: cityHouston,
-    description: 'Energy sector executive transfers with heavy-duty comfort and swift dispatch.'
+    id: 'ottawa',
+    name: 'Ottawa',
+    region: 'Capitale Nationale',
+    country: 'Canada',
+    airportCode: 'YOW',
+    popularRoutesEn: ['Montreal to Parliament Hill', 'Ottawa to YUL International', 'Downtown Ottawa to Gatineau'],
+    popularRoutesFr: ['Montréal vers Colline du Parlement', 'Ottawa vers YUL International', 'Centre-Ville Ottawa vers Gatineau'],
+    image: cityOttawa,
+    descriptionEn: 'Canada’s stately federal capital, Parliament Hill, diplomatic embassies, and corporate headquarters along the Rideau Canal.',
+    descriptionFr: 'La capitale fédérale du Canada, la colline parlementaire, les ambassades diplomatiques et les institutions nationales.'
   }
 ];
 
 export const POPULAR_LOCATIONS = [
-  'JFK International Airport (Terminal 4 / VIP Lounge)',
-  'LaGuardia Airport (LGA Terminal B)',
-  'Newark Liberty International Airport (EWR)',
-  'The Plaza Hotel, 768 5th Ave, New York',
-  'The Carlyle, A Rosewood Hotel, 35 E 76th St',
-  'Wall Street Financial District, Manhattan',
-  'Hudson Yards, 500 W 33rd St, New York',
-  'East Hampton Main Beach, NY',
-  'O\'Hare International Airport (ORD), Chicago',
-  'Heathrow Airport (LHR Terminal 5 VIP), London'
+  'Aéroport International Montréal-Trudeau (YUL - Zone VIP Chauffeur)',
+  'Hôtel Ritz-Carlton, 1228 Rue Sherbrooke O, Montréal',
+  'Four Seasons Hotel Montréal, 1440 Rue de la Montagne',
+  'Hôtel William Gray / Place d\'Armes, Vieux-Montréal',
+  'Centre Bell (Zone VIP / Loges corporatives), Montréal',
+  'Casino de Montréal, 1 Avenue du Casino, Montréal',
+  'Centropolis, 1799 Avenue Pierre-Péladeau, Laval',
+  'Carrefour Laval (Zone Exécutive), Laval',
+  'Station Mont-Tremblant (Fairmont Tremblant / Chalets VIP)',
+  'Fairmont Le Château Frontenac, 1 Rue des Carrières, Québec',
+  'Colline du Parlement, Wellington St, Ottawa, ON'
 ];
 
 export const SPECIAL_OFFER_FEATURES = [
-  'For Upto 8 Passengers',
-  'Incredible Sound System',
-  'Fiber Optic Lights',
-  'Bar Area With Fridge',
-  'Tinted Windows',
-  'Divider With Premium Style',
-  'Multipurpose Designed Limo',
-  'Chill Air Conditioning'
+  'Flotte exclusive de SUV noirs de prestige',
+  'Chauffeurs professionnels bilingues & courtois',
+  'Suivi des vols en direct avec 60 min d\'attente gratuite',
+  'Bouteilles d\'eau, lingettes rafraîchissantes & chargeurs à bord',
+  'Vitres teintées avec insonorisation acoustique',
+  'Réservation instantanée 24/7 par téléphone ou WhatsApp',
+  'Service porte-à-porte ponctuel et garanti',
+  'Tarifs fixes transparents sans mauvaise surprise'
 ];

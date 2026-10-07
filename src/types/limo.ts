@@ -1,39 +1,52 @@
 export type ServiceType = 'distance' | 'hourly' | 'flat_rate';
 
-export type VehicleCategory = 'ALL' | 'SEDAN' | 'LUXURY' | 'LIMOUSINE' | 'SUV';
+export type VehicleCategory = 'ALL' | 'SUV_VIP' | 'EXECUTIVE' | 'ELECTRIC';
 
 export interface Vehicle {
   id: string;
   name: string;
   category: VehicleCategory;
+  categoryLabelEn: string;
+  categoryLabelFr: string;
   hourlyRate: number;
   dailyRate: number;
   flatAirportRate: number;
   passengers: number;
   luggage: number;
+  color: string;
   image: string;
-  tagline: string;
-  features: string[];
-  popularFor: string;
+  taglineEn: string;
+  taglineFr: string;
+  featuresEn: string[];
+  featuresFr: string[];
+  popularForEn: string;
+  popularForFr: string;
 }
 
 export interface ServiceItem {
   id: string;
-  title: string;
-  subtitle: string;
-  description: string;
+  titleEn: string;
+  titleFr: string;
+  subtitleEn: string;
+  subtitleFr: string;
+  descriptionEn: string;
+  descriptionFr: string;
   image: string;
-  features: string[];
+  featuresEn: string[];
+  featuresFr: string[];
 }
 
 export interface CityDestination {
   id: string;
   name: string;
+  region: string;
   country: string;
   airportCode: string;
-  popularRoutes: string[];
+  popularRoutesEn: string[];
+  popularRoutesFr: string[];
   image: string;
-  description: string;
+  descriptionEn: string;
+  descriptionFr: string;
 }
 
 export interface BookingState {

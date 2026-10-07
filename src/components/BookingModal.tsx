@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
-import { X, Check, Users, Luggage, ShieldCheck, ArrowRight, Calendar, Clock, MapPin, Sparkles, Download, Phone } from 'lucide-react';
+import { X, Check, Users, Luggage, ShieldCheck, ArrowRight, Calendar, Clock, MapPin, Sparkles, MessageSquare, Phone } from 'lucide-react';
 import { BookingState, Vehicle } from '../types/limo';
-import { FLEET } from '../data/limoData';
+import { FLEET, CLIENT_INFO } from '../data/limoData';
 
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialBooking: BookingState;
+  language?: 'FR' | 'EN';
 }
 
 export const BookingModal: React.FC<BookingModalProps> = ({
   isOpen,
   onClose,
-  initialBooking
+  initialBooking,
+  language = 'FR'
 }) => {
   const [booking, setBooking] = useState<BookingState>(initialBooking);
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [confirmedCode, setConfirmedCode] = useState<string | null>(null);
 
   // Form states
-  const [name, setName] = useState('Alexander Vance');
-  const [email, setEmail] = useState('alex.vance@executive-group.com');
-  const [phone, setPhone] = useState('+1 (212) 555-0199');
-  const [flightNo, setFlightNo] = useState('AA 104');
-  const [specialNotes, setSpecialNotes] = useState('Please ensure sparkling mineral water is chilled in cabin.');
+  const [name, setName] = useState('Jean-Philippe Tremblay');
+  const [email, setEmail] = useState('jp.tremblay@affaires.ca');
+  const [phone, setPhone] = useState('+1 (514) 987-6543');
+  const [flightNo, setFlightNo] = useState('AC 875');
+  const [specialNotes, setSpecialNotes] = useState('Bouteilles d\'eau minérale fraîches et chauffeur bilingue s.v.p.');
   const [quietRide, setQuietRide] = useState(true);
   const [childSeat, setChildSeat] = useState(false);
 
@@ -37,15 +39,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   // Selected vehicle or default
   const selectedVehicle: Vehicle =
     FLEET.find((v) => v.id === booking.selectedVehicleId) ||
-    FLEET.find((v) => v.id === 'cadillac-escalade') ||
     FLEET[0];
 
   // Price calculations
   let baseRate = 0;
-  if (booking.promoApplied) {
-    baseRate = 75; // $75 promo
-  } else if (booking.serviceType === 'hourly') {
-    baseRate = selectedVehicle.hourlyRate * booking.hours;
+  if (booking.serviceType === 'hourly') {
+    baseRate = selectedVehicle.hourlyRate * (booking.hours || 3);
   } else if (booking.serviceType === 'flat_rate') {
     baseRate = selectedVehicle.flatAirportRate;
   } else {
@@ -53,33 +52,47 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     baseRate = selectedVehicle.hourlyRate * 1.5;
   }
 
-  const gratuity = Math.round(baseRate * 0.2); // 20% standard chauffeur gratuity
-  const taxesFees = Math.round(baseRate * 0.08875); // standard NY tax/airport regulatory fee
+  const gratuity = Math.round(baseRate * 0.15); // 15% gratuity
+  const taxesFees = Math.round(baseRate * 0.14975); // TPS & TVQ Quebec
   const totalAmount = baseRate + gratuity + taxesFees;
 
   const handleConfirmReservation = (e: React.FormEvent) => {
     e.preventDefault();
-    const randomCode = `PL-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const randomCode = `RAF-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
     setConfirmedCode(randomCode);
     setStep(3);
   };
 
+  const generateWhatsAppMessage = () => {
+    const text = `Bonjour Limo Raf, je souhaite confirmer ma réservation :
+Code: ${confirmedCode || 'Demande VIP'}
+Client: ${name} (${phone})
+Trajet: ${booking.pickupAddress} vers ${booking.dropoffAddress}
+Date/Heure: ${booking.date} à ${booking.timeHour}:${booking.timeMinute} ${booking.timePeriod}
+Véhicule: ${selectedVehicle.name}
+Passagers: ${booking.passengers} | Bagages: ${booking.luggage}
+Notes: ${specialNotes}`;
+    return `https://api.whatsapp.com/send/?phone=15142438141&text=${encodeURIComponent(text)}`;
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200">
       <div className="relative bg-white rounded-3xl max-w-3xl w-full my-8 overflow-hidden shadow-2xl border border-neutral-200 flex flex-col max-h-[90vh]">
         {/* Top Header */}
-        <div className="px-6 sm:px-8 py-5 border-b border-neutral-100 flex items-center justify-between bg-neutral-50/70">
+        <div className="px-6 sm:px-8 py-5 border-b border-neutral-100 flex items-center justify-between bg-neutral-50/80">
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-serif-luxury text-xl font-bold tracking-wider uppercase text-neutral-900">
-                PREMIER LIMO
+              <span className="text-xl font-bold tracking-wider uppercase text-neutral-900 font-sans">
+                {CLIENT_INFO.brandName}
               </span>
-              <span className="text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold uppercase">
-                Reservation Concierge
+              <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-semibold uppercase">
+                {language === 'FR' ? 'Conciergerie VIP Montréal' : 'Montreal VIP Concierge'}
               </span>
             </div>
             <p className="text-xs text-neutral-500 mt-0.5">
-              Secure executive vehicle dispatch & confirmed chauffeur assignment
+              {language === 'FR'
+                ? 'Réservation en direct · Chauffeur privé certifié · Flotte de SUV de luxe'
+                : 'Direct dispatch · Licensed private chauffeur · Luxury SUV fleet'}
             </p>
           </div>
 
@@ -98,99 +111,79 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           {step === 1 && (
             <div className="space-y-6">
               {/* Trip Summary Pill Bar */}
-              <div className="bg-neutral-50 border border-neutral-200 rounded-2xl p-4 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+              <div className="bg-neutral-50 border border-neutral-200/80 rounded-2xl p-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                 <div className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                  <MapPin className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-neutral-400 block">Pick Up</span>
-                    <span className="font-medium text-neutral-800 line-clamp-2">{booking.pickupAddress}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-                  <div>
-                    <span className="text-[10px] uppercase font-bold text-neutral-400 block">
-                      {booking.serviceType === 'hourly' ? 'Charter Type' : 'Destination'}
+                    <span className="text-[11px] text-neutral-400 font-medium block">
+                      {language === 'FR' ? 'Départ' : 'Pickup'}
                     </span>
-                    <span className="font-medium text-neutral-800 line-clamp-2">{booking.dropoffAddress}</span>
+                    <span className="font-semibold text-neutral-800 line-clamp-1">{booking.pickupAddress}</span>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-2">
-                  <Calendar className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                  <MapPin className="w-4 h-4 text-neutral-700 shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-neutral-400 block">Date & Time</span>
-                    <span className="font-medium text-neutral-800 font-mono">
+                    <span className="text-[11px] text-neutral-400 font-medium block">
+                      {language === 'FR' ? 'Destination' : 'Drop-off'}
+                    </span>
+                    <span className="font-semibold text-neutral-800 line-clamp-1">{booking.dropoffAddress}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <Clock className="w-4 h-4 text-neutral-700 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-[11px] text-neutral-400 font-medium block">
+                      {language === 'FR' ? 'Date & Heure' : 'Date & Time'}
+                    </span>
+                    <span className="font-semibold text-neutral-800">
                       {booking.date} · {booking.timeHour}:{booking.timeMinute} {booking.timePeriod}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Vehicle Selection Carousel */}
+              {/* Vehicle Selection with transparent PNGs */}
               <div>
-                <div className="flex justify-between items-center mb-3">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900">
-                    1. Select Vehicle From Fleet
-                  </h3>
-                  <span className="text-xs text-neutral-500">
-                    All vehicles include professional chauffeur
-                  </span>
-                </div>
+                <h3 className="text-sm font-bold text-neutral-900 uppercase tracking-wider mb-3">
+                  {language === 'FR' ? 'Sélectionnez votre SUV de luxe' : 'Select your luxury SUV'}
+                </h3>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  {FLEET.map((veh) => {
-                    const isSelected = selectedVehicle.id === veh.id;
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {FLEET.map((vehicle) => {
+                    const isSelected = selectedVehicle.id === vehicle.id;
                     return (
                       <div
-                        key={veh.id}
-                        onClick={() => setBooking({ ...booking, selectedVehicleId: veh.id })}
-                        className={`p-4 rounded-xl border cursor-pointer transition-all flex flex-col justify-between ${
+                        key={vehicle.id}
+                        onClick={() => setBooking({ ...booking, selectedVehicleId: vehicle.id })}
+                        className={`rounded-2xl p-4 border transition-all cursor-pointer flex flex-col justify-between ${
                           isSelected
-                            ? 'border-neutral-900 ring-2 ring-neutral-900 bg-amber-50/20 shadow-md'
-                            : 'border-neutral-200 hover:border-neutral-300 bg-white'
+                            ? 'border-amber-500 bg-amber-50/30 ring-2 ring-amber-400/40 shadow-md'
+                            : 'border-neutral-200 bg-white hover:border-neutral-300 hover:shadow-xs'
                         }`}
                       >
-                        <div className="flex justify-between items-start mb-2">
-                          <div>
-                            <span className="font-bold text-sm text-neutral-900 font-serif-luxury">
-                              {veh.name}
-                            </span>
-                            <div className="flex items-center gap-3 text-[11px] text-neutral-500 mt-0.5 font-mono">
-                              <span className="flex items-center gap-1">
-                                <Users className="w-3 h-3" /> {veh.passengers}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <Luggage className="w-3 h-3" /> {veh.luggage}
-                              </span>
-                            </div>
-                          </div>
-
-                          <div className="text-right">
-                            <span className="font-bold text-sm text-neutral-900 font-mono tabular-nums">
-                              ${booking.promoApplied && veh.id === 'cadillac-escalade' ? 75 : veh.hourlyRate}
-                            </span>
-                            <span className="text-[10px] text-neutral-500 block">
-                              {booking.promoApplied && veh.id === 'cadillac-escalade' ? '/ day deal' : '/ hour'}
-                            </span>
-                          </div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="font-bold text-sm text-neutral-900">{vehicle.name}</span>
+                          <span className="text-xs font-semibold text-amber-700 font-mono">
+                            ${vehicle.hourlyRate}/h
+                          </span>
                         </div>
 
-                        <div className="h-20 flex items-center justify-center my-1">
+                        {/* Transparent PNG Car View */}
+                        <div className="h-28 flex items-center justify-center my-1 relative">
                           <img
-                            src={veh.image}
-                            alt={veh.name}
-                            className="max-h-16 w-auto object-contain"
-                            referrerPolicy="no-referrer"
+                            src={vehicle.image}
+                            alt={vehicle.name}
+                            className="max-h-24 w-full object-contain filter drop-shadow-md"
                           />
                         </div>
 
-                        <div className="pt-2 border-t border-neutral-100 flex items-center justify-between text-[11px]">
-                          <span className="text-neutral-500 truncate max-w-[170px]">{veh.tagline}</span>
-                          <span className={`font-semibold ${isSelected ? 'text-amber-700' : 'text-neutral-400'}`}>
-                            {isSelected ? '✓ Selected' : 'Select'}
-                          </span>
+                        <div className="pt-2 border-t border-neutral-100 flex items-center justify-between text-xs text-neutral-500">
+                          <span>{vehicle.passengers} {language === 'FR' ? 'passagers' : 'passengers'}</span>
+                          <span>{vehicle.luggage} {language === 'FR' ? 'bagages' : 'luggage'}</span>
+                          <span className="text-neutral-700 font-medium">{vehicle.color}</span>
                         </div>
                       </div>
                     );
@@ -199,259 +192,181 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               </div>
 
               {/* Price Calculation Card */}
-              <div className="bg-neutral-900 text-white rounded-2xl p-5 shadow-lg space-y-3">
-                <div className="flex items-center justify-between text-xs text-neutral-300 pb-2 border-b border-neutral-800">
-                  <span>Base Rate ({booking.serviceType.replace('_', ' ')})</span>
-                  <span className="font-mono tabular-nums">${baseRate.toFixed(2)}</span>
+              <div className="bg-[#1C1614] text-white rounded-2xl p-5 space-y-3">
+                <div className="flex items-center justify-between text-xs text-neutral-300">
+                  <span>{language === 'FR' ? 'Tarif de base estimé' : 'Estimated Base Rate'}</span>
+                  <span className="font-mono text-white font-medium">${baseRate} CAD</span>
                 </div>
-                <div className="flex items-center justify-between text-xs text-neutral-300 pb-2 border-b border-neutral-800">
-                  <span>Chauffeur Gratuity (20%)</span>
-                  <span className="font-mono tabular-nums">${gratuity.toFixed(2)}</span>
+                <div className="flex items-center justify-between text-xs text-neutral-400">
+                  <span>{language === 'FR' ? 'Frais de service & pourboire chauffeur (15%)' : 'Chauffeur Gratuity (15%)'}</span>
+                  <span className="font-mono text-white">${gratuity} CAD</span>
                 </div>
-                <div className="flex items-center justify-between text-xs text-neutral-300 pb-2 border-b border-neutral-800">
-                  <span>Tolls, Taxes & Airport Access</span>
-                  <span className="font-mono tabular-nums">${taxesFees.toFixed(2)}</span>
+                <div className="flex items-center justify-between text-xs text-neutral-400">
+                  <span>{language === 'FR' ? 'Taxes gouvernementales QC (TPS/TVQ)' : 'Taxes (TPS/TVQ)'}</span>
+                  <span className="font-mono text-white">${taxesFees} CAD</span>
                 </div>
-                <div className="flex items-center justify-between pt-1">
-                  <div>
-                    <span className="text-sm font-bold uppercase tracking-wider text-amber-400">
-                      Total Guaranteed Rate
-                    </span>
-                    <span className="text-[10px] text-neutral-400 block">
-                      Fixed quote · Zero surge pricing
-                    </span>
-                  </div>
-                  <span className="text-2xl font-bold font-mono text-white tabular-nums">
-                    ${totalAmount.toFixed(2)}
-                  </span>
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-sm font-bold">
+                  <span className="text-amber-400">{language === 'FR' ? 'Total garanti' : 'Guaranteed Total'}</span>
+                  <span className="font-mono text-xl text-amber-400">${totalAmount} CAD</span>
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-5 py-2.5 text-xs font-semibold text-neutral-600 hover:text-neutral-900"
-                >
-                  Cancel
-                </button>
+              {/* Continue button */}
+              <div className="flex justify-end pt-2">
                 <button
                   type="button"
                   onClick={() => setStep(2)}
-                  className="px-7 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-900 bg-amber-400 hover:bg-amber-300 active:scale-[0.98] rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer"
+                  className="px-7 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-950 bg-amber-400 hover:bg-amber-300 rounded-xl flex items-center gap-2 cursor-pointer shadow-md transition-all active:scale-95"
                 >
-                  <span>Continue to Passenger Details</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>{language === 'FR' ? 'Détails du passager' : 'Passenger Details'}</span>
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 2: PASSENGER DETAILS & CUSTOM PREFERENCES */}
+          {/* STEP 2: PASSENGER INFORMATION & DISPATCH */}
           {step === 2 && (
-            <form onSubmit={handleConfirmReservation} className="space-y-6">
-              <div>
-                <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-1">
-                  2. Passenger & Flight Details
-                </h3>
-                <p className="text-xs text-neutral-500">
-                  Your chauffeur will meet you with an executive greeting board displaying your name.
-                </p>
-              </div>
+            <form onSubmit={handleConfirmReservation} className="space-y-5">
+              <h3 className="text-sm font-bold text-neutral-900 uppercase tracking-wider">
+                {language === 'FR' ? 'Coordonnées & Préférences VIP' : 'Contact & VIP Preferences'}
+              </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                    Lead Passenger Name
+                  <label className="block text-neutral-700 font-medium mb-1">
+                    {language === 'FR' ? 'Nom complet *' : 'Full Name *'}
                   </label>
                   <input
                     type="text"
+                    required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    required
-                    className="w-full px-3.5 py-2.5 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl focus:border-amber-400 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                    Contact Phone Number (SMS alerts)
+                  <label className="block text-neutral-700 font-medium mb-1">
+                    {language === 'FR' ? 'Numéro de téléphone portable *' : 'Mobile Phone *'}
                   </label>
                   <input
                     type="tel"
+                    required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    required
-                    className="w-full px-3.5 py-2.5 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl focus:border-amber-400 focus:outline-none font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                    Confirmation Email
+                  <label className="block text-neutral-700 font-medium mb-1">
+                    {language === 'FR' ? 'Courriel pour confirmation *' : 'Confirmation Email *'}
                   </label>
                   <input
                     type="email"
+                    required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="w-full px-3.5 py-2.5 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl focus:border-amber-400 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                    Flight Number (Airport tracking)
+                  <label className="block text-neutral-700 font-medium mb-1">
+                    {language === 'FR' ? 'Numéro de vol (optionnel - YUL)' : 'Flight Number (optional)'}
                   </label>
                   <input
                     type="text"
                     value={flightNo}
                     onChange={(e) => setFlightNo(e.target.value)}
-                    placeholder="e.g. AA 104 or BA 178"
-                    className="w-full px-3.5 py-2.5 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 font-mono uppercase"
+                    placeholder="ex. AC 875"
+                    className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl focus:border-amber-400 focus:outline-none font-mono"
                   />
                 </div>
               </div>
 
-              {/* Chauffeur Experience Add-ons */}
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 mb-2">
-                  Cabin Preferences
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <label className="flex items-center gap-3 p-3 rounded-lg border border-neutral-200 hover:bg-neutral-50 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={quietRide}
-                      onChange={(e) => setQuietRide(e.target.checked)}
-                      className="rounded text-amber-500 focus:ring-amber-400"
-                    />
-                    <div className="text-xs">
-                      <span className="font-semibold text-neutral-900 block">Quiet Chauffeur Ride</span>
-                      <span className="text-neutral-500">Zero non-essential conversation for calls or rest</span>
-                    </div>
-                  </label>
-
-                  <label className="flex items-center gap-3 p-3 rounded-lg border border-neutral-200 hover:bg-neutral-50 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={childSeat}
-                      onChange={(e) => setChildSeat(e.target.checked)}
-                      className="rounded text-amber-500 focus:ring-amber-400"
-                    />
-                    <div className="text-xs">
-                      <span className="font-semibold text-neutral-900 block">Child Safety Booster / Seat</span>
-                      <span className="text-neutral-500">Installed by chauffeur prior to arrival</span>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                  Special Instructions or Concierge Notes
+                <label className="block text-xs text-neutral-700 font-medium mb-1">
+                  {language === 'FR' ? 'Instructions spéciales / Demandes particulières' : 'Special Notes'}
                 </label>
                 <textarea
                   rows={2}
                   value={specialNotes}
                   onChange={(e) => setSpecialNotes(e.target.value)}
-                  placeholder="e.g. Chilled sparkling water, meet at curbside level 3, garment rack..."
-                  className="w-full px-3.5 py-2 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-amber-500"
+                  className="w-full px-3.5 py-2 text-xs bg-neutral-50 border border-neutral-300 rounded-xl focus:border-amber-400 focus:outline-none"
                 />
               </div>
 
-              {/* Bottom Actions */}
-              <div className="pt-4 border-t border-neutral-200 flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-neutral-200">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="px-4 py-2 text-xs font-semibold text-neutral-600 hover:text-neutral-900"
+                  className="px-4 py-2 text-xs font-medium text-neutral-600 hover:text-neutral-900 cursor-pointer"
                 >
-                  ← Back to Vehicle
+                  {language === 'FR' ? '← Modifier le véhicule' : '← Change vehicle'}
                 </button>
 
                 <button
                   type="submit"
-                  className="px-8 py-3.5 text-xs font-semibold uppercase tracking-wider text-white bg-neutral-900 hover:bg-neutral-800 active:scale-[0.98] rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer"
+                  className="px-8 py-3 text-xs font-bold uppercase tracking-wider text-neutral-950 bg-amber-400 hover:bg-amber-300 rounded-xl cursor-pointer shadow-md transition-all active:scale-95"
                 >
-                  <span>Confirm & Dispatch Chauffeur</span>
-                  <Check className="w-4 h-4 text-amber-400" />
+                  {language === 'FR' ? 'Confirmer la réservation VIP' : 'Confirm VIP Reservation'}
                 </button>
               </div>
             </form>
           )}
 
-          {/* STEP 3: RESERVATION CONFIRMED BOARDING PASS */}
-          {step === 3 && confirmedCode && (
-            <div className="space-y-6 py-4 text-center">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center mx-auto shadow-sm">
+          {/* STEP 3: RESERVATION CONFIRMATION & WHATSAPP SYNC */}
+          {step === 3 && (
+            <div className="text-center py-6 space-y-6">
+              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-md">
                 <Check className="w-8 h-8" />
               </div>
 
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 block mb-1">
-                  Reservation Confirmed
+                <span className="text-xs uppercase font-bold tracking-wider text-amber-600">
+                  {language === 'FR' ? 'Demande reçue avec succès' : 'Reservation Submitted'}
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-bold font-serif-luxury text-neutral-900">
-                  Your chauffeur is reserved
+                <h3 className="text-2xl font-bold text-neutral-900 mt-1 font-sans">
+                  {confirmedCode}
                 </h3>
-                <p className="text-xs text-neutral-500 mt-1">
-                  Confirmation sent to {email}. Driver credentials will arrive via SMS 2 hours prior to pickup.
+                <p className="text-xs text-neutral-500 max-w-md mx-auto mt-2">
+                  {language === 'FR'
+                    ? 'Votre chauffeur privé a été avisé. Un courriel de confirmation détaillé a été envoyé à votre adresse.'
+                    : 'Your private chauffeur has been scheduled. A confirmation summary has been dispatched to your email.'}
                 </p>
               </div>
 
-              {/* Digital Boarding Pass */}
-              <div className="max-w-md mx-auto bg-neutral-900 text-white rounded-2xl p-6 text-left shadow-2xl space-y-4 border border-neutral-800">
-                <div className="flex justify-between items-center pb-3 border-b border-neutral-800">
-                  <div>
-                    <span className="text-[10px] text-amber-400 uppercase tracking-widest font-bold">Booking Reference</span>
-                    <div className="text-xl font-bold font-mono tracking-wider">{confirmedCode}</div>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold">Total Paid</span>
-                    <div className="text-xl font-bold font-mono text-emerald-400 tabular-nums">${totalAmount.toFixed(2)}</div>
-                  </div>
+              {/* Direct WhatsApp Instant Sync Box */}
+              <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 max-w-md mx-auto space-y-3">
+                <div className="flex items-center justify-center gap-2 text-emerald-800 font-semibold text-sm">
+                  <MessageSquare className="w-4 h-4 text-emerald-600" />
+                  <span>{language === 'FR' ? 'Confirmation instantanée sur WhatsApp' : 'Instant WhatsApp Sync'}</span>
                 </div>
-
-                <div className="grid grid-cols-2 gap-3 text-xs">
-                  <div>
-                    <span className="text-[10px] text-neutral-400 uppercase block">Vehicle</span>
-                    <span className="font-semibold text-white">{selectedVehicle.name}</span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-neutral-400 uppercase block">Passenger</span>
-                    <span className="font-semibold text-white">{name}</span>
-                  </div>
-                  <div className="col-span-2">
-                    <span className="text-[10px] text-neutral-400 uppercase block">Pick Up</span>
-                    <span className="text-neutral-200">{booking.pickupAddress}</span>
-                  </div>
-                  <div className="col-span-2">
-                    <span className="text-[10px] text-neutral-400 uppercase block">Destination</span>
-                    <span className="text-neutral-200">{booking.dropoffAddress}</span>
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-neutral-800 flex items-center justify-between text-[11px] text-neutral-400">
-                  <div className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-                    <span>$10M Commercial Liability Insured</span>
-                  </div>
-                  <span className="font-mono">{booking.date}</span>
-                </div>
+                <p className="text-xs text-emerald-700">
+                  {language === 'FR'
+                    ? 'Envoyez directement votre récapitulatif à notre équipe sur WhatsApp pour une prise en charge accélérée en 5 minutes.'
+                    : 'Send your trip summary directly to our team on WhatsApp for instant confirmation within 5 minutes.'}
+                </p>
+                <a
+                  href={generateWhatsAppMessage()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span>{language === 'FR' ? 'Ouvrir sur WhatsApp' : 'Open in WhatsApp'}</span>
+                </a>
               </div>
 
-              <div className="pt-4 flex flex-wrap justify-center gap-3">
+              <div className="pt-4">
                 <button
                   type="button"
-                  onClick={() => {
-                    setStep(1);
-                    setConfirmedCode(null);
-                    onClose();
-                  }}
-                  className="px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-neutral-900 bg-amber-400 hover:bg-amber-300 rounded-xl transition-all"
+                  onClick={onClose}
+                  className="px-6 py-2 text-xs font-semibold text-neutral-700 hover:text-black border border-neutral-300 rounded-xl"
                 >
-                  Done
+                  {language === 'FR' ? 'Fermer la fenêtre' : 'Close'}
                 </button>
               </div>
             </div>

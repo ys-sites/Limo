@@ -7,19 +7,21 @@ import { TopCitiesSection } from './components/TopCitiesSection';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
 import { BookingState, Vehicle, ServiceItem, CityDestination } from './types/limo';
-import { FLEET } from './data/limoData';
+import { CLIENT_INFO } from './data/limoData';
+import { MessageSquare, Phone } from 'lucide-react';
 
 export default function App() {
+  const [language, setLanguage] = useState<'FR' | 'EN'>('FR');
   const [isBookingOpen, setIsBookingOpen] = useState(false);
 
-  // Default initial booking state matching screenshot
+  // Initial booking state tailored for Montreal & Limo Raf
   const [bookingState, setBookingState] = useState<BookingState>({
     serviceType: 'distance',
-    pickupAddress: 'Pick Up Address',
-    dropoffAddress: 'Drop off Address',
-    hours: 4,
+    pickupAddress: 'Aéroport Montréal-Trudeau (YUL)',
+    dropoffAddress: 'Centre-Ville Montréal (Vieux-Port)',
+    hours: 3,
     tripType: 'one_way',
-    date: '06/04/2023',
+    date: '06/04/2026',
     timeHour: '01',
     timeMinute: '00',
     timePeriod: 'PM',
@@ -47,7 +49,9 @@ export default function App() {
     setBookingState((prev) => ({
       ...prev,
       serviceType: isAirport ? 'flat_rate' : 'hourly',
-      dropoffAddress: isAirport ? 'JFK International Airport (Terminal 4)' : 'Manhattan Midtown Executive Suite'
+      dropoffAddress: isAirport
+        ? 'Aéroport International Montréal-Trudeau (YUL)'
+        : 'Mont-Tremblant Station VIP'
     }));
     setIsBookingOpen(true);
   };
@@ -55,40 +59,76 @@ export default function App() {
   const handleSelectCity = (city: CityDestination) => {
     setBookingState((prev) => ({
       ...prev,
-      pickupAddress: `${city.name} International Airport VIP Lounge`,
-      dropoffAddress: `Downtown Financial District, ${city.name}`
+      pickupAddress: 'Aéroport Montréal-Trudeau (YUL)',
+      dropoffAddress: `${city.name} (${city.region})`
     }));
     setIsBookingOpen(true);
   };
 
   return (
-    <div className="min-h-screen bg-white text-neutral-900 flex flex-col font-sans selection:bg-[#E4A836] selection:text-neutral-950">
+    <div className="min-h-screen bg-white text-neutral-900 flex flex-col font-sans selection:bg-[#E4A836] selection:text-neutral-950 relative">
+      {/* Subtle tactile noise texture overlay as mandated by 001 Main / taste-skill */}
+      <div className="fixed inset-0 pointer-events-none z-40 bg-noise opacity-[0.035]" />
+
       {/* Top Bar Navigation floating over hero */}
-      <Navbar onOpenBooking={() => setIsBookingOpen(true)} />
+      <Navbar
+        language={language}
+        onToggleLanguage={setLanguage}
+        onOpenBooking={() => setIsBookingOpen(true)}
+      />
 
       {/* Main Single-Page Content matching screenshot structure */}
       <main className="flex-1">
-        {/* Hero Section with mountain highway Cadillac Escalade & floating reservation card */}
-        <Hero onReserve={handleHeroReserve} />
+        {/* Hero Section with Cadillac Escalade background & floating reservation card */}
+        <Hero
+          language={language}
+          onReserve={handleHeroReserve}
+        />
 
-        {/* Section 01: Our services (warm sandy beige background) */}
-        <ServicesSection onSelectService={handleSelectService} />
+        {/* Section 01: Nos services / Our services (warm sandy beige background) */}
+        <ServicesSection
+          language={language}
+          onSelectService={handleSelectService}
+        />
 
-        {/* Section 02: Our fleet (white background with ALL/SEDAN/LUXURY/LIMOUSINE/SUV) */}
-        <FleetSection onSelectVehicle={handleSelectVehicle} />
+        {/* Section 02: Notre flotte / Our fleet (with large transparent PNG vehicles) */}
+        <FleetSection
+          language={language}
+          onSelectVehicle={handleSelectVehicle}
+        />
 
-        {/* Section 03: Top cities (white background with 5 vertical city skyline cards) */}
-        <TopCitiesSection onSelectCity={handleSelectCity} />
+        {/* Section 03: Destinations phares / Top destinations (Montreal, Laval, Tremblant, Quebec, Ottawa) */}
+        <TopCitiesSection
+          language={language}
+          onSelectCity={handleSelectCity}
+        />
       </main>
 
-      {/* Dark Espresso Footer */}
-      <Footer />
+      {/* Pure Black Luxury Footer */}
+      <Footer language={language} />
+
+      {/* Floating Instant WhatsApp Button */}
+      <aside aria-label="Quick contact" className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2.5">
+        <a
+          href={CLIENT_INFO.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center gap-2.5 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95"
+          aria-label="Contact Limo Raf on WhatsApp"
+        >
+          <MessageSquare className="w-5 h-5 fill-current" />
+          <span className="text-xs font-bold tracking-wide hidden sm:inline-block">
+            {language === 'FR' ? 'WhatsApp Direct' : 'WhatsApp Us'}
+          </span>
+        </a>
+      </aside>
 
       {/* Interactive Reservation Concierge Modal */}
       <BookingModal
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
         initialBooking={bookingState}
+        language={language}
       />
     </div>
   );
