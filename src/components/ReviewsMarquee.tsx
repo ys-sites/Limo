@@ -162,12 +162,13 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({ language = 'FR' 
                 Google Reviews · 5.0 ★★★★★
               </span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight font-sans">
+            <h2 className="font-display text-2xl sm:text-4xl font-medium tracking-tight text-neutral-900 pb-1 overflow-visible">
               <ShinyText
                 text={isFr ? 'Ce que nos clients disent de nous' : 'What Our Clients Say About Us'}
                 color="#171717"
                 shineColor="#D7B65D"
                 speed={3}
+                className="overflow-visible pb-1"
               />
             </h2>
             <p className="text-xs sm:text-sm text-neutral-600 font-normal mt-1">
@@ -223,17 +224,12 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({ language = 'FR' 
                 </p>
               </div>
 
-              {/* Author & Badge */}
+              {/* Author */}
               <div className="pt-3.5 border-t border-neutral-100 flex items-center justify-between">
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-neutral-900 tracking-tight group-hover:text-[#C4963A] transition-colors">
                     {rev.author}
                   </h4>
-                  {rev.badge && (
-                    <span className="text-[10px] text-neutral-500 font-medium block">
-                      {rev.badge}
-                    </span>
-                  )}
                 </div>
                 <div className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0" title="Avis vérifié Google">
                   <CheckCircle className="w-3.5 h-3.5" />

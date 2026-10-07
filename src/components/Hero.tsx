@@ -86,7 +86,7 @@ export const Hero: React.FC<HeroProps> = ({ language, onReserve }) => {
                   initial={shouldReduceMotion ? { opacity: 0 } : { y: '110%', opacity: 0 }}
                   animate={{ y: '0%', opacity: 1 }}
                   transition={{ duration: 0.9, delay: 0.35, ease: LUXURY_EASE }}
-                  className="block italic text-[#D7B65D]"
+                  className="block text-[#D7B65D]"
                 >
                   {isFr ? 'vous attend.' : 'is waiting.'}
                 </motion.span>
@@ -123,7 +123,7 @@ export const Hero: React.FC<HeroProps> = ({ language, onReserve }) => {
 
               <a
                 href={`tel:${CLIENT_INFO.phoneRaw}`}
-                className="inline-flex items-center gap-2 text-sm text-neutral-300 hover:text-white font-mono tracking-tight transition-colors py-2"
+                className="inline-flex items-center gap-2 text-sm text-neutral-300 hover:text-white tabular-nums tracking-tight transition-colors py-2"
                 aria-label="Appeler Limo Raf"
               >
                 <Phone className="w-4 h-4 text-[#D7B65D]" />

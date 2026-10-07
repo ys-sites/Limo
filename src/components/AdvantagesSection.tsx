@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ShieldCheck, UserCheck, Car, Clock, Sparkles, Headphones, Award, ArrowUpRight } from 'lucide-react';
+import { ShieldCheck, UserCheck, Car, Clock, Sparkles, Headphones, Award, CheckCircle2, ArrowRight } from 'lucide-react';
 import { ShinyText } from './ui/ShinyText';
 
 interface AdvantagesSectionProps {
@@ -17,61 +17,73 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ language, 
       number: '01',
       titleFr: 'Professionnalisme et expertise',
       titleEn: 'Professionalism and expertise',
-      descFr: 'Nos chauffeurs d’expérience sont hautement qualifiés, courtois, discrets et impeccablement vêtus pour toutes occasions.',
-      descEn: 'Our experienced chauffeurs are highly qualified, courteous, discreet, and impeccably attired for every occasion.'
+      descFr: 'Nos chauffeurs d’expérience sont hautement qualifiés, courtois, discrets et impeccablement vêtus pour toutes occasions d’affaires ou de gala.',
+      descEn: 'Our experienced chauffeurs are highly qualified, courteous, discreet, and impeccably attired for all executive or private occasions.',
+      highlightsFr: ['Tenue d’affaires irréprochable', 'Chauffeurs bilingues (FR / EN)', 'Discrétion diplomatique'],
+      highlightsEn: ['Impeccable executive attire', 'Bilingual chauffeurs (FR / EN)', 'Diplomatic discretion']
     },
     {
       icon: Car,
       number: '02',
       titleFr: 'Flotte luxueuse et confortable',
       titleEn: 'Luxurious and comfortable fleet',
-      descFr: 'Des SUV noirs récents haut de gamme (Cadillac Escalade ESV, GMC Yukon Denali XL, Cadillac Lyriq), méticuleusement entretenus.',
-      descEn: 'Late-model luxury black SUVs (Cadillac Escalade ESV, GMC Yukon Denali XL, Cadillac Lyriq), meticulously detailed and maintained.'
+      descFr: 'Des SUV noirs récents haut de gamme (Cadillac Escalade ESV, GMC Yukon Denali XL, Cadillac Lyriq), méticuleusement inspectés et nettoyés avant chaque prise en charge.',
+      descEn: 'Late-model luxury black SUVs (Cadillac Escalade ESV, GMC Yukon Denali XL, Cadillac Lyriq), meticulously inspected and detailed before every pickup.',
+      highlightsFr: ['Modèles récents haut de gamme', 'Habitacle cuir désinfecté', 'Suspension pneumatique grand confort'],
+      highlightsEn: ['Late-model prestige vehicles', 'Sanitized leather interior', 'Pneumatic luxury suspension']
     },
     {
       icon: Clock,
       number: '03',
-      titleFr: 'Ponctualité et fiabilité',
-      titleEn: 'Punctuality and reliability',
-      descFr: 'Nous respectons scrupuleusement vos horaires avec un suivi en temps réel de votre vol et des conditions routières.',
-      descEn: 'We strictly respect your schedule with real-time flight tracking and dynamic routing for zero delays.'
+      titleFr: 'Ponctualité et fiabilité rigoureuse',
+      titleEn: 'Rigorous punctuality and reliability',
+      descFr: 'Nous respectons scrupuleusement vos horaires avec un chauffeur sur place 15 minutes en avance et un suivi en direct des vols d’arrivée à YUL.',
+      descEn: 'We strictly respect your schedule with an on-site chauffeur 15 minutes in advance and real-time flight tracking for all YUL arrivals.',
+      highlightsFr: ['Chauffeur sur place 15 min avant', 'Suivi direct des vols en temps réel', 'Zéro attente à l’atterrissage'],
+      highlightsEn: ['Chauffeur 15 mins early', 'Live flight status tracking', 'Zero waiting upon arrival']
     },
     {
       icon: Sparkles,
       number: '04',
       titleFr: 'Services personnalisés sur-mesure',
-      titleEn: 'Customized bespoke services',
-      descFr: 'Chaque trajet est adapté à vos exigences : température préférée, chargeurs universels, rafraîchissements et discrétion.',
-      descEn: 'Every ride is tailored to your preferences: personalized temperature, universal chargers, refreshments, and absolute discretion.'
+      titleEn: 'Tailored bespoke services',
+      descFr: 'Chaque trajet est adapté à vos exigences : température préférée dans l’habitacle, chargeurs universels, eau minérale et ambiance feutrée.',
+      descEn: 'Every journey is tailored to your preferences: climate control of your choice, universal device chargers, bottled water, and quiet ambiance.',
+      highlightsFr: ['Eau minérale & rafraîchissements', 'Chargeurs haute vitesse à bord', 'Climatisation personnalisée'],
+      highlightsEn: ['Bottled water & refreshments', 'High-speed chargers onboard', 'Custom climate settings']
     },
     {
       icon: ShieldCheck,
       number: '05',
-      titleFr: 'Sécurité maximale',
-      titleEn: 'Safety and security',
-      descFr: 'Véhicules à traction intégrale (AWD/4x4) préparés pour toutes conditions climatiques et chauffeurs certifiés.',
-      descEn: 'All-wheel drive (AWD/4x4) luxury vehicles prepared for Canadian weather conditions with certified professional chauffeurs.'
+      titleFr: 'Sécurité maximale en toutes saisons',
+      titleEn: 'Maximum safety in all seasons',
+      descFr: 'Véhicules équipés de la traction intégrale (AWD/4x4) et préparés pour affronter les hivers québécois avec une conduite défensive et sereine.',
+      descEn: 'All-wheel drive (AWD/4x4) vehicles fully equipped to master Canadian winter roads with calm and certified defensive driving.',
+      highlightsFr: ['Traction intégrale AWD / 4x4', 'Pneus hiver de première qualité', 'Conduite préventive certifiée'],
+      highlightsEn: ['All-wheel drive AWD / 4x4', 'Premium winter-rated tires', 'Certified defensive driving']
     },
     {
       icon: Headphones,
       number: '06',
       titleFr: 'Service client d’excellence 24/7',
-      titleEn: 'Customer service excellence 24/7',
-      descFr: 'Une conciergerie dévouée et réactive 24 heures sur 24 pour répondre instantanément à toutes vos demandes.',
-      descEn: 'Dedicated round-the-clock concierge support ready to immediately answer inquiries and accommodate itinerary changes.'
+      titleEn: 'Round-the-clock 24/7 concierge',
+      descFr: 'Une conciergerie privée dévouée et joignable 24 heures sur 24 pour coordonner vos réservations, ajuster vos trajets et répondre à vos requêtes.',
+      descEn: 'A dedicated private concierge reachable 24/7 to coordinate your bookings, accommodate schedule changes, and fulfill any request.',
+      highlightsFr: ['Assistance immédiate 24/7', 'Tarification claire sans surprise', 'Réservation rapide via WhatsApp'],
+      highlightsEn: ['24/7 immediate assistance', 'Clear transparent pricing', 'Quick booking via WhatsApp']
     }
   ];
 
   return (
-    <section id="advantages" className="py-24 lg:py-32 bg-[#F6F6F6] text-neutral-900 relative overflow-hidden border-t border-neutral-200/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header with 05 and laptop rise-up animation */}
+    <section id="advantages" className="py-20 lg:py-28 bg-[#F6F6F6] text-neutral-900 relative overflow-hidden border-t border-neutral-200">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header with 05 */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mb-14 sm:mb-18 flex items-center justify-center"
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mb-14 sm:mb-20 flex items-center justify-center"
         >
           <div className="absolute left-0 top-1/2 -translate-y-1/2 hidden md:block">
             <span className="text-4xl sm:text-5xl font-light text-neutral-300 font-sans select-none">
@@ -87,88 +99,94 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ language, 
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 font-sans">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight mb-3 text-neutral-900 overflow-visible pb-1">
               <ShinyText
                 text={isFr ? 'Nos Avantages Exclusifs' : 'Our Exclusive Advantages'}
                 color="#171717"
-                shineColor="#D7B65D"
+                shineColor="#C4963A"
                 speed={3}
+                className="overflow-visible pb-1"
               />
             </h2>
 
-            <p className="text-xs sm:text-sm text-neutral-600 font-light leading-relaxed max-w-xl mx-auto">
+            <p className="text-xs sm:text-sm text-neutral-600 font-normal leading-relaxed max-w-lg mx-auto">
               {isFr
-                ? 'Chez Limo Raf, notre priorité absolue est de vous offrir un service d’exception. Découvrez les engagements qui font notre réputation.'
-                : 'At Limo Raf, our top priority is delivering exceptional service. Discover the commitments that define our reputation.'}
+                ? 'Chez Limo Raf, notre priorité absolue est de vous offrir un service d’exception à chaque kilomètre.'
+                : 'At Limo Raf, our highest priority is delivering exceptional chauffeured service on every mile.'}
             </p>
           </div>
         </motion.div>
 
-        {/* 6 Elegant Cards with laptop rise-up staggered animation */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* Sticky Stacking Cards Container */}
+        <div className="relative space-y-6 sm:space-y-8 pb-10">
           {advantages.map((adv, idx) => {
             const Icon = adv.icon;
             const title = isFr ? adv.titleFr : adv.titleEn;
             const desc = isFr ? adv.descFr : adv.descEn;
+            const highlights = isFr ? adv.highlightsFr : adv.highlightsEn;
 
             return (
-              <motion.div
+              <div
                 key={adv.number}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative p-7 sm:p-8 rounded-3xl bg-white hover:bg-[#FAFAFA] border border-neutral-200/80 hover:border-[#D7B65D]/60 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
+                className="sticky rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-9 bg-white border border-neutral-200/90 shadow-xl shadow-black/5 hover:border-[#D7B65D]/50 transition-all duration-300"
+                style={{
+                  top: `calc(4.5rem + ${idx * 1.25}rem)`,
+                  zIndex: idx + 10,
+                }}
               >
-                <div>
-                  {/* Top Bar: Icon + Number */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-13 h-13 rounded-2xl bg-[#D7B65D]/15 border border-[#D7B65D]/30 flex items-center justify-center text-[#C4963A] group-hover:bg-[#D7B65D] group-hover:text-neutral-950 transition-all duration-300 shadow-xs">
-                      <Icon className="w-6 h-6 stroke-[2]" />
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-4 border-b border-neutral-100">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-11 h-11 rounded-xl bg-[#D7B65D]/10 border border-[#D7B65D]/30 text-[#C4963A] flex items-center justify-center shrink-0">
+                      <Icon className="w-5 h-5 stroke-[2.2]" />
                     </div>
-                    <span className="text-2xl font-bold text-neutral-300 group-hover:text-[#C4963A] transition-colors font-sans">
-                      {adv.number}
-                    </span>
+                    <div>
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#C4963A] block">
+                        {isFr ? `Engagement ${adv.number}` : `Commitment ${adv.number}`}
+                      </span>
+                      <h3 className="font-display text-xl sm:text-2xl lg:text-[26px] font-medium text-neutral-900 tracking-tight">
+                        {title}
+                      </h3>
+                    </div>
                   </div>
 
-                  <h3 className="text-lg font-bold text-neutral-900 tracking-tight group-hover:text-[#C4963A] transition-colors mb-2.5">
-                    {title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-light">
-                    {desc}
-                  </p>
+                  <span className="font-display text-3xl sm:text-4xl text-neutral-200 font-light select-none self-end sm:self-auto">
+                    {adv.number}
+                  </span>
                 </div>
 
-                {/* Subtle bottom indicator */}
-                <div className="mt-6 pt-4 border-t border-neutral-100 flex items-center justify-between text-[11px] text-[#C4963A] font-semibold uppercase tracking-wider">
-                  <span>{isFr ? 'Standard Prestige' : 'Prestige Standard'}</span>
-                  <div className="w-6 h-6 rounded-full bg-neutral-100 group-hover:bg-[#D7B65D] group-hover:text-neutral-950 flex items-center justify-center text-neutral-500 transition-colors">
-                    <ArrowUpRight className="w-3 h-3" />
-                  </div>
+                <p className="text-xs sm:text-sm text-neutral-600 font-light leading-relaxed mb-5">
+                  {desc}
+                </p>
+
+                {/* 3 Key Takeaway Highlights */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2">
+                  {highlights.map((item, hIdx) => (
+                    <div
+                      key={hIdx}
+                      className="flex items-center gap-2 px-3 py-2 rounded-xl bg-neutral-50 border border-neutral-100 text-neutral-700 text-xs font-medium"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#C4963A] shrink-0" />
+                      <span className="truncate">{item}</span>
+                    </div>
+                  ))}
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
 
-        {/* Bottom CTA Button */}
+        {/* Bottom CTA to Book */}
         {onBookNow && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-14 sm:mt-16 text-center"
-          >
+          <div className="mt-12 text-center">
             <button
               type="button"
               onClick={onBookNow}
-              className="inline-flex items-center gap-3 px-8 py-3.5 rounded-md bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer active:scale-98"
             >
-              <span>{isFr ? 'Expérimenter l’Excellence Limo Raf' : 'Experience Limo Raf Excellence'}</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <span>{isFr ? 'Réserver votre chauffeur' : 'Book your chauffeur'}</span>
+              <ArrowRight className="w-4 h-4" />
             </button>
-          </motion.div>
+          </div>
         )}
       </div>
     </section>

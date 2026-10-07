@@ -197,14 +197,14 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-3xl mb-14 sm:mb-16"
         >
-          <div className="flex items-center gap-2.5 text-[#D7B65D] font-mono text-xs uppercase tracking-[0.2em] mb-3">
+          <div className="flex items-center gap-2.5 text-[#D7B65D] font-sans font-semibold text-xs uppercase tracking-[0.2em] mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#D7B65D]" />
             <span>{isFr ? '07 · Liaisons & corridors' : '07 · Corridors & coverage'}</span>
           </div>
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight leading-[1.15] mb-4">
             {isFr ? 'Québec, Ontario ' : 'Quebec, Ontario '}
-            <span className="italic font-normal text-[#D7B65D]">
+            <span className="font-normal text-[#D7B65D]">
               {isFr ? 'et États-Unis.' : 'and the United States.'}
             </span>
           </h2>
@@ -332,7 +332,7 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
               {/* Header */}
               <div className="flex items-center justify-between mb-5 pb-4 border-b border-neutral-800/80">
                 <div>
-                  <span className="text-[11px] font-mono tracking-[0.16em] text-[#D7B65D] uppercase">
+                  <span className="text-[11px] font-sans font-semibold tracking-[0.16em] text-[#D7B65D] uppercase">
                     01 · {isFr ? 'Régional' : 'Regional'}
                   </span>
                   <h3 className="font-display text-xl sm:text-2xl font-normal text-white mt-0.5">
@@ -361,7 +361,7 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
                         <span className="font-medium text-[13.5px] text-neutral-100 group-hover/item:text-white transition-colors truncate">
                           {dest.name}
                         </span>
-                        <span className="text-[9.5px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-neutral-800/80 group-hover/item:bg-[#D7B65D]/20 text-neutral-400 group-hover/item:text-[#D7B65D] font-mono shrink-0 transition-colors">
+                        <span className="text-[9.5px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-neutral-800/80 group-hover/item:bg-[#D7B65D]/20 text-neutral-400 group-hover/item:text-[#D7B65D] font-sans font-medium shrink-0 transition-colors">
                           {isFr ? dest.tagFr : dest.tagEn}
                         </span>
                       </div>
@@ -397,7 +397,7 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
               {/* Header */}
               <div className="flex items-center justify-between mb-5 pb-4 border-b border-neutral-800/80">
                 <div>
-                  <span className="text-[11px] font-mono tracking-[0.16em] text-[#D7B65D] uppercase">
+                  <span className="text-[11px] font-sans font-semibold tracking-[0.16em] text-[#D7B65D] uppercase">
                     02 · {isFr ? 'Interurbain' : 'Intercity'}
                   </span>
                   <h3 className="font-display text-xl sm:text-2xl font-normal text-white mt-0.5">
@@ -426,7 +426,7 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
                         <span className="font-medium text-[13.5px] text-neutral-100 group-hover/item:text-white transition-colors truncate">
                           {dest.name}
                         </span>
-                        <span className="text-[9.5px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-neutral-800/80 group-hover/item:bg-[#D7B65D]/20 text-neutral-400 group-hover/item:text-[#D7B65D] font-mono shrink-0 transition-colors">
+                        <span className="text-[9.5px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-neutral-800/80 group-hover/item:bg-[#D7B65D]/20 text-neutral-400 group-hover/item:text-[#D7B65D] font-sans font-medium shrink-0 transition-colors">
                           {isFr ? dest.tagFr : dest.tagEn}
                         </span>
                       </div>
@@ -462,7 +462,7 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
               {/* Header */}
               <div className="flex items-center justify-between mb-5 pb-4 border-b border-neutral-800/80">
                 <div>
-                  <span className="text-[11px] font-mono tracking-[0.16em] text-[#D7B65D] uppercase">
+                  <span className="text-[11px] font-sans font-semibold tracking-[0.16em] text-[#D7B65D] uppercase">
                     03 · {isFr ? 'Transfrontalier' : 'Cross-Border'}
                   </span>
                   <h3 className="font-display text-xl sm:text-2xl font-normal text-white mt-0.5">
@@ -491,7 +491,7 @@ export const CoverageMapSection: React.FC<CoverageMapSectionProps> = ({
                         <span className="font-medium text-[13.5px] text-neutral-100 group-hover/item:text-white transition-colors truncate">
                           {dest.name}
                         </span>
-                        <span className="text-[9.5px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-neutral-800/80 group-hover/item:bg-[#D7B65D]/20 text-neutral-400 group-hover/item:text-[#D7B65D] font-mono shrink-0 transition-colors">
+                        <span className="text-[9.5px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-neutral-800/80 group-hover/item:bg-[#D7B65D]/20 text-neutral-400 group-hover/item:text-[#D7B65D] font-sans font-medium shrink-0 transition-colors">
                           {isFr ? dest.tagFr : dest.tagEn}
                         </span>
                       </div>

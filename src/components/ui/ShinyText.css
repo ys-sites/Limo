@@ -1,4 +1,10 @@
 .shiny-text {
   display: inline-block;
   max-width: 100%;
+  padding-bottom: 0.22em;
+  margin-bottom: -0.22em;
+  padding-top: 0.08em;
+  margin-top: -0.08em;
+  line-height: normal;
+  vertical-align: baseline;
 }

@@ -81,13 +81,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navLinks = [
     { id: 'about', num: '02', labelFr: 'À propos', labelEn: 'About' },
-    { id: 'fleet', num: '03', labelFr: 'Notre flotte', labelEn: 'Our fleet' },
+    { id: 'fleet', num: '03', labelFr: 'Flotte', labelEn: 'Fleet' },
     { id: 'services', num: '04', labelFr: 'Services', labelEn: 'Services' },
-    { id: 'advantages', num: '05', labelFr: 'Pourquoi Limo Raf', labelEn: 'Why Limo Raf' },
+    { id: 'advantages', num: '05', labelFr: 'Engagements', labelEn: 'Why Us' },
     { id: 'cities', num: '06', labelFr: 'Destinations', labelEn: 'Destinations' },
     { id: 'coverage', num: '07', labelFr: 'Liaisons', labelEn: 'Corridors' },
     { id: 'reviews', num: '08', labelFr: 'Avis', labelEn: 'Reviews' },
-    { id: 'contact', num: '', labelFr: 'Contact', labelEn: 'Contact' },
   ];
 
   return (
@@ -97,46 +96,48 @@ export const Navbar: React.FC<NavbarProps> = ({
           isVisible ? 'translate-y-0' : '-translate-y-full'
         } ${
           isScrolled
-            ? 'bg-[#07080A]/92 backdrop-blur-md border-b border-neutral-800/80 shadow-xl'
-            : 'bg-gradient-to-b from-black/80 via-black/30 to-transparent'
+            ? 'bg-[#07080A]/95 backdrop-blur-md border-b border-neutral-800/80 shadow-2xl'
+            : 'bg-gradient-to-b from-black/85 via-black/40 to-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          {/* Brand: SVG Vector Tag Logo (Ultra-clear, visible, non-pixelated) */}
-          <a
-            href="#"
-            onClick={handleBrandClick}
-            className="flex items-center group cursor-pointer shrink-0 mr-4 lg:mr-8"
-            aria-label="Limo Raf - Accueil"
-          >
-            <LimoLogo
-              variant="horizontal"
-              className="h-10 sm:h-11 w-auto shrink-0 transition-transform duration-200 group-hover:scale-[1.02]"
-              subline={language === 'FR' ? 'Montréal · depuis 2021' : 'Montreal · since 2021'}
-            />
-          </a>
+        <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 h-20 flex items-center justify-between">
+          {/* Column 1: Left Brand Logo (Takes flex-1 to balance right column) */}
+          <div className="flex-1 flex items-center justify-start shrink-0">
+            <a
+              href="#"
+              onClick={handleBrandClick}
+              className="flex items-center group cursor-pointer"
+              aria-label="Limo Raf - Accueil"
+            >
+              <LimoLogo
+                variant="horizontal"
+                className="h-10 sm:h-11 w-auto shrink-0 transition-transform duration-200 group-hover:scale-[1.02]"
+                subline={language === 'FR' ? 'Montréal · depuis 2021' : 'Montreal · since 2021'}
+              />
+            </a>
+          </div>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden xl:flex items-center gap-4.5 2xl:gap-6 text-[13.5px] 2xl:text-[14px] text-neutral-300 font-normal">
+          {/* Column 2: Center Desktop Navigation (Mathematically centered across header) */}
+          <nav className="hidden xl:flex items-center justify-center gap-5 2xl:gap-7 text-[13px] 2xl:text-[13.5px] text-neutral-300 font-medium whitespace-nowrap shrink-0 px-4">
             {navLinks.map((link) => (
               <a
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => handleNavClick(e, link.id)}
-                className="group relative py-1 hover:text-white transition-colors whitespace-nowrap"
+                className="group relative py-1 text-neutral-300 hover:text-white transition-colors whitespace-nowrap tracking-wide"
               >
                 <span>{language === 'FR' ? link.labelFr : link.labelEn}</span>
-                <span className="absolute bottom-0 left-0 w-0 group-hover:w-full h-[1px] bg-[#D7B65D] transition-all duration-200 ease-out" />
+                <span className="absolute bottom-0 left-0 w-0 group-hover:w-full h-[1.5px] bg-[#D7B65D] transition-all duration-200 ease-out" />
               </a>
             ))}
           </nav>
 
-          {/* Right Action Cluster */}
-          <div className="flex items-center gap-3 sm:gap-5">
-            {/* Direct Phone Number */}
+          {/* Column 3: Right Action Cluster (Takes flex-1 to guarantee dead-center nav) */}
+          <div className="flex-1 flex items-center justify-end gap-2.5 sm:gap-3 shrink-0 whitespace-nowrap">
+            {/* Direct Phone Number - Refined luxury pill on desktop */}
             <a
               href={`tel:${CLIENT_INFO.phoneRaw}`}
-              className="hidden md:inline-flex items-center gap-2 text-[13px] text-neutral-300 hover:text-white font-mono tracking-tight transition-colors"
+              className="hidden min-[1380px]:inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-neutral-800/80 bg-neutral-900/60 hover:bg-neutral-800/80 text-neutral-300 hover:text-white text-xs font-semibold tabular-nums tracking-tight transition-all"
               aria-label="Appeler Limo Raf"
             >
               <Phone className="w-3.5 h-3.5 text-[#D7B65D]" />
@@ -144,11 +145,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
 
             {/* Language Switcher (FR / EN) */}
-            <div className="flex items-center text-xs font-semibold tracking-wider text-neutral-400 border border-neutral-800 rounded-sm overflow-hidden bg-neutral-900/60">
+            <div className="flex items-center h-9 text-[11px] font-bold tracking-wider text-neutral-400 border border-neutral-800 rounded-lg overflow-hidden bg-neutral-900/80 shrink-0">
               <button
                 type="button"
                 onClick={() => onToggleLanguage('FR')}
-                className={`px-2.5 py-1 transition-colors cursor-pointer ${
+                className={`px-3 h-full transition-colors cursor-pointer flex items-center justify-center ${
                   language === 'FR'
                     ? 'bg-[#D7B65D] text-neutral-950 font-bold'
                     : 'hover:text-white'
@@ -159,7 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 type="button"
                 onClick={() => onToggleLanguage('EN')}
-                className={`px-2.5 py-1 transition-colors cursor-pointer ${
+                className={`px-3 h-full transition-colors cursor-pointer flex items-center justify-center ${
                   language === 'EN'
                     ? 'bg-[#D7B65D] text-neutral-950 font-bold'
                     : 'hover:text-white'
@@ -173,19 +174,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={onOpenBooking}
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs uppercase tracking-[0.14em] transition-colors cursor-pointer"
+              className="hidden sm:inline-flex items-center justify-center h-9 px-5 rounded-lg bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-bold text-xs uppercase tracking-[0.12em] transition-all cursor-pointer shadow-sm active:scale-98 shrink-0 whitespace-nowrap"
             >
               {language === 'FR' ? 'Réserver' : 'Book'}
             </button>
 
-            {/* Mobile Hamburger Toggle */}
+            {/* Mobile / Tablet Hamburger Toggle */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden w-10 h-10 flex items-center justify-center text-neutral-300 hover:text-white cursor-pointer"
+              className="xl:hidden h-9 w-9 rounded-lg border border-neutral-800 bg-neutral-900/80 flex items-center justify-center text-neutral-300 hover:text-white cursor-pointer shrink-0"
               aria-label={mobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>
@@ -250,7 +251,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center justify-between text-xs text-neutral-400 pt-2">
               <a
                 href={`tel:${CLIENT_INFO.phoneRaw}`}
-                className="flex items-center gap-2 hover:text-white font-mono"
+                className="flex items-center gap-2 hover:text-white tabular-nums"
               >
                 <Phone className="w-3.5 h-3.5 text-[#D7B65D]" />
                 <span>{CLIENT_INFO.phone}</span>

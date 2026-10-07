@@ -66,7 +66,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-neutral-300 text-xs font-medium text-neutral-700 hover:text-black"
             >
               <Phone className="w-3.5 h-3.5 text-[#C4963A]" />
-              <span className="font-mono">{CLIENT_INFO.phone}</span>
+              <span className="tabular-nums">{CLIENT_INFO.phone}</span>
             </a>
           </div>
         </div>

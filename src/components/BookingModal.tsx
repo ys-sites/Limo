@@ -292,7 +292,7 @@ Notes: ${specialNotes}`;
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl focus:border-amber-400 focus:outline-none font-mono"
+                    className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl focus:border-amber-400 focus:outline-none tabular-nums font-sans"
                   />
                 </div>
 
@@ -318,7 +318,7 @@ Notes: ${specialNotes}`;
                     value={flightNo}
                     onChange={(e) => setFlightNo(e.target.value)}
                     placeholder="ex. AC 875"
-                    className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl focus:border-amber-400 focus:outline-none font-mono"
+                    className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl focus:border-amber-400 focus:outline-none tabular-nums font-sans"
                   />
                 </div>
               </div>

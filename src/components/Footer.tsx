@@ -15,25 +15,6 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSele
   return (
     <footer id="contact" className="w-full bg-[#07080A] text-neutral-300 pt-20 pb-12 relative border-t border-neutral-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Editorial Top Sign-off Bar */}
-        <div className="pb-16 mb-16 border-b border-neutral-800/80 flex flex-col md:flex-row items-baseline justify-between gap-6">
-          <div>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#D7B65D] block mb-2">
-              {isFr ? 'Contact & réservations' : 'Contact & booking'}
-            </span>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-medium tracking-tight">
-              {isFr ? 'On vous attend.' : 'We are waiting for you.'}
-            </h2>
-          </div>
-
-          <a
-            href={`tel:${CLIENT_INFO.phoneRaw}`}
-            className="font-mono text-2xl sm:text-3xl text-neutral-200 hover:text-[#D7B65D] transition-colors tracking-tight"
-          >
-            {CLIENT_INFO.phone}
-          </a>
-        </div>
-
         {/* 4 Tidy Columns (Normal case headings, no ► glyphs) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-neutral-800/80">
           {/* Column 1: Brand Logo & Quiet Statement (lg:col-span-4) */}
@@ -76,7 +57,7 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSele
             <ul className="space-y-2.5 text-sm text-neutral-400 font-light">
               <li className="flex items-center gap-2.5">
                 <Phone className="w-3.5 h-3.5 text-[#D7B65D] shrink-0" />
-                <a href={`tel:${CLIENT_INFO.phoneRaw}`} className="hover:text-white transition-colors font-mono">
+                <a href={`tel:${CLIENT_INFO.phoneRaw}`} className="hover:text-white transition-colors tabular-nums">
                   {CLIENT_INFO.phone}
                 </a>
               </li>

@@ -111,7 +111,7 @@ Véhicule : ${selectedVehicle}${notes ? `\nNotes : ${notes}` : ''}`;
           <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#D7B65D]">
             {isFr ? 'Réservation directe' : 'Direct booking'}
           </span>
-          <span className="text-[11px] text-neutral-500 font-mono">
+          <span className="text-[11px] text-neutral-500 tabular-nums">
             24/7
           </span>
         </div>
@@ -140,13 +140,13 @@ Véhicule : ${selectedVehicle}${notes ? `\nNotes : ${notes}` : ''}`;
                 <>
                   Merci <strong className="text-white">{name}</strong>. Votre demande pour le{' '}
                   <strong className="text-[#D7B65D]">{selectedVehicle}</strong> a bien été enregistrée.
-                  On vous rappelle rapidement au <span className="font-mono text-white">{phone}</span> pour confirmer.
+                  On vous rappelle rapidement au <span className="tabular-nums text-white font-medium">{phone}</span> pour confirmer.
                 </>
               ) : (
                 <>
                   Thank you <strong className="text-white">{name}</strong>. Your request for the{' '}
                   <strong className="text-[#D7B65D]">{selectedVehicle}</strong> has been received.
-                  We will call you shortly at <span className="font-mono text-white">{phone}</span> to confirm.
+                  We will call you shortly at <span className="tabular-nums text-white font-medium">{phone}</span> to confirm.
                 </>
               )}
             </p>
@@ -233,7 +233,7 @@ Véhicule : ${selectedVehicle}${notes ? `\nNotes : ${notes}` : ''}`;
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+1 514 000-0000"
-                className="w-full pl-9 pr-3 py-2 text-xs text-white bg-neutral-900/80 border border-neutral-800 focus:outline-none focus:border-[#D7B65D] placeholder:text-neutral-600 transition-colors font-mono"
+                className="w-full pl-9 pr-3 py-2 text-xs text-white bg-neutral-900/80 border border-neutral-800 focus:outline-none focus:border-[#D7B65D] placeholder:text-neutral-600 transition-colors tabular-nums"
               />
             </div>
           </div>

@@ -210,8 +210,8 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
                   src={item.image}
                   alt={item.alt || item.label || item.cityName || ''}
                   draggable="false"
-                  loading="lazy"
-                  decoding="async"
+                  loading="eager"
+                  decoding="sync"
                 />
               </div>
               <div className="ag-panel__overlay" aria-hidden="true" />
