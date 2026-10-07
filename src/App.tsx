@@ -9,9 +9,11 @@ import { ServicesSection } from './components/ServicesSection';
 import { AdvantagesSection } from './components/AdvantagesSection';
 import { CoverageMapSection } from './components/CoverageMapSection';
 import { TopCitiesSection } from './components/TopCitiesSection';
+import { ReviewsMarquee } from './components/ReviewsMarquee';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
 import { VehicleDetailPage } from './components/VehicleDetailPage';
+import { DestinationsPage } from './components/DestinationsPage';
 import { BookingState, Vehicle, ServiceItem, CityDestination } from './types/limo';
 import { FLEET } from './data/limoData';
 
@@ -19,19 +21,25 @@ export default function App() {
   const [language, setLanguage] = useState<'FR' | 'EN'>('FR');
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [activeVehicleSlug, setActiveVehicleSlug] = useState<string | null>(null);
+  const [isDestinationsPage, setIsDestinationsPage] = useState(false);
 
   // Blacklane-style smooth scroll progress indicator
   const { scrollYProgress } = useScroll();
 
-  // Sync hash routing for vehicle subpages
+  // Sync hash routing for vehicle and destinations subpages
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash;
       if (hash.startsWith('#/vehicles/')) {
         const slug = hash.replace('#/vehicles/', '');
         setActiveVehicleSlug(slug);
+        setIsDestinationsPage(false);
+      } else if (hash === '#/destinations') {
+        setIsDestinationsPage(true);
+        setActiveVehicleSlug(null);
       } else {
         setActiveVehicleSlug(null);
+        setIsDestinationsPage(false);
       }
     };
 
@@ -120,12 +128,13 @@ export default function App() {
         onOpenBooking={() => setIsBookingOpen(true)}
         onNavigateHome={() => {
           setActiveVehicleSlug(null);
+          setIsDestinationsPage(false);
           window.history.pushState(null, '', '#');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
       />
 
-      {/* Main Content: Dedicated Vehicle Subpage OR Full Homepage */}
+      {/* Main Content: Dedicated Vehicle Subpage OR Destinations Subpage OR Homepage */}
       <main className="flex-1">
         {activeVehicle ? (
           /* Subpage Detail of Selected Vehicle */
@@ -139,6 +148,19 @@ export default function App() {
             onSelectOtherVehicle={(slug) => {
               setActiveVehicleSlug(slug);
               window.history.pushState(null, '', `#/vehicles/${slug}`);
+            }}
+          />
+        ) : isDestinationsPage ? (
+          /* Subpage Detail: All Destinations Canada & USA */
+          <DestinationsPage
+            language={language}
+            onBack={() => {
+              setIsDestinationsPage(false);
+              window.history.pushState(null, '', '#cities');
+            }}
+            onOpenBooking={() => setIsBookingOpen(true)}
+            onBookDestination={(destination: string) => {
+              handleSelectCity(destination);
             }}
           />
         ) : (
@@ -179,6 +201,11 @@ export default function App() {
             <TopCitiesSection
               language={language}
               onSelectCity={handleSelectCity}
+              onViewAllDestinations={() => {
+                setIsDestinationsPage(true);
+                window.history.pushState(null, '', '#/destinations');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
             />
 
             {/* 6. Section 06: Destinations Phares Canada & USA (Coverage Map) */}
@@ -187,6 +214,9 @@ export default function App() {
               onSelectCity={(cityName) => handleSelectCity(cityName)}
               onOpenBooking={() => setIsBookingOpen(true)}
             />
+
+            {/* Section: Google Reviews Marquee (Infinite scroll left-to-right) */}
+            <ReviewsMarquee language={language} />
           </>
         )}
       </main>

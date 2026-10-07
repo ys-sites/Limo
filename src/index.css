@@ -25,7 +25,7 @@ body {
 }
 
 img {
-  content-visibility: auto;
+  max-width: 100%;
 }
 
 /* Tactile luxury noise texture overlay */

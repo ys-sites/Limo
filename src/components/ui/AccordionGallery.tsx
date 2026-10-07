@@ -93,7 +93,6 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
       panels.forEach((panel, i) => {
         if (!panel) return;
         const isActive = i === active;
-        const media = mediaRefs.current[i];
         const bar = barRefs.current[i];
         const text = textRefs.current[i];
         const extra = extraRefs.current[i];
@@ -102,27 +101,6 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
         const rotProp = vertical ? { rotateX: -rot } : { rotateY: rot };
 
         tl.to(panel, { flexGrow: isActive ? grow : 1, ...rotProp, duration: dur, ease, force3D: true }, 0);
-
-        if (media) {
-          const drift = Math.max(-1.5, Math.min(1.5, active - i));
-          const shift = drift * parallax * mediaSize * 0.06;
-          const gray = grayscale ? (isActive ? 0 : 0.8) : 0;
-          tl.to(
-            media,
-            {
-              xPercent: -50,
-              yPercent: -50,
-              x: vertical ? 0 : isActive ? 0 : shift,
-              y: vertical ? (isActive ? 0 : shift) : 0,
-              '--ag-gray': gray,
-              '--ag-dim': isActive ? 0 : 0.45,
-              duration: dur,
-              ease,
-              force3D: true
-            },
-            0
-          );
-        }
 
         if (showLabels) {
           const targets = [bar, text, extra].filter(Boolean);
@@ -144,8 +122,6 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
       ease,
       vertical,
       tilt,
-      parallax,
-      grayscale,
       showLabels,
       stagger,
       prefersReduced
@@ -228,8 +204,8 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
             aria-current={isActive ? 'true' : undefined}
             aria-label={item.label || item.cityName}
           >
-            <span className="ag-panel__frame">
-              <span className="ag-panel__media" ref={(el) => { mediaRefs.current[i] = el; }}>
+            <div className="ag-panel__frame">
+              <div className="ag-panel__media" ref={(el) => { mediaRefs.current[i] = el; }}>
                 <img
                   src={item.image}
                   alt={item.alt || item.label || item.cityName || ''}
@@ -237,9 +213,9 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
                   loading="lazy"
                   decoding="async"
                 />
-              </span>
-              <span className="ag-panel__overlay" aria-hidden="true" />
-            </span>
+              </div>
+              <div className="ag-panel__overlay" aria-hidden="true" />
+            </div>
 
             {/* Top white badge with city name matching screenshot */}
             <div className="ag-panel__top-badge">
@@ -250,7 +226,7 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
 
             {/* Bottom active caption and info */}
             {showLabels && (
-              <span className="ag-panel__label" aria-hidden="true">
+              <div className="ag-panel__label" aria-hidden="true">
                 <span className="ag-panel__bar" ref={(el) => { barRefs.current[i] = el; }} />
                 <div>
                   <span className="ag-panel__text" ref={(el) => { textRefs.current[i] = el; }}>
@@ -262,7 +238,7 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
                     </span>
                   )}
                 </div>
-              </span>
+              </div>
             )}
           </div>
         );

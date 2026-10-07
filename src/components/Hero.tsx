@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { BookingWidget } from './BookingWidget';
 import { BookingState } from '../types/limo';
 import { HERO_IMAGE, CLIENT_INFO } from '../data/limoData';
-import { MessageSquare } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { ShinyText } from './ui/ShinyText';
 import { FoldText } from './ui/FoldText';
 
@@ -101,13 +101,13 @@ export const Hero: React.FC<HeroProps> = ({ language, onReserve }) => {
               </a>
 
               <a
-                href={CLIENT_INFO.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3.5 text-xs font-semibold text-white bg-emerald-600/90 hover:bg-emerald-500 border border-emerald-400/40 backdrop-blur-md rounded-full transition-all shadow-md active:scale-95"
+                href={`tel:${CLIENT_INFO.phoneRaw}`}
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 text-xs font-semibold tracking-wider text-white bg-white/10 hover:bg-white/20 border border-white/25 hover:border-[#D7B65D] backdrop-blur-md rounded-full transition-all shadow-md active:scale-95 group"
+                aria-label="Call Limo Raf 24/7"
               >
-                <MessageSquare className="w-4 h-4 fill-current" />
-                <span>WhatsApp VIP</span>
+                <Phone className="w-3.5 h-3.5 text-[#F5D577] group-hover:scale-110 transition-transform" />
+                <span>{isFr ? 'Conciergerie 24/7' : '24/7 Concierge'}</span>
+                <span className="font-mono text-neutral-300 font-normal hidden sm:inline">· {CLIENT_INFO.phone}</span>
               </a>
             </div>
           </motion.div>
