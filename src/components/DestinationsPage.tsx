@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, MapPin, Plane, Navigation, Globe, Shield, Clock, Check, ArrowUpRight, Phone, MessageSquare } from 'lucide-react';
+import { ArrowLeft, MapPin, Plane, Navigation, Globe, Landmark, Shield, Clock, Check, ArrowUpRight, Phone, MessageSquare } from 'lucide-react';
 import { CLIENT_INFO } from '../data/limoData';
 import { ShinyText } from './ui/ShinyText';
 
@@ -46,6 +46,12 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
     { name: 'New York City (JFK/LGA/EWR)', state: 'New York', tag: 'Manhattan VIP', note: 'Arrivée directe à Manhattan sans correspondance' },
     { name: 'Albany', state: 'New York', tag: 'Capitale d’État', note: 'Rencontres d’affaires et délégations' },
   ];
+
+  const regionTabs = [
+    { id: 'quebec', Icon: MapPin, labelFr: 'Québec & Régions', labelEn: 'Quebec & Regions' },
+    { id: 'ontario', Icon: Landmark, labelFr: 'Corridor Ontario', labelEn: 'Ontario Corridor' },
+    { id: 'usa', Icon: Globe, labelFr: 'États-Unis (Transfrontalier)', labelEn: 'United States (Cross-Border)' },
+  ] as const;
 
   return (
     <div className="min-h-screen bg-[#ECE7DE] text-neutral-900 pt-28 pb-20">
@@ -97,46 +103,29 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
         </div>
 
         {/* 3 Regional Tabs: equal columns, aligned, all visible */}
-        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-10 max-w-2xl mx-auto">
-          <button
-            onClick={() => setActiveTab('quebec')}
-            className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 rounded-xl text-center transition-all cursor-pointer min-h-[88px] sm:min-h-0 ${
-              activeTab === 'quebec'
-                ? 'bg-neutral-950 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_10px_25px_rgba(0,0,0,0.15)] border border-neutral-800'
-                : 'liquid-glass-light-pill text-neutral-700 hover:bg-white/95 border-white/90'
-            }`}
-          >
-            <span className="text-lg sm:text-base leading-none">🍁</span>
-            <span className="text-[10px] sm:text-sm font-bold tracking-wider uppercase leading-tight">
-              {isFr ? 'Québec & Régions' : 'Quebec & Regions'}
-            </span>
-          </button>
-          <button
-            onClick={() => setActiveTab('ontario')}
-            className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 rounded-xl text-center transition-all cursor-pointer min-h-[88px] sm:min-h-0 ${
-              activeTab === 'ontario'
-                ? 'bg-neutral-950 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_10px_25px_rgba(0,0,0,0.15)] border border-neutral-800'
-                : 'liquid-glass-light-pill text-neutral-700 hover:bg-white/95 border-white/90'
-            }`}
-          >
-            <span className="text-lg sm:text-base leading-none">🏛️</span>
-            <span className="text-[10px] sm:text-sm font-bold tracking-wider uppercase leading-tight">
-              {isFr ? 'Corridor Ontario' : 'Ontario Corridor'}
-            </span>
-          </button>
-          <button
-            onClick={() => setActiveTab('usa')}
-            className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 rounded-xl text-center transition-all cursor-pointer min-h-[88px] sm:min-h-0 ${
-              activeTab === 'usa'
-                ? 'bg-neutral-950 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_10px_25px_rgba(0,0,0,0.15)] border border-neutral-800'
-                : 'liquid-glass-light-pill text-neutral-700 hover:bg-white/95 border-white/90'
-            }`}
-          >
-            <span className="text-lg sm:text-base leading-none">🇺🇸</span>
-            <span className="text-[10px] sm:text-sm font-bold tracking-wider uppercase leading-tight">
-              {isFr ? 'États-Unis (Transfrontalier)' : 'United States (Cross-Border)'}
-            </span>
-          </button>
+        <div role="tablist" className="grid grid-cols-3 gap-2 sm:gap-4 mb-10 max-w-2xl mx-auto">
+          {regionTabs.map(({ id, Icon, labelFr, labelEn }) => {
+            const isActive = activeTab === id;
+            return (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActiveTab(id)}
+                className={`flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-5 py-3 rounded-xl text-center transition-all duration-200 cursor-pointer min-h-[88px] sm:min-h-0 active:scale-[0.98] ${
+                  isActive
+                    ? 'bg-gradient-to-b from-[#E5C778] via-[#D7B65D] to-[#B89235] text-neutral-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_10px_25px_rgba(196,150,58,0.28)] border border-[#C4963A]/60'
+                    : 'liquid-glass-light-pill text-neutral-700 hover:text-neutral-950 hover:bg-white/95 hover:border-[#D7B65D]/50'
+                }`}
+              >
+                <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-neutral-950' : 'text-[#C4963A]'}`} strokeWidth={2} />
+                <span className="text-[10px] sm:text-sm font-bold tracking-wider uppercase leading-tight">
+                  {isFr ? labelFr : labelEn}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Tab 1: Québec */}
@@ -232,7 +221,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
                 <span className="font-bold text-neutral-900">Expertise Douanière & Chauffeurs Accrédités : </span>
                 {isFr
                   ? 'Nos chauffeurs possèdent l’expérience complète des postes frontaliers Québec-USA (Saint-Bernard-de-Lacolle, Highgate Springs) pour un passage fluide sans encombre.'
-                  : 'Our chauffeurs are fully accredited for cross-border transit between Quebec and the United States for seamless border clearance.'}
+                  : 'Our chauffeurs are fully accredited for cross-border transit between Quebec and the United States for smooth, well-prepared border crossings.'}
               </div>
             </div>
 

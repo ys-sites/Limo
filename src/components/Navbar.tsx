@@ -12,6 +12,8 @@ interface NavbarProps {
   onQuote: () => void;
   onCallback: () => void;
   onNavigateHome?: () => void;
+  /** Light-background subpages: always render the solid dark glass bar */
+  forceSolid?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ 
@@ -21,7 +23,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenDestinations,
   onQuote,
   onCallback,
-  onNavigateHome 
+  onNavigateHome,
+  forceSolid = false
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -106,8 +109,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         className={`fixed top-0 left-0 right-0 z-40 w-full transition-all duration-300 ${
           isVisible ? 'translate-y-0' : '-translate-y-full'
         } ${
-          isScrolled
-            ? 'liquid-glass-nav'
+          isScrolled || forceSolid
+            ? `liquid-glass-nav${forceSolid ? ' liquid-glass-nav--solid' : ''}`
             : 'bg-gradient-to-b from-black/85 via-black/40 to-transparent'
         }`}
       >

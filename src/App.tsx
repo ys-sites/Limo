@@ -133,6 +133,7 @@ export default function App() {
         onOpenDestinations={handleOpenDestinations}
         onQuote={() => openQuote()}
         onCallback={() => setCallbackOpen(true)}
+        forceSolid={!!activeVehicle || isDestinationsPage}
         onNavigateHome={() => {
           setActiveVehicleSlug(null);
           setIsDestinationsPage(false);

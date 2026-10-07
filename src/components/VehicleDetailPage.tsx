@@ -346,7 +346,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold text-neutral-900">
-                  {language === 'FR' ? 'Demande envoyée avec succès !' : 'Quote Request Sent!'}
+                  {language === 'FR' ? 'Demande envoyée' : 'Quote request sent'}
                 </h3>
                 <p className="text-xs text-neutral-600 max-w-md mx-auto leading-relaxed">
                   {language === 'FR'

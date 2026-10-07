@@ -36,6 +36,30 @@ img {
   max-width: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Balanced headlines, no orphaned last words in body copy */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* Visible gold focus ring for keyboard navigation only */
+:where(a, button, input, select, textarea, [role="tab"]):focus-visible {
+  outline: 2px solid #D7B65D;
+  outline-offset: 2px;
+}
+
 /* Tactile luxury noise texture overlay */
 .bg-noise {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
@@ -105,6 +129,14 @@ img {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     0 20px 50px rgba(0, 0, 0, 0.65);
+}
+
+/* Over light (cream) subpages the 78% tint washes out to grey — deepen it */
+.liquid-glass-nav.liquid-glass-nav--solid {
+  background: rgba(7, 8, 10, 0.94);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 12px 32px rgba(0, 0, 0, 0.25);
 }
 
 /* Liquid Glass Form Input */

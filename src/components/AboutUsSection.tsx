@@ -249,7 +249,7 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onQuot
                     <p>
                       {isFr
                         ? "Bilingues (français et anglais), ils veillent au bon déroulement de vos trajets à travers le Grand Montréal, Laval, la Rive-Sud, l'Aéroport YUL et les corridors régionaux."
-                        : "Bilingual (French and English), they ensure seamless transportation across Greater Montreal, Laval, the South Shore, YUL Airport, and regional corridors."}
+                        : "Bilingual (French and English), they get you smoothly across Greater Montreal, Laval, the South Shore, YUL Airport, and regional corridors."}
                     </p>
                   </>
                 )}

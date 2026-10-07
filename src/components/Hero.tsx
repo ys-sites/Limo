@@ -34,7 +34,7 @@ export const Hero: React.FC<HeroProps> = ({
     <section
       ref={containerRef}
       id="hero"
-      className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#07080A]"
+      className="relative w-full min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-[#07080A]"
     >
       {/* Background Cinematic Image with Entrance Zoom & Scroll Parallax */}
       <motion.div
