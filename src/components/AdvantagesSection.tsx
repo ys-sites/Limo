@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, UserCheck, Car, Clock, Sparkles, Headphones, Award, ArrowUpRight } from 'lucide-react';
+import { ShinyText } from './ui/ShinyText';
 
 interface AdvantagesSectionProps {
   language: 'FR' | 'EN';
@@ -86,8 +87,13 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ language, 
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 mb-4 font-sans">
-              {isFr ? 'Nos Avantages Exclusifs' : 'Our Exclusive Advantages'}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 font-sans">
+              <ShinyText
+                text={isFr ? 'Nos Avantages Exclusifs' : 'Our Exclusive Advantages'}
+                color="#171717"
+                shineColor="#D7B65D"
+                speed={3}
+              />
             </h2>
 
             <p className="text-xs sm:text-sm text-neutral-600 font-light leading-relaxed max-w-xl mx-auto">

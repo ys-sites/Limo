@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, MapPin, Plane, Navigation, Globe, Shield, Clock, Check, ArrowUpRight, Phone, MessageSquare } from 'lucide-react';
 import { CLIENT_INFO } from '../data/limoData';
+import { ShinyText } from './ui/ShinyText';
 
 interface DestinationsPageProps {
   language: 'FR' | 'EN';
@@ -47,7 +48,7 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-[#F6F6F6] text-neutral-900 pt-28 pb-20">
+    <div className="min-h-screen bg-[#ECE7DE] text-neutral-900 pt-28 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Back Navigation Bar */}
         <div className="mb-8 flex items-center justify-between">
@@ -79,8 +80,13 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 mb-4 font-sans">
-            {isFr ? 'Nos Destinations Canada & États-Unis' : 'Our Canada & USA Destinations'}
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 font-sans">
+            <ShinyText
+              text={isFr ? 'Nos Destinations Canada & États-Unis' : 'Our Canada & USA Destinations'}
+              color="#171717"
+              shineColor="#D7B65D"
+              speed={3}
+            />
           </h1>
 
           <p className="text-sm sm:text-base text-neutral-600 font-light leading-relaxed">

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, Users, Luggage, MessageSquare, Info, Sparkles } from 'lucide-react';
 import { FLEET, CLIENT_INFO } from '../data/limoData';
 import { Vehicle } from '../types/limo';
+import { ShinyText } from './ui/ShinyText';
 
 interface FleetSectionProps {
   language: 'FR' | 'EN';
@@ -44,8 +45,13 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
             </span>
           </div>
           <div className="text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight font-sans">
-              {language === 'FR' ? 'Notre flotte' : 'Our fleet'}
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight font-sans">
+              <ShinyText
+                text={language === 'FR' ? 'Notre flotte' : 'Our fleet'}
+                color="#171717"
+                shineColor="#D7B65D"
+                speed={3}
+              />
             </h2>
             <p className="text-xs sm:text-sm text-neutral-500 font-light mt-1">
               {language === 'FR'

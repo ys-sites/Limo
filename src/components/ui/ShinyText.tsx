@@ -93,13 +93,23 @@ export const ShinyText: React.FC<ShinyTextProps> = ({
         progress.set((1 - (cycleTime - animationDuration) / animationDuration) * 100);
       }
     } else {
-      const p = (animElapsed % animationDuration) / animationDuration;
-      progress.set(directionRef.current === 1 ? p * 100 : (1 - p) * 100);
+      // Luxury sweep: 1.2s calm rest between shines, smooth off-screen entrance and exit
+      const totalCycle = animationDuration + 1400;
+      const cycleTime = animElapsed % totalCycle;
+      if (cycleTime > animationDuration) {
+        progress.set(directionRef.current === 1 ? 160 : -60);
+      } else {
+        const p = cycleTime / animationDuration;
+        const start = -40;
+        const range = 180;
+        progress.set(directionRef.current === 1 ? start + p * range : (start + range) - p * range);
+      }
     }
   });
 
   const background = useTransform(progress, (val) => {
-    return `linear-gradient(${direction === 'left' ? '90deg' : '270deg'}, ${color} 0%, ${color} ${Math.max(0, val - spread / 2)}%, ${shineColor} ${val}%, ${color} ${Math.min(100, val + spread / 2)}%, ${color} 100%)`;
+    const half = spread / 2;
+    return `linear-gradient(${direction === 'left' ? '90deg' : '270deg'}, ${color} 0%, ${color} ${val - half}%, ${shineColor} ${val}%, ${color} ${val + half}%, ${color} 100%)`;
   });
 
   const handleMouseEnter = useCallback(() => {

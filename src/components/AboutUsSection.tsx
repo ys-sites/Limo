@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, ArrowUpRight, X, Shield, Sparkles } from 'lucide-react';
+import { ShinyText } from './ui/ShinyText';
 
 interface AboutUsSectionProps {
   language: 'FR' | 'EN';
@@ -38,8 +39,13 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ language, onBook
             </span>
           </div>
           <div className="text-center max-w-xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight font-sans">
-              {isFr ? 'Nos valeurs' : 'Our values'}
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight font-sans">
+              <ShinyText
+                text={isFr ? 'Nos valeurs' : 'Our values'}
+                color="#171717"
+                shineColor="#D7B65D"
+                speed={3}
+              />
             </h2>
             <p className="text-xs sm:text-sm text-neutral-600 font-normal mt-1.5">
               {isFr

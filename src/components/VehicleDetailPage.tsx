@@ -7,6 +7,7 @@ import {
 import { Vehicle } from '../types/limo';
 import { CLIENT_INFO, FLEET } from '../data/limoData';
 import { FORMSUBMIT_EMAIL, ONLINE_PAYMENT_URL } from '../config/formConfig';
+import { ShinyText } from './ui/ShinyText';
 
 interface VehicleDetailPageProps {
   vehicle: Vehicle;
@@ -163,8 +164,13 @@ Courriel: ${email || 'À confirmer'}${specialNotes ? `\nNotes: ${specialNotes}` 
               <span className="text-xs font-bold uppercase tracking-widest text-[#C4963A]">
                 {language === 'FR' ? 'Véhicule de Prestige' : 'Flagship Vehicle'}
               </span>
-              <h1 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight mt-1 font-sans">
-                {vehicle.name}
+              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mt-1 font-sans">
+                <ShinyText
+                  text={vehicle.name}
+                  color="#171717"
+                  shineColor="#D7B65D"
+                  speed={3}
+                />
               </h1>
               <p className="text-sm text-neutral-700 mt-2 font-normal leading-relaxed">
                 {language === 'FR' ? vehicle.taglineFr : vehicle.taglineEn}

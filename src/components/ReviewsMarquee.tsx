@@ -1,5 +1,6 @@
 import React from 'react';
 import { Star, CheckCircle, ShieldCheck } from 'lucide-react';
+import { ShinyText } from './ui/ShinyText';
 
 interface ReviewsMarqueeProps {
   language?: 'FR' | 'EN';
@@ -161,8 +162,13 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({ language = 'FR' 
                 Google Reviews · 5.0 ★★★★★
               </span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-neutral-900 tracking-tight font-sans">
-              {isFr ? 'Ce que nos clients disent de nous' : 'What Our Clients Say About Us'}
+            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight font-sans">
+              <ShinyText
+                text={isFr ? 'Ce que nos clients disent de nous' : 'What Our Clients Say About Us'}
+                color="#171717"
+                shineColor="#D7B65D"
+                speed={3}
+              />
             </h2>
             <p className="text-xs sm:text-sm text-neutral-600 font-normal mt-1">
               {isFr
