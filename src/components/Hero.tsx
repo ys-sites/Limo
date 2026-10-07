@@ -1,11 +1,10 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import { BookingWidget } from './BookingWidget';
 import { BookingState } from '../types/limo';
 import { HERO_IMAGE, CLIENT_INFO } from '../data/limoData';
-import { Phone } from 'lucide-react';
-import { ShinyText } from './ui/ShinyText';
-import { FoldText } from './ui/FoldText';
+import { Phone, ArrowRight } from 'lucide-react';
+import { LUXURY_EASE, scrollToAnchor } from '../lib/motion';
 
 interface HeroProps {
   language: 'FR' | 'EN';
@@ -14,109 +13,130 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ language, onReserve }) => {
   const isFr = language === 'FR';
+  const containerRef = useRef<HTMLElement | null>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  // Subtle scroll parallax: 0 -> 80px as user scrolls through the hero
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ['0px', shouldReduceMotion ? '0px' : '80px']);
 
   return (
-    <section id="hero" className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-neutral-950">
-      {/* Background Cinematic Image matching screenshot */}
-      <div className="absolute inset-0 z-0">
-        <img
+    <section
+      ref={containerRef}
+      id="hero"
+      className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#07080A]"
+    >
+      {/* Background Cinematic Image with Entrance Zoom & Scroll Parallax */}
+      <motion.div
+        style={{ y: parallaxY }}
+        className="absolute inset-0 z-0 will-change-transform"
+      >
+        <motion.img
+          initial={shouldReduceMotion ? { scale: 1, filter: 'blur(0px)' } : { scale: 1.08, filter: 'blur(4px)' }}
+          animate={{ scale: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 1.8, ease: LUXURY_EASE }}
           src={HERO_IMAGE}
           alt="Limo Raf Chauffeur Privé Montréal Cadillac Escalade"
-          className="w-full h-full object-cover object-center filter brightness-[0.82]"
-          referrerPolicy="no-referrer"
+          className="w-full h-full object-cover object-center filter brightness-[0.72]"
+          fetchPriority="high"
         />
-        {/* Soft linear gradient overlays for luxury contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-black/35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/45" />
-      </div>
+        {/* Deep luxury linear gradients */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#07080A]/95 via-[#07080A]/65 to-[#07080A]/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#07080A] via-transparent to-[#07080A]/60" />
+      </motion.div>
 
-      {/* Main Content: Headline on Left, Booking Card on Right */}
+      {/* Main Content Grid: Left Editorial Statement, Right Booking Widget */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-32 pb-16 lg:pt-36 lg:pb-20 flex-1 flex flex-col justify-center">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Left: Headline & Explore More with Blacklane-style smooth entrance */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7 space-y-6 text-white max-w-xl"
-          >
-            {/* VIP Location Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-black/60 backdrop-blur-md border border-[#D7B65D]/40 rounded-full text-[11px] text-[#F5D577] font-semibold tracking-wide">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>
-                {isFr ? 'Service 24/7 Grand Montréal · YUL · Laval · Tremblant' : '24/7 Greater Montreal · YUL Airport · Laval · Tremblant'}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+          {/* Left Column */}
+          <div className="lg:col-span-7 space-y-7 text-white max-w-xl">
+            {/* Location Line: Plain small caps, no pill background */}
+            <motion.div
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: LUXURY_EASE }}
+              className="flex items-center gap-3"
+            >
+              <span className="w-6 h-[1px] bg-[#D7B65D] shrink-0" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#D7B65D]">
+                {isFr
+                  ? 'Montréal · YUL · Laval · Mont-Tremblant — 24/7'
+                  : 'Montréal · YUL · Laval · Mont-Tremblant — 24/7'}
               </span>
-            </div>
+            </motion.div>
 
-            {/* Title with ShinyText effect */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[62px] font-extrabold text-white tracking-tight leading-[1.08] font-serif">
-              {isFr ? (
-                <>
-                  <span className="block text-white">Votre chauffeur</span>
-                  <ShinyText
-                    text="vous attend."
-                    color="#D7B65D"
-                    shineColor="#FFF6D6"
-                    speed={3}
-                    className="block"
-                  />
-                </>
-              ) : (
-                <>
-                  <span className="block text-white">Your chauffeur</span>
-                  <ShinyText
-                    text="awaits."
-                    color="#D7B65D"
-                    shineColor="#FFF6D6"
-                    speed={3}
-                    className="block"
-                  />
-                </>
-              )}
+            {/* Display Serif Headline with Masked Line Rise */}
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-[72px] font-medium text-white tracking-tight leading-[1.05]">
+              <span className="block overflow-hidden py-0.5">
+                <motion.span
+                  initial={shouldReduceMotion ? { opacity: 0 } : { y: '110%', opacity: 0 }}
+                  animate={{ y: '0%', opacity: 1 }}
+                  transition={{ duration: 0.9, delay: 0.25, ease: LUXURY_EASE }}
+                  className="block"
+                >
+                  {isFr ? 'Votre chauffeur' : 'Your chauffeur'}
+                </motion.span>
+              </span>
+              <span className="block overflow-hidden py-0.5">
+                <motion.span
+                  initial={shouldReduceMotion ? { opacity: 0 } : { y: '110%', opacity: 0 }}
+                  animate={{ y: '0%', opacity: 1 }}
+                  transition={{ duration: 0.9, delay: 0.35, ease: LUXURY_EASE }}
+                  className="block italic text-[#D7B65D]"
+                >
+                  {isFr ? 'vous attend.' : 'is waiting.'}
+                </motion.span>
+              </span>
             </h1>
 
-            {/* Subtext with FoldText component */}
-            <div className="text-xs sm:text-base text-neutral-300 leading-relaxed max-w-md font-light">
-              <FoldText
-                text={
-                  isFr
-                    ? "Chez Limo Raf, nous transformons chacun de vos déplacements en une expérience haut de gamme. Voyagez avec élégance."
-                    : "At Limo Raf, we transform every journey into an elite first-class experience. Ride with elegance."
-                }
-                trigger="mount"
-                duration={0.65}
-                stagger={0.03}
-                color="#E5E7EB"
-              />
-            </div>
+            {/* Human Tone Subtext: 15–16px standard fade */}
+            <motion.p
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.45, ease: LUXURY_EASE }}
+              className="text-base sm:text-[17px] text-neutral-300 font-light leading-relaxed max-w-lg"
+            >
+              {isFr
+                ? "Transferts aéroport, déplacements d'affaires et longues distances en VUS noir, avec un chauffeur qui connaît la route."
+                : "Airport runs, business days and long drives in a black SUV, with a chauffeur who knows the road."}
+            </motion.p>
 
-            {/* Action buttons with brand gold accent */}
-            <div className="pt-2 flex flex-wrap items-center gap-3.5">
-              <a
-                href="#fleet"
-                className="inline-flex items-center gap-2 px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-neutral-950 bg-gradient-to-r from-[#D7B65D] via-[#F5D577] to-[#D7B65D] hover:scale-105 active:scale-95 rounded-full transition-all shadow-lg shadow-[#D7B65D]/30 cursor-pointer"
+            {/* Action Buttons: Solid primary CTA + Direct phone text link */}
+            <motion.div
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.55, ease: LUXURY_EASE }}
+              className="pt-2 flex flex-wrap items-center gap-6"
+            >
+              <button
+                type="button"
+                onClick={() => scrollToAnchor('#fleet', -80)}
+                className="group inline-flex items-center gap-3 px-7 py-4 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-950 bg-[#D7B65D] hover:bg-[#C4963A] transition-colors cursor-pointer"
               >
-                <span>{isFr ? 'Explorer la flotte' : 'Explore fleet'}</span>
-                <span>→</span>
-              </a>
+                <span>{isFr ? 'Réserver un trajet' : 'Book a ride'}</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+              </button>
 
               <a
                 href={`tel:${CLIENT_INFO.phoneRaw}`}
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 text-xs font-semibold tracking-wider text-white bg-white/10 hover:bg-white/20 border border-white/25 hover:border-[#D7B65D] backdrop-blur-md rounded-full transition-all shadow-md active:scale-95 group"
-                aria-label="Call Limo Raf 24/7"
+                className="inline-flex items-center gap-2 text-sm text-neutral-300 hover:text-white font-mono tracking-tight transition-colors py-2"
+                aria-label="Appeler Limo Raf"
               >
-                <Phone className="w-3.5 h-3.5 text-[#F5D577] group-hover:scale-110 transition-transform" />
-                <span>{isFr ? 'Conciergerie 24/7' : '24/7 Concierge'}</span>
-                <span className="font-mono text-neutral-300 font-normal hidden sm:inline">· {CLIENT_INFO.phone}</span>
+                <Phone className="w-4 h-4 text-[#D7B65D]" />
+                <span>{CLIENT_INFO.phone}</span>
               </a>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
-          {/* Right: Floating Booking Widget directly matching screenshot */}
+          {/* Right Column: Booking Card Slide-in */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 0.5, ease: LUXURY_EASE }}
             className="lg:col-span-5 flex justify-center lg:justify-end"
           >
             <BookingWidget language={language} onReserve={onReserve} />
@@ -124,18 +144,25 @@ export const Hero: React.FC<HeroProps> = ({ language, onReserve }) => {
         </div>
       </div>
 
-      {/* Bottom: Mouse Scroll Down indicator matching screenshot */}
+      {/* Bottom Scroll Down Line Indicator */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-8">
         <a
           href="#about"
-          className="inline-flex items-center gap-2.5 text-xs text-white/80 hover:text-[#F5D577] transition-colors group"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToAnchor('#about', -80);
+          }}
+          className="inline-flex items-center gap-3 text-xs text-neutral-400 hover:text-[#D7B65D] transition-colors group"
         >
-          {/* Mouse capsule outline with wheel dot */}
-          <div className="w-4 h-7 rounded-full border border-white/70 group-hover:border-[#F5D577] flex items-start justify-center p-1 transition-colors">
-            <div className="w-1 h-1.5 bg-[#F5D577] rounded-full animate-bounce" />
+          <div className="w-[1px] h-8 bg-neutral-700 relative overflow-hidden">
+            <motion.div
+              animate={shouldReduceMotion ? {} : { y: ['-100%', '100%'] }}
+              transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
+              className="w-full h-1/2 bg-[#D7B65D]"
+            />
           </div>
-          <span className="text-[11px] font-medium tracking-wider">
-            {isFr ? 'Défiler vers le bas' : 'Scroll down'}
+          <span className="text-[11px] uppercase tracking-[0.18em]">
+            {isFr ? 'Défiler' : 'Scroll'}
           </span>
         </a>
       </div>

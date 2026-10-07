@@ -1,6 +1,7 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Clock, MessageSquare, ChevronRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, MessageSquare } from 'lucide-react';
 import { CLIENT_INFO, FLEET } from '../data/limoData';
+import { LimoLogo } from './ui/LimoLogo';
 
 interface FooterProps {
   language: 'FR' | 'EN';
@@ -9,39 +10,70 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSelectVehicle }) => {
+  const isFr = language === 'FR';
+
   return (
-    <footer id="contact" className="w-full bg-black text-neutral-300 pt-16 pb-12 relative border-t border-neutral-900">
+    <footer id="contact" className="w-full bg-[#07080A] text-neutral-300 pt-20 pb-12 relative border-t border-neutral-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Grid directly matching client screenshot */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 pb-14 border-b border-neutral-800/80">
-          {/* Column 1: Brand Logo & About Us (lg:col-span-4) */}
-          <div className="lg:col-span-4 space-y-4">
-            <a href="#" onClick={(e) => { if (onNavigateHome) { e.preventDefault(); onNavigateHome(); } }} className="inline-block group">
-              <img
-                src="/logo.png"
-                alt="Limo Raf"
-                className="h-16 w-auto object-contain filter drop-shadow-md group-hover:scale-105 transition-transform"
+        {/* Editorial Top Sign-off Bar */}
+        <div className="pb-16 mb-16 border-b border-neutral-800/80 flex flex-col md:flex-row items-baseline justify-between gap-6">
+          <div>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#D7B65D] block mb-2">
+              {isFr ? 'Contact & réservations' : 'Contact & booking'}
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-medium tracking-tight">
+              {isFr ? 'On vous attend.' : 'We are waiting for you.'}
+            </h2>
+          </div>
+
+          <a
+            href={`tel:${CLIENT_INFO.phoneRaw}`}
+            className="font-mono text-2xl sm:text-3xl text-neutral-200 hover:text-[#D7B65D] transition-colors tracking-tight"
+          >
+            {CLIENT_INFO.phone}
+          </a>
+        </div>
+
+        {/* 4 Tidy Columns (Normal case headings, no ► glyphs) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-neutral-800/80">
+          {/* Column 1: Brand Logo & Quiet Statement (lg:col-span-4) */}
+          <div className="lg:col-span-4 space-y-5">
+            <a
+              href="#"
+              onClick={(e) => {
+                if (onNavigateHome) {
+                  e.preventDefault();
+                  onNavigateHome();
+                }
+              }}
+              className="inline-block group"
+              aria-label="Limo Raf - Accueil"
+            >
+              <LimoLogo
+                variant="horizontal"
+                className="h-11 sm:h-12 w-auto"
+                subline={isFr ? 'Montréal · depuis 2021' : 'Montreal · since 2021'}
               />
             </a>
 
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#F5D577] mb-1.5">
-                {language === 'FR' ? 'À PROPOS DE NOUS' : 'ABOUT US'}
-              </h4>
-              <p className="text-xs text-neutral-400 font-light leading-relaxed max-w-sm">
-                {language === 'FR'
-                  ? 'Limoraf est une entreprise de limousine de premier plan basée à Montréal, dédiée à offrir des services de transport de luxe exceptionnels avec chauffeurs professionnels certifiés.'
-                  : 'Limoraf is a premier limousine company based in Montreal, dedicated to providing exceptional transportation services with certified professional chauffeurs.'}
+            <div className="space-y-2">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-neutral-400">
+                {CLIENT_INFO.brandName}
+              </h3>
+              <p className="text-sm text-neutral-400 font-light leading-relaxed max-w-sm">
+                {isFr
+                  ? 'Service de chauffeur privé et VUS de prestige basé à Montréal. Prise en charge 24/7 vers YUL Trudeau, réunions corporatives et liaisons interurbaines.'
+                  : 'Private chauffeur service and luxury SUVs based in Montreal. 24/7 dispatch to YUL airport, corporate schedules, and intercity corridors.'}
               </p>
             </div>
           </div>
 
-          {/* Column 2: Contact Info (lg:col-span-3) */}
-          <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#F5D577]">
-              {language === 'FR' ? 'COORDONNÉES' : 'CONTACT INFO'}
-            </h4>
-            <ul className="space-y-2.5 text-xs text-neutral-400 font-light">
+          {/* Column 2: Coordonnées (lg:col-span-3) */}
+          <div className="lg:col-span-3 space-y-3.5">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-neutral-400">
+              {isFr ? 'Coordonnées' : 'Contact'}
+            </h3>
+            <ul className="space-y-2.5 text-sm text-neutral-400 font-light">
               <li className="flex items-center gap-2.5">
                 <Phone className="w-3.5 h-3.5 text-[#D7B65D] shrink-0" />
                 <a href={`tel:${CLIENT_INFO.phoneRaw}`} className="hover:text-white transition-colors font-mono">
@@ -56,71 +88,84 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSele
               </li>
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-3.5 h-3.5 text-[#D7B65D] shrink-0 mt-0.5" />
-                <span>{CLIENT_INFO.address}</span>
+                <span>
+                  {/* Real address labeled as Bureau Terrebonne */}
+                  Bureau — Terrebonne, QC
+                </span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Clock className="w-3.5 h-3.5 text-[#D7B65D] shrink-0" />
-                <span className="text-[#F5D577] font-medium">
-                  {language === 'FR' ? '24/7 Tous les jours' : 'Everyday 24/7'}
+                <span className="text-neutral-300">
+                  {isFr ? '24/7 sur réservation' : '24/7 by reservation'}
                 </span>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Sitemap (lg:col-span-2) */}
-          <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#F5D577]">
-              {language === 'FR' ? 'PLAN DU SITE' : 'SITEMAP'}
-            </h4>
-            <ul className="space-y-2 text-xs text-neutral-400 font-light">
+          {/* Column 3: Plan du site (lg:col-span-2) */}
+          <div className="lg:col-span-2 space-y-3.5">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-neutral-400">
+              {isFr ? 'Navigation' : 'Sitemap'}
+            </h3>
+            <ul className="space-y-2 text-sm text-neutral-400 font-light">
               <li>
-                <a href="#" onClick={(e) => { if (onNavigateHome) { e.preventDefault(); onNavigateHome(); } }} className="hover:text-white transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-[#D7B65D]" />
-                  <span>{language === 'FR' ? 'Accueil' : 'Home'}</span>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    if (onNavigateHome) {
+                      e.preventDefault();
+                      onNavigateHome();
+                    }
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  {isFr ? 'Accueil' : 'Home'}
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-white transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-[#D7B65D]" />
-                  <span>{language === 'FR' ? 'À Propos' : 'About Us'}</span>
+                <a href="#about" className="hover:text-white transition-colors">
+                  {isFr ? 'À propos' : 'About us'}
                 </a>
               </li>
               <li>
-                <a href="#fleet" className="hover:text-white transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-[#D7B65D]" />
-                  <span>{language === 'FR' ? 'Notre Flotte' : 'Our Fleet'}</span>
+                <a href="#fleet" className="hover:text-white transition-colors">
+                  {isFr ? 'Notre flotte' : 'Our fleet'}
                 </a>
               </li>
               <li>
-                <a href="#services" className="hover:text-white transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-[#D7B65D]" />
-                  <span>{language === 'FR' ? 'Nos Services' : 'Our Services'}</span>
+                <a href="#services" className="hover:text-white transition-colors">
+                  {isFr ? 'Services' : 'Services'}
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-white transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-[#D7B65D]" />
-                  <span>{language === 'FR' ? 'Contactez-nous' : 'Contact us'}</span>
+                <a href="#advantages" className="hover:text-white transition-colors">
+                  {isFr ? 'Pourquoi Limo Raf' : 'Why Limo Raf'}
+                </a>
+              </li>
+              <li>
+                <a href="#cities" className="hover:text-white transition-colors">
+                  {isFr ? 'Destinations' : 'Destinations'}
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Our Fleet (lg:col-span-3) */}
-          <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#F5D577]">
-              {language === 'FR' ? 'NOTRE FLOTTE' : 'OUR FLEET'}
-            </h4>
-            <ul className="space-y-2 text-xs text-neutral-400 font-light">
+          {/* Column 4: Flotte (lg:col-span-3) */}
+          <div className="lg:col-span-3 space-y-3.5">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-neutral-400">
+              {isFr ? 'Flotte disponible' : 'Available fleet'}
+            </h3>
+            <ul className="space-y-2 text-sm text-neutral-400 font-light">
               {FLEET.map((v) => (
                 <li key={v.id}>
                   <a
                     href={`#/vehicles/${v.slug}`}
-                    onClick={() => { if (onSelectVehicle) onSelectVehicle(v.slug); }}
-                    className="hover:text-[#F5D577] transition-colors flex items-center gap-1.5"
+                    onClick={() => {
+                      if (onSelectVehicle) onSelectVehicle(v.slug);
+                    }}
+                    className="hover:text-white transition-colors block"
                   >
-                    <span className="text-[#D7B65D] text-[10px]">►</span>
-                    <span>{v.name}</span>
+                    {v.name}
                   </a>
                 </li>
               ))}
@@ -131,15 +176,15 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSele
         {/* Bottom Bar: Copyright & Socials */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
           <p>
-            Copyright © {new Date().getFullYear()} {CLIENT_INFO.brandName}. {language === 'FR' ? 'Tous droits réservés.' : 'All rights reserved.'}
+            © {new Date().getFullYear()} {CLIENT_INFO.brandName}. {isFr ? 'Tous droits réservés.' : 'All rights reserved.'}
           </p>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <a
               href={CLIENT_INFO.facebookUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-[#F5D577] transition-colors"
+              className="text-neutral-500 hover:text-white transition-colors"
               aria-label="Facebook"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -151,7 +196,7 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSele
               href={CLIENT_INFO.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-[#F5D577] transition-colors"
+              className="text-neutral-500 hover:text-white transition-colors"
               aria-label="Instagram"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -163,7 +208,7 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSele
               href={CLIENT_INFO.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-emerald-400 transition-colors"
+              className="text-neutral-500 hover:text-[#25D366] transition-colors"
               aria-label="WhatsApp"
             >
               <MessageSquare className="w-4 h-4" />
