@@ -40,14 +40,14 @@ export const CLIENT_INFO = {
 
 export const SERVICES: ServiceItem[] = [
   {
-    id: 'airport-transfers',
-    titleEn: 'Airport transfers',
-    titleFr: 'Transferts aéroport YUL',
-    subtitleEn: 'Montréal-Trudeau YUL & Regional Terminals',
+    id: 'airport-service',
+    titleEn: 'AIRPORT SERVICE',
+    titleFr: 'SERVICE AÉROPORT',
+    subtitleEn: 'Montreal-Trudeau YUL & Regional Hubs',
     subtitleFr: 'Aéroport Montréal-Trudeau YUL & Régions',
     descriptionEn: 'Arrive smoothly with real-time flight tracking, 60 minutes complimentary wait time, terminal meet-and-greet with personalized tablet signage, and full luggage assistance.',
     descriptionFr: 'Voyagez sans stress avec suivi des vols en temps réel, 60 minutes d\'attente offerte, accueil personnalisé à l\'intérieur du terminal avec tablette et prise en charge intégrale des bagages.',
-    image: serviceAirportTransfer,
+    image: '/images/service_airport_transfer_1791294128362.jpg',
     featuresEn: [
       'Real-time flight status sync (YUL, YHU, YMX)',
       'Terminal meet & greet with executive tablet',
@@ -62,36 +62,58 @@ export const SERVICES: ServiceItem[] = [
     ]
   },
   {
-    id: 'corporate-travel',
-    titleEn: 'Corporate travel',
-    titleFr: 'Service corporatif & affaires',
-    subtitleEn: 'Executive Business Transport',
-    subtitleFr: 'Transport d\'affaires exécutif',
-    descriptionEn: 'Discreet, punctual chauffeured transportation tailored for C-suite executives, financial roadshows, and board meetings. Equipped with high-speed Wi-Fi and quiet, acoustic cabins.',
-    descriptionFr: 'Transport avec chauffeur discret et ponctuel, taillé sur mesure pour cadres de direction, conférences et roadshows financiers. Équipé du Wi-Fi haute vitesse et d\'un habitacle insonorisé.',
-    image: serviceCorporateTravel,
+    id: 'long-distance',
+    titleEn: 'LONG DISTANCE',
+    titleFr: 'LONGUE DISTANCE',
+    subtitleEn: 'Intercity Canada & USA Corridors',
+    subtitleFr: 'Liaisons interurbaines Canada & USA',
+    descriptionEn: 'Avoid crowded airports and train stations. Travel between Montreal, Mont-Tremblant, Quebec City, Ottawa, Toronto, and US destinations (Boston, New York, Burlington, Plattsburgh) in pristine comfort.',
+    descriptionFr: 'Évitez les gares et aéroports bondés. Voyagez en toute sérénité entre Montréal, Mont-Tremblant, Québec, Ottawa, Toronto et vers les États-Unis (New York, Boston, Plattsburgh, Burlington).',
+    image: '/images/service_corporate_travel_1791294137972.jpg',
+    featuresEn: [
+      'Fixed flat-rate intercity pricing with zero hidden fees',
+      'Private door-to-door transit between major cities',
+      'Spacious reclining captain seats for work or rest',
+      'Cross-border US travel authorization & expertise'
+    ],
+    featuresFr: [
+      'Tarification forfaitaire claire sans frais cachés',
+      'Liaison privée porte-à-porte d\'un centre à l\'autre',
+      'Sièges capitaines inclinables grand confort',
+      'Chauffeurs certifiés pour voyages transfrontaliers USA'
+    ]
+  },
+  {
+    id: 'hourly-limo',
+    titleEn: 'HOURLY LIMO',
+    titleFr: 'SERVICE À L\'HEURE',
+    subtitleEn: 'Flexible By-The-Hour Chauffeur',
+    subtitleFr: 'Mise à disposition avec chauffeur privé',
+    descriptionEn: 'Reserve a dedicated chauffeur from 2 to 24 hours. They will be on standby for your meetings, shopping trips, or multi-destination schedules with maximum flexibility.',
+    descriptionFr: 'Mise à disposition avec chauffeur privé à l\'heure pour vos rendez-vous d\'affaires, réunions ou journées shopping de prestige. Chauffeur dédié en attente continue.',
+    image: '/images/about_discretion_vip.jpg',
     featuresEn: [
       'Confidential cabin environment with tinted privacy',
-      'High-speed Wi-Fi & laptop fast charging docks',
+      'High-speed Wi-Fi & device charging ports',
       'Dedicated bilingual chauffeur on standby',
-      'Flexible itinerary & multi-stop management'
+      'Flexible multi-stop itinerary management'
     ],
     featuresFr: [
       'Environnement de cabine confidentiel et vitres teintées',
-      'Wi-Fi haut débit & prises de recharge pour ordinateurs',
+      'Wi-Fi haut débit & prises de recharge pour téléphones',
       'Chauffeur bilingue dédié en attente continue',
       'Gestion flexible des arrêts et réunions multiples'
     ]
   },
   {
-    id: 'special-events',
-    titleEn: 'Special events & weddings',
-    titleFr: 'Mariage & événements VIP',
-    subtitleEn: 'Galas, Weddings & VIP Occasions',
-    subtitleFr: 'Mariages, Galas & Cérémonies Prestigieuses',
-    descriptionEn: 'Arrive in majestic style at galas, red carpet premieres, weddings, Grand Prix F1 Montreal, and milestone celebrations with white-glove chauffeur etiquette.',
-    descriptionFr: 'Faites une entrée remarquée lors de votre mariage, du Grand Prix F1 de Montréal, d\'un gala ou d\'une soirée VIP avec un protocole de courtoisie digne des plus hauts standards.',
-    image: serviceSpecialEvents,
+    id: 'wedding',
+    titleEn: 'WEDDING',
+    titleFr: 'MARIAGE',
+    subtitleEn: 'Prestigious Transport for Your Special Day',
+    subtitleFr: 'Transport de prestige pour votre grand jour',
+    descriptionEn: 'Sublime the most beautiful day of your life with exceptional VIP transportation. Impeccable vehicles, white-glove etiquette, red carpet and chilled champagne on request.',
+    descriptionFr: 'Sublimez le plus beau jour de votre vie avec un transport d\'exception. Véhicules immaculés, service attentionné, tapis rouge et élégance absolue.',
+    image: '/images/service_special_events_1791294148674.jpg',
     featuresEn: [
       'Pristine showroom vehicle styling inside & out',
       'Red carpet arrival & chilled champagne service',
@@ -101,30 +123,52 @@ export const SERVICES: ServiceItem[] = [
     featuresFr: [
       'Véhicules immaculés intérieur comme extérieur',
       'Service tapis rouge & champagne sur demande',
-      'Chauffeur professionnel en tenue d\'apparat',
+      'Chauffeur professionnel en costume d\'apparat',
       'Disponibilité pour séances photo & itinéraire sur mesure'
     ]
   },
   {
-    id: 'long-distance',
-    titleEn: 'Long distance travel',
-    titleFr: 'Longue distance Canada & USA',
-    subtitleEn: 'Intercity Doorway Luxury',
-    subtitleFr: 'Liaisons interurbaines de luxe',
-    descriptionEn: 'Avoid crowded airports and train stations. Travel between Montreal, Mont-Tremblant, Quebec City, Ottawa, Toronto, and US cities (Boston, New York, Burlington, Plattsburgh) in total comfort.',
-    descriptionFr: 'Évitez les gares et aéroports bondés. Voyagez en tout confort entre Montréal, Mont-Tremblant, Québec, Ottawa, Toronto et vers les États-Unis (New York, Boston, Plattsburgh, Burlington).',
-    image: serviceCorporateTravel,
+    id: 'city-tour-limo',
+    titleEn: 'CITY TOUR LIMO',
+    titleFr: 'CIRCUIT TOURISTIQUE',
+    subtitleEn: 'Discover Montreal & The Laurentians in Luxury',
+    subtitleFr: 'Montréal, Vieux-Port & Laurentides en luxe',
+    descriptionEn: 'Discover Montreal, the Old Port, Mont-Royal, and the Laurentians in absolute luxury with an expert local chauffeur knowledgeable of the best panoramic spots and dining.',
+    descriptionFr: 'Découvrez Montréal, le Vieux-Port et les Laurentides dans un confort absolu avec un chauffeur expert de la région et des meilleures adresses gastronomiques.',
+    image: '/images/about_chauffeur_vip.jpg',
     featuresEn: [
-      'Fixed flat-rate intercity pricing with zero hidden fees',
-      'Private door-to-door transit between major hubs',
-      'Spacious reclining captain seats for work or rest',
-      'Cross-border US travel authorization & expertise'
+      'Custom panoramic sightseeing itineraries',
+      'Local bilingual chauffeur recommendations',
+      'Panoramic glass roofs & comfortable leather seating',
+      'Flexible photo and tasting stops anytime'
     ],
     featuresFr: [
-      'Tarification forfaitaire claire sans frais cachés',
-      'Liaison privée porte-à-porte d\'un centre à l\'autre',
-      'Sièges capitaines inclinables grand confort',
-      'Chauffeurs certifiés pour voyages transfrontaliers USA'
+      'Itinéraires panoramiques personnalisés',
+      'Recommandations exclusives par chauffeur bilingue',
+      'Toits panoramiques & sièges en cuir luxueux',
+      'Arrêts photos et dégustations à votre rythme'
+    ]
+  },
+  {
+    id: 'party',
+    titleEn: 'PARTY & EVENTS',
+    titleFr: 'SOIRÉES & ÉVÉNEMENTS',
+    subtitleEn: 'Galas, VIP Nights & Safe Return',
+    subtitleFr: 'Galas, soirées VIP & retour en sécurité',
+    descriptionEn: 'Arrive in majestic style at galas, concerts, VIP nights, Grand Prix F1 Montreal, and milestone celebrations. Enjoy your evening with total peace of mind and safe return home.',
+    descriptionFr: 'Arrivez avec style lors de vos galas, soirées VIP, concerts, Grand Prix F1 de Montréal ou événements corporatifs. Profitez de votre soirée avec un retour chez vous en toute sécurité.',
+    image: '/images/service_special_events_1791294148674.jpg',
+    featuresEn: [
+      'VIP club & venue red-carpet drop-off',
+      'Night-long standby chauffeur availability',
+      'Premium sound systems with custom playlist connectivity',
+      'Safe, reliable chauffeur return home anytime'
+    ],
+    featuresFr: [
+      'Arrivée VIP devant les clubs et salles de gala',
+      'Chauffeur en attente toute la nuit',
+      'Système audio haute fidélité pour votre musique',
+      'Retour sécurisé à votre domicile sans souci'
     ]
   }
 ];

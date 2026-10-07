@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, Menu, X, Phone, MessageSquare } from 'lucide-react';
+import { Menu, X, Phone, MessageSquare } from 'lucide-react';
 import { CLIENT_INFO } from '../data/limoData';
 
 interface NavbarProps {
@@ -27,16 +27,22 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-30 w-full transition-all bg-gradient-to-b from-black/80 via-black/35 to-transparent">
+    <header className="absolute top-0 left-0 right-0 z-30 w-full transition-all bg-gradient-to-b from-black/90 via-black/50 to-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
-        {/* Left: Brand name matching client's identity */}
-        <a href="#" onClick={handleBrandClick} className="flex items-center gap-2 group cursor-pointer">
+        {/* Left: Logo & High-contrast Brand name */}
+        <a href="#" onClick={handleBrandClick} className="flex items-center gap-3.5 group cursor-pointer">
+          <img
+            src="/logo.png"
+            alt="Limo Raf Chauffeur VIP Montréal"
+            className="h-11 sm:h-13 w-auto object-contain filter drop-shadow-lg group-hover:scale-105 transition-transform"
+          />
           <div className="flex flex-col">
-            <span className="text-xl sm:text-2xl font-bold tracking-[0.18em] text-white uppercase font-sans group-hover:text-amber-400 transition-colors">
+            <span className="text-lg sm:text-xl font-bold tracking-[0.16em] text-white uppercase font-sans group-hover:text-[#F5D577] transition-colors leading-tight">
               {CLIENT_INFO.brandName}
             </span>
-            <span className="text-[10px] tracking-[0.28em] text-amber-400/90 uppercase font-light -mt-0.5">
-              Montréal · Chauffeur VIP
+            {/* High-visibility sub-text directly requested */}
+            <span className="text-[10px] sm:text-[11px] tracking-[0.24em] text-[#F5D577] font-bold uppercase leading-tight drop-shadow-md">
+              MONTRÉAL · CHAUFFEUR VIP
             </span>
           </div>
         </a>
@@ -44,20 +50,23 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Right Group: Links, Phone, Language & Hamburger */}
         <div className="flex items-center gap-4 sm:gap-6 lg:gap-8">
           {/* Navigation links */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-xs font-medium text-white/90 tracking-wide">
-            <a href="#about" className="hover:text-amber-400 transition-colors">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-xs font-semibold text-white/95 tracking-wide">
+            <a href="#about" onClick={handleBrandClick} className="hover:text-[#F5D577] transition-colors">
               {language === 'FR' ? 'À Propos' : 'About'}
             </a>
-            <a href="#services" className="hover:text-amber-400 transition-colors">
+            <a href="#services" onClick={handleBrandClick} className="hover:text-[#F5D577] transition-colors">
               Services
             </a>
-            <a href="#fleet" className="hover:text-amber-400 transition-colors">
+            <a href="#fleet" onClick={handleBrandClick} className="hover:text-[#F5D577] transition-colors">
               {language === 'FR' ? 'Notre Flotte' : 'Our Fleet'}
             </a>
-            <a href="#cities" className="hover:text-amber-400 transition-colors">
+            <a href="#advantages" onClick={handleBrandClick} className="hover:text-[#F5D577] transition-colors">
+              {language === 'FR' ? 'Avantages' : 'Advantages'}
+            </a>
+            <a href="#coverage" onClick={handleBrandClick} className="hover:text-[#F5D577] transition-colors">
               Destinations
             </a>
-            <a href="#contact" className="hover:text-amber-400 transition-colors">
+            <a href="#contact" onClick={handleBrandClick} className="hover:text-[#F5D577] transition-colors">
               Contact
             </a>
           </nav>
@@ -65,10 +74,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Quick Call pill for Montreal */}
           <a
             href={`tel:${CLIENT_INFO.phoneRaw}`}
-            className="hidden lg:inline-flex items-center gap-2 text-xs font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 transition-all"
+            className="hidden lg:inline-flex items-center gap-2 text-xs font-bold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 hover:border-[#D7B65D] transition-all"
             aria-label="Call Limo Raf"
           >
-            <Phone className="w-3 h-3 text-amber-400" />
+            <Phone className="w-3 h-3 text-[#F5D577]" />
             <span className="font-mono tracking-tight">{CLIENT_INFO.phone}</span>
           </a>
 
@@ -78,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => onToggleLanguage('FR')}
               className={`px-2.5 py-1 text-xs font-bold rounded-full transition-all cursor-pointer ${
                 language === 'FR'
-                  ? 'bg-amber-400 text-neutral-950 shadow-xs'
+                  ? 'bg-[#D7B65D] text-neutral-950 shadow-md'
                   : 'text-white/80 hover:text-white'
               }`}
               title="Français"
@@ -89,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => onToggleLanguage('EN')}
               className={`px-2.5 py-1 text-xs font-bold rounded-full transition-all cursor-pointer ${
                 language === 'EN'
-                  ? 'bg-amber-400 text-neutral-950 shadow-xs'
+                  ? 'bg-[#D7B65D] text-neutral-950 shadow-md'
                   : 'text-white/80 hover:text-white'
               }`}
               title="English"
@@ -98,10 +107,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </div>
 
-          {/* Menu button matching screenshot: dark square button with hamburger bars */}
+          {/* Menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="w-9 h-9 rounded-lg bg-black/80 hover:bg-black text-white flex items-center justify-center border border-white/10 transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-lg bg-black/80 hover:bg-black text-white flex items-center justify-center border border-white/15 transition-colors cursor-pointer"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -112,30 +121,36 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Slide-out Menu Overlay */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-neutral-950/98 backdrop-blur-xl border-b border-neutral-800 px-6 py-6 text-white space-y-4 animate-in slide-in-from-top-4 duration-200">
-          <div className="pb-2 border-b border-white/10 flex items-center justify-between">
-            <span className="text-sm font-bold tracking-wider text-amber-400">{CLIENT_INFO.brandName}</span>
+          <div className="pb-3 border-b border-white/10 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <img src="/logo.png" alt="Limo Raf" className="h-8 w-auto object-contain" />
+              <span className="text-sm font-bold tracking-wider text-[#F5D577]">{CLIENT_INFO.brandName}</span>
+            </div>
             <a
               href={`tel:${CLIENT_INFO.phoneRaw}`}
               className="text-xs text-neutral-300 flex items-center gap-1.5"
             >
-              <Phone className="w-3 h-3 text-amber-400" />
+              <Phone className="w-3 h-3 text-[#F5D577]" />
               <span>{CLIENT_INFO.phone}</span>
             </a>
           </div>
-          <nav className="flex flex-col space-y-3 text-sm">
-            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="hover:text-amber-400 py-1">
+          <nav className="flex flex-col space-y-3 text-sm font-medium">
+            <a href="#about" onClick={() => { setMobileMenuOpen(false); if (onNavigateHome) onNavigateHome(); }} className="hover:text-[#F5D577] py-1">
               {language === 'FR' ? 'À Propos' : 'About'}
             </a>
-            <a href="#services" onClick={() => setMobileMenuOpen(false)} className="hover:text-amber-400 py-1">
+            <a href="#services" onClick={() => { setMobileMenuOpen(false); if (onNavigateHome) onNavigateHome(); }} className="hover:text-[#F5D577] py-1">
               Services
             </a>
-            <a href="#fleet" onClick={() => setMobileMenuOpen(false)} className="hover:text-amber-400 py-1">
+            <a href="#fleet" onClick={() => { setMobileMenuOpen(false); if (onNavigateHome) onNavigateHome(); }} className="hover:text-[#F5D577] py-1">
               {language === 'FR' ? 'Notre Flotte' : 'Our Fleet'}
             </a>
-            <a href="#cities" onClick={() => setMobileMenuOpen(false)} className="hover:text-amber-400 py-1">
+            <a href="#advantages" onClick={() => { setMobileMenuOpen(false); if (onNavigateHome) onNavigateHome(); }} className="hover:text-[#F5D577] py-1">
+              {language === 'FR' ? 'Avantages' : 'Advantages'}
+            </a>
+            <a href="#destinations" onClick={() => { setMobileMenuOpen(false); if (onNavigateHome) onNavigateHome(); }} className="hover:text-[#F5D577] py-1">
               Destinations
             </a>
-            <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-amber-400 py-1">
+            <a href="#contact" onClick={() => { setMobileMenuOpen(false); if (onNavigateHome) onNavigateHome(); }} className="hover:text-[#F5D577] py-1">
               Contact
             </a>
           </nav>
@@ -145,7 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 setMobileMenuOpen(false);
                 onOpenBooking();
               }}
-              className="w-full py-3 text-xs font-semibold uppercase tracking-wider bg-amber-400 text-neutral-950 rounded-lg cursor-pointer"
+              className="w-full py-3 text-xs font-bold uppercase tracking-wider bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 rounded-lg cursor-pointer"
             >
               {language === 'FR' ? 'Réserver maintenant' : 'Reserve Now'}
             </button>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { User, Mail, Phone, MapPin, Calendar, Clock, ChevronDown, CheckCircle2, MessageSquare, AlertCircle, Loader2 } from 'lucide-react';
+import { User, Mail, Phone, Car, ChevronDown, CheckCircle2, MessageSquare, AlertCircle, Loader2, FileText } from 'lucide-react';
 import { BookingState } from '../types/limo';
 import { CLIENT_INFO, FLEET } from '../data/limoData';
-import { FORMSUBMIT_EMAIL } from '../config/formConfig';
+import { FORMSUBMIT_EMAIL, ONLINE_PAYMENT_URL } from '../config/formConfig';
 
 interface BookingWidgetProps {
   language: 'FR' | 'EN';
@@ -19,19 +19,8 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-
-  // Trip details (clean, open text inputs without restrictive preset dropdowns)
-  const [pickupAddress, setPickupAddress] = useState('');
-  const [dropoffAddress, setDropoffAddress] = useState('');
-  const [tripType, setTripType] = useState<'One Way' | 'Round Trip'>('One Way');
-
-  // Date & Time
-  const todayStr = new Date().toISOString().split('T')[0];
-  const [date, setDate] = useState(todayStr);
-  const [hour, setHour] = useState('12');
-  const [minute, setMinute] = useState('00');
-  const [period, setPeriod] = useState<'AM' | 'PM'>('PM');
   const [selectedVehicle, setSelectedVehicle] = useState('Cadillac Escalade ESV');
+  const [notes, setNotes] = useState('');
 
   // Form submission state
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -42,20 +31,14 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
     setStatus('submitting');
     setErrorMessage('');
 
-    const formattedTime = `${hour}:${minute} ${period}`;
-
     // Payload for FormSubmit
     const formData = {
       name,
       email,
       phone,
-      pickup_location: pickupAddress,
-      destination: dropoffAddress,
-      trip_type: tripType,
-      date,
-      time: formattedTime,
       preferred_vehicle: selectedVehicle,
-      _subject: `Nouvelle réservation Limo Raf - ${name} (${date} à ${formattedTime})`,
+      message_or_notes: notes || 'Aucune note particulière',
+      _subject: `Nouvelle réservation Limo Raf - ${name} (${selectedVehicle})`,
       _template: 'table',
       _captcha: 'false'
     };
@@ -76,13 +59,13 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
         if (onReserve) {
           onReserve({
             serviceType: 'distance',
-            pickupAddress,
-            dropoffAddress,
-            tripType: tripType === 'One Way' ? 'one_way' : 'round_trip',
-            date,
-            timeHour: hour,
-            timeMinute: minute,
-            timePeriod: period,
+            pickupAddress: 'Montréal / YUL',
+            dropoffAddress: 'Destination demandée',
+            tripType: 'one_way',
+            date: new Date().toISOString().split('T')[0],
+            timeHour: '12',
+            timeMinute: '00',
+            timePeriod: 'PM',
             selectedVehicleId: 'cadillac-escalade',
             passengers: 2,
             luggage: 2
@@ -94,12 +77,11 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
       }
     } catch (err: any) {
       console.error('FormSubmit Error:', err);
-      // If network fails, still give the user a graceful path
       setStatus('error');
       setErrorMessage(
         language === 'FR'
-          ? "Impossible d'envoyer la demande pour le moment. Veuillez réessayer ou utiliser WhatsApp direct."
-          : "Unable to submit reservation. Please retry or contact us directly on WhatsApp."
+          ? "Impossible d'envoyer la demande pour le moment. Veuillez nous contacter via WhatsApp."
+          : "Unable to submit reservation. Please reach out to us via WhatsApp."
       );
     }
   };
@@ -108,45 +90,40 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
     setName('');
     setEmail('');
     setPhone('');
-    setPickupAddress('');
-    setDropoffAddress('');
+    setNotes('');
     setStatus('idle');
   };
 
   const generateWhatsAppConfirmationUrl = () => {
-    const text = `Bonjour Limo Raf, je viens de soumettre une réservation :
+    const text = `Bonjour Limo Raf, je souhaite réserver un véhicule :
 Nom: ${name}
 Téléphone: ${phone}
 Courriel: ${email}
-Départ: ${pickupAddress}
-Destination: ${dropoffAddress}
-Type: ${tripType}
-Date: ${date} à ${hour}:${minute} ${period}
-Véhicule: ${selectedVehicle}`;
+Véhicule: ${selectedVehicle}${notes ? `\nNotes: ${notes}` : ''}`;
     return `https://api.whatsapp.com/send/?phone=15142438141&text=${encodeURIComponent(text)}`;
   };
 
   return (
     <div
-      className={`bg-white rounded-2xl shadow-2xl p-5 sm:p-6 w-full max-w-[380px] sm:max-w-[410px] text-neutral-800 border border-neutral-100 ${className}`}
+      className={`bg-white rounded-2xl shadow-2xl p-5 sm:p-6 w-full max-w-[380px] sm:max-w-[400px] text-neutral-800 border border-neutral-100 ${className}`}
     >
       {/* Header */}
       <div className="mb-4 pb-3 border-b border-neutral-100">
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">
-            {language === 'FR' ? 'Réservation Directe' : 'Direct Reservation'}
+          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">
+            {language === 'FR' ? 'Réservation Directe' : 'Direct Booking'}
           </span>
           <span className="text-[11px] text-neutral-400 font-medium">
-            24/7 Montréal
+            24/7 Grand Montréal
           </span>
         </div>
-        <h3 className="text-base sm:text-lg font-bold text-neutral-900 tracking-tight mt-1 font-sans">
+        <h3 className="text-base sm:text-lg font-bold text-neutral-900 tracking-tight mt-1.5 font-sans">
           {language === 'FR' ? 'Réserver votre chauffeur' : 'Book Your Chauffeur'}
         </h3>
-        <p className="text-[11px] text-neutral-500 font-light">
+        <p className="text-[11px] text-neutral-500 font-light mt-0.5">
           {language === 'FR'
-            ? 'Tarifs fixes tout compris · Confirmation rapide'
-            : 'All-inclusive fixed rates · Quick confirmation'}
+            ? 'Tarifs fixes tout compris · Prise en charge VIP rapide'
+            : 'All-inclusive fixed rates · Rapid VIP dispatch'}
         </p>
       </div>
 
@@ -164,23 +141,17 @@ Véhicule: ${selectedVehicle}`;
             <p className="text-xs text-neutral-600 leading-relaxed">
               {language === 'FR' ? (
                 <>
-                  Merci <strong className="text-neutral-900">{name}</strong>. Votre demande de chauffeur a bien été transmise à notre équipe. Nous vous contacterons à <span className="font-semibold">{phone}</span> pour confirmer votre prise en charge.
+                  Merci <strong className="text-neutral-900">{name}</strong>. Votre réservation pour le <strong className="text-amber-700">{selectedVehicle}</strong> a été transmise à notre répartiteur. Nous vous contacterons à <span className="font-semibold text-neutral-900">{phone}</span> pour confirmer votre prise en charge.
                 </>
               ) : (
                 <>
-                  Thank you <strong className="text-neutral-900">{name}</strong>. Your chauffeur request has been sent to our dispatch. We will contact you at <span className="font-semibold">{phone}</span> to confirm your pickup.
+                  Thank you <strong className="text-neutral-900">{name}</strong>. Your chauffeur request for the <strong className="text-amber-700">{selectedVehicle}</strong> has been dispatched. We will contact you at <span className="font-semibold text-neutral-900">{phone}</span> to confirm your booking.
                 </>
               )}
             </p>
           </div>
 
-          <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-100 text-[11px] space-y-1 text-neutral-600">
-            <div><strong className="text-neutral-800">{language === 'FR' ? 'Trajet :' : 'Route:'}</strong> {pickupAddress} → {dropoffAddress}</div>
-            <div><strong className="text-neutral-800">{language === 'FR' ? 'Date :' : 'Date:'}</strong> {date} à {hour}:{minute} {period}</div>
-            <div><strong className="text-neutral-800">{language === 'FR' ? 'Véhicule :' : 'Vehicle:'}</strong> {selectedVehicle}</div>
-          </div>
-
-          <div className="space-y-2 pt-1">
+          <div className="space-y-2 pt-2">
             <a
               href={generateWhatsAppConfirmationUrl()}
               target="_blank"
@@ -201,8 +172,8 @@ Véhicule: ${selectedVehicle}`;
           </div>
         </div>
       ) : (
-        /* Reservation Form */
-        <form onSubmit={handleSubmit} className="space-y-2.5">
+        /* Streamlined Reservation Form */
+        <form onSubmit={handleSubmit} className="space-y-3">
           {status === 'error' && (
             <div className="p-2.5 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2 text-[11px] text-red-700">
               <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
@@ -211,21 +182,29 @@ Véhicule: ${selectedVehicle}`;
           )}
 
           {/* Full Name */}
-          <div className="relative">
-            <User className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-3 pointer-events-none" />
-            <input
-              type="text"
-              name="name"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder={language === 'FR' ? 'Votre nom complet *' : 'Full Name *'}
-              className="w-full pl-9 pr-3 py-2 text-xs text-neutral-900 bg-neutral-50/90 hover:bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 focus:bg-white placeholder:text-neutral-400 transition-colors"
-            />
+          <div>
+            <label className="block text-[11px] font-semibold text-neutral-700 mb-1">
+              {language === 'FR' ? 'Nom complet *' : 'Full Name *'}
+            </label>
+            <div className="relative">
+              <User className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-3 pointer-events-none" />
+              <input
+                type="text"
+                name="name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={language === 'FR' ? 'ex. Alexandre Tremblay' : 'e.g. John Smith'}
+                className="w-full pl-9 pr-3 py-2 text-xs text-neutral-900 bg-neutral-50/90 hover:bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 focus:bg-white placeholder:text-neutral-400 transition-colors"
+              />
+            </div>
           </div>
 
-          {/* Email & Phone side by side */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {/* Email */}
+          <div>
+            <label className="block text-[11px] font-semibold text-neutral-700 mb-1">
+              {language === 'FR' ? 'Courriel *' : 'Email Address *'}
+            </label>
             <div className="relative">
               <Mail className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-3 pointer-events-none" />
               <input
@@ -234,11 +213,17 @@ Véhicule: ${selectedVehicle}`;
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={language === 'FR' ? 'Courriel *' : 'Email Address *'}
+                placeholder="votre@courriel.com"
                 className="w-full pl-9 pr-3 py-2 text-xs text-neutral-900 bg-neutral-50/90 hover:bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 focus:bg-white placeholder:text-neutral-400 transition-colors"
               />
             </div>
+          </div>
 
+          {/* Phone Number */}
+          <div>
+            <label className="block text-[11px] font-semibold text-neutral-700 mb-1">
+              {language === 'FR' ? 'Numéro de téléphone *' : 'Phone Number *'}
+            </label>
             <div className="relative">
               <Phone className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-3 pointer-events-none" />
               <input
@@ -247,143 +232,79 @@ Véhicule: ${selectedVehicle}`;
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder={language === 'FR' ? 'Téléphone *' : 'Phone Number *'}
+                placeholder="+1 (514) 000-0000"
                 className="w-full pl-9 pr-3 py-2 text-xs text-neutral-900 bg-neutral-50/90 hover:bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 focus:bg-white placeholder:text-neutral-400 transition-colors"
               />
             </div>
           </div>
 
-          {/* Pickup Address - Free text input without presets */}
-          <div className="relative">
-            <MapPin className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-3 pointer-events-none" />
-            <input
-              type="text"
-              name="pickup_location"
-              required
-              value={pickupAddress}
-              onChange={(e) => setPickupAddress(e.target.value)}
-              placeholder={
-                language === 'FR'
-                  ? 'Lieu de départ (ex. YUL Aéroport, hôtel, adresse) *'
-                  : 'Pick-up location (e.g. YUL Airport, hotel, address) *'
-              }
-              className="w-full pl-9 pr-3 py-2 text-xs text-neutral-900 bg-neutral-50/90 hover:bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 focus:bg-white placeholder:text-neutral-400 transition-colors"
-            />
-          </div>
-
-          {/* Destination Address - Free text input without presets */}
-          <div className="relative">
-            <MapPin className="w-3.5 h-3.5 text-amber-600 absolute left-3 top-3 pointer-events-none" />
-            <input
-              type="text"
-              name="destination"
-              required
-              value={dropoffAddress}
-              onChange={(e) => setDropoffAddress(e.target.value)}
-              placeholder={
-                language === 'FR'
-                  ? 'Destination (ex. Centre-Ville, Laval, Tremblant) *'
-                  : 'Drop-off destination (e.g. Downtown, Laval, Tremblant) *'
-              }
-              className="w-full pl-9 pr-3 py-2 text-xs text-neutral-900 bg-neutral-50/90 hover:bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 focus:bg-white placeholder:text-neutral-400 transition-colors"
-            />
-          </div>
-
-          {/* Trip Type & Date in 2 columns */}
-          <div className="grid grid-cols-2 gap-2">
-            {/* One Way / Round Trip */}
+          {/* Type of Car (Kept as requested) */}
+          <div>
+            <label className="block text-[11px] font-semibold text-neutral-700 mb-1">
+              {language === 'FR' ? 'Type de véhicule souhaité *' : 'Preferred Vehicle *'}
+            </label>
             <div className="relative">
+              <Car className="w-3.5 h-3.5 text-amber-600 absolute left-3 top-3 pointer-events-none" />
               <select
-                name="trip_type"
-                value={tripType}
-                onChange={(e) => setTripType(e.target.value as 'One Way' | 'Round Trip')}
-                className="w-full px-3 py-2 text-xs text-neutral-800 bg-neutral-50/90 border border-neutral-200 rounded-lg appearance-none focus:outline-none focus:border-amber-500 cursor-pointer"
+                name="vehicle"
+                value={selectedVehicle}
+                onChange={(e) => setSelectedVehicle(e.target.value)}
+                className="w-full pl-9 pr-8 py-2 text-xs text-neutral-900 bg-neutral-50/90 border border-neutral-200 rounded-lg appearance-none focus:outline-none focus:border-amber-500 cursor-pointer font-medium"
               >
-                <option value="One Way">{language === 'FR' ? 'Aller Simple' : 'One Way'}</option>
-                <option value="Round Trip">{language === 'FR' ? 'Aller-Retour' : 'Round Trip'}</option>
+                {FLEET.map((v) => (
+                  <option key={v.id} value={v.name}>
+                    {v.name} ({language === 'FR' ? v.categoryLabelFr : v.categoryLabelEn})
+                  </option>
+                ))}
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-neutral-400 absolute right-2.5 top-2.5 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 text-neutral-400 absolute right-3 top-3 pointer-events-none" />
             </div>
+          </div>
 
-            {/* Date Picker */}
+          {/* Optional Message or Details */}
+          <div>
+            <label className="block text-[11px] font-semibold text-neutral-700 mb-1">
+              {language === 'FR' ? 'Détails du trajet ou message (optionnel)' : 'Trip details or notes (optional)'}
+            </label>
             <div className="relative">
-              <Calendar className="w-3.5 h-3.5 text-neutral-400 absolute left-2.5 top-2.5 pointer-events-none" />
+              <FileText className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-2.5 pointer-events-none" />
               <input
-                type="date"
-                name="date"
-                required
-                min={todayStr}
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-full pl-8 pr-2 py-2 text-xs text-neutral-800 bg-neutral-50/90 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 font-sans"
+                type="text"
+                name="notes"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder={language === 'FR' ? 'ex. YUL Aéroport, départ 14h, 3 passagers' : 'e.g. YUL airport, 2 PM, 3 passengers'}
+                className="w-full pl-9 pr-3 py-2 text-xs text-neutral-900 bg-neutral-50/90 hover:bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 focus:bg-white placeholder:text-neutral-400 transition-colors"
               />
             </div>
           </div>
 
-          {/* Departure Time & Vehicle Choice */}
-          <div className="grid grid-cols-2 gap-2 pt-0.5">
-            {/* Pick Up Time */}
-            <div className="flex items-center gap-1 bg-neutral-50/90 border border-neutral-200 rounded-lg px-2 py-1.5">
-              <Clock className="w-3 h-3 text-neutral-400 shrink-0" />
-              <select
-                value={hour}
-                onChange={(e) => setHour(e.target.value)}
-                className="text-xs bg-transparent focus:outline-none font-mono cursor-pointer"
-              >
-                {Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0')).map((h) => (
-                  <option key={h} value={h}>{h}</option>
-                ))}
-              </select>
-              <span className="text-neutral-400 text-xs">:</span>
-              <select
-                value={minute}
-                onChange={(e) => setMinute(e.target.value)}
-                className="text-xs bg-transparent focus:outline-none font-mono cursor-pointer"
-              >
-                {['00', '15', '30', '45'].map((m) => (
-                  <option key={m} value={m}>{m}</option>
-                ))}
-              </select>
-              <select
-                value={period}
-                onChange={(e) => setPeriod(e.target.value as 'AM' | 'PM')}
-                className="text-[11px] font-semibold bg-transparent focus:outline-none cursor-pointer text-amber-700 ml-auto"
-              >
-                <option value="AM">AM</option>
-                <option value="PM">PM</option>
-              </select>
-            </div>
-
-            {/* Preferred Fleet Choice */}
-            <div className="relative">
-              <select
-                value={selectedVehicle}
-                onChange={(e) => setSelectedVehicle(e.target.value)}
-                className="w-full px-2.5 py-2 text-[11px] text-neutral-800 bg-neutral-50/90 border border-neutral-200 rounded-lg appearance-none focus:outline-none focus:border-amber-500 cursor-pointer truncate"
-              >
-                {FLEET.map((v) => (
-                  <option key={v.id} value={v.name}>{v.name}</option>
-                ))}
-              </select>
-              <ChevronDown className="w-3.5 h-3.5 text-neutral-400 absolute right-2 top-2.5 pointer-events-none" />
-            </div>
-          </div>
-
-          {/* FormSubmit Submit Button */}
-          <button
-            type="submit"
-            disabled={status === 'submitting'}
-            className="w-full mt-2 py-3 px-4 text-xs font-semibold text-white bg-black hover:bg-neutral-800 active:scale-[0.99] rounded-lg transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 disabled:opacity-60"
-          >
-            {status === 'submitting' ? (
-              <>
-                <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                <span>{language === 'FR' ? 'Envoi en cours...' : 'Submitting...'}</span>
-              </>
-            ) : (
-              <span>{language === 'FR' ? 'Confirmer la réservation' : 'Confirm Reservation'}</span>
-            )}
-          </button>
+          {/* Book Now Button */}
+          {ONLINE_PAYMENT_URL ? (
+            <a
+              href={ONLINE_PAYMENT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full mt-2 py-3 px-4 text-xs font-semibold text-white bg-black hover:bg-neutral-800 active:scale-[0.99] rounded-lg transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
+            >
+              <span>{language === 'FR' ? 'Book Now · Paiement en ligne' : 'Book Now · Online Checkout'}</span>
+            </a>
+          ) : (
+            <button
+              type="submit"
+              disabled={status === 'submitting'}
+              className="w-full mt-2 py-3 px-4 text-xs font-semibold text-white bg-black hover:bg-neutral-800 active:scale-[0.99] rounded-lg transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 disabled:opacity-60"
+            >
+              {status === 'submitting' ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>{language === 'FR' ? 'Envoi en cours...' : 'Submitting...'}</span>
+                </>
+              ) : (
+                <span>{language === 'FR' ? 'Book Now · Réserver' : 'Book Now · Reserve'}</span>
+              )}
+            </button>
+          )}
 
           {/* Direct WhatsApp Callout */}
           <a

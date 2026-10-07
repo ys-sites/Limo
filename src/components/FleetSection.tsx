@@ -45,11 +45,11 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
   return (
     <section id="fleet" className="py-24 lg:py-28 bg-white text-neutral-900 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header: 02 on left, Our fleet in center */}
+        {/* Section Header: 03 on left, Our fleet in center */}
         <div className="relative mb-12 sm:mb-14 flex items-center justify-center">
-          <div className="absolute left-0 top-1/2 -translate-y-1/2">
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 hidden sm:block">
             <span className="text-4xl sm:text-5xl font-light text-neutral-300 font-sans select-none">
-              02
+              03
             </span>
           </div>
           <div className="text-center">
@@ -64,7 +64,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
           </div>
         </div>
 
-        {/* Filters matching screenshot: ALL (active black pill), SEDAN, LUXURY, etc. */}
+        {/* Filters matching screenshot: TOUS (active black pill), VUS VIP, etc. */}
         <div className="flex items-center justify-center sm:justify-start gap-3 sm:gap-4 overflow-x-auto pb-4 mb-10 text-xs font-semibold uppercase tracking-wider">
           {categories.map((cat) => (
             <button
@@ -84,11 +84,10 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
           ))}
         </div>
 
-        {/* 2 Wide Vehicle Cards */}
+        {/* 2 Wide Vehicle Cards directly matching screenshot */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {(displayedVehicles.length > 0 ? displayedVehicles : filteredFleet.slice(0, 2)).map((vehicle) => {
             const categoryLabel = language === 'FR' ? vehicle.categoryLabelFr : vehicle.categoryLabelEn;
-            const tagline = language === 'FR' ? vehicle.taglineFr : vehicle.taglineEn;
 
             return (
               <div
@@ -98,13 +97,13 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                 {/* Top-left: Title & Category (No Prices Shown) */}
                 <div className="flex items-start justify-between gap-4 z-10">
                   <div>
-                    <span className="text-[11px] font-semibold tracking-wider text-amber-600 uppercase block mb-1">
+                    <span className="text-[11px] font-semibold tracking-wider text-[#C4963A] uppercase block mb-1">
                       {categoryLabel}
                     </span>
                     <button
                       type="button"
                       onClick={() => onViewVehicleDetails(vehicle.slug)}
-                      className="text-lg sm:text-xl font-bold text-neutral-900 tracking-tight font-sans text-left hover:text-amber-600 transition-colors cursor-pointer"
+                      className="text-lg sm:text-xl font-bold text-neutral-900 tracking-tight font-sans text-left hover:text-[#C4963A] transition-colors cursor-pointer"
                     >
                       {vehicle.name}
                     </button>
@@ -127,7 +126,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                   </div>
                 </div>
 
-                {/* Grand Transparent PNG Car View with ambient ground shadow (Clickable to subpage) */}
+                {/* Grand Transparent PNG Car View with clean cutout */}
                 <div 
                   onClick={() => onViewVehicleDetails(vehicle.slug)}
                   className="py-6 sm:py-8 flex-1 flex flex-col items-center justify-center relative my-2 cursor-pointer group-hover:scale-[1.02] transition-transform"
@@ -143,9 +142,9 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                   {/* Soft realistic ground shadow under wheels */}
                   <div className="w-4/5 h-4 bg-black/20 blur-md rounded-full mt-1 mx-auto transition-transform duration-500 group-hover:scale-95 group-hover:opacity-60" />
                   
-                  {/* Subtle "Click to view subpage" hint on hover */}
+                  {/* Click to view subpage hint */}
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-2 text-[11px] font-semibold text-neutral-500 flex items-center gap-1">
-                    <Info className="w-3.5 h-3.5 text-amber-500" />
+                    <Info className="w-3.5 h-3.5 text-[#C4963A]" />
                     <span>{language === 'FR' ? 'Cliquer pour voir la fiche détaillée & photos' : 'Click to view subpage & photos'}</span>
                   </div>
                 </div>
@@ -171,13 +170,13 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                       <MessageSquare className="w-3.5 h-3.5" />
                     </a>
 
-                    {/* Book now with yellow circle arrow button */}
+                    {/* Book now with gold circle arrow button */}
                     <button
                       onClick={() => onSelectVehicle(vehicle)}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-900 hover:bg-black text-white text-xs font-medium cursor-pointer shadow-sm transition-transform active:scale-95"
                     >
                       <span>{language === 'FR' ? 'Book Now' : 'Book Now'}</span>
-                      <div className="w-4 h-4 rounded-full bg-[#E4A836] flex items-center justify-center text-neutral-950">
+                      <div className="w-4 h-4 rounded-full bg-[#D7B65D] flex items-center justify-center text-neutral-950">
                         <ArrowUpRight className="w-2.5 h-2.5" />
                       </div>
                     </button>
@@ -212,7 +211,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
 
           <button
             onClick={() => onSelectVehicle(FLEET[0])}
-            className="px-7 py-3 text-xs font-semibold text-neutral-950 bg-[#E4A836] hover:bg-[#d59929] active:scale-[0.98] rounded-md transition-all shadow-sm cursor-pointer"
+            className="px-7 py-3 text-xs font-semibold text-neutral-950 bg-[#D7B65D] hover:bg-[#C4963A] active:scale-[0.98] rounded-md transition-all shadow-sm cursor-pointer"
           >
             {language === 'FR' ? 'Book Now · Réserver' : 'Book Now · Reserve'}
           </button>

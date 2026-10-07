@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { motion, useScroll } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { ServicesSection } from './components/ServicesSection';
-import { WhyChooseUsSection } from './components/WhyChooseUsSection';
+import { AboutUsSection } from './components/AboutUsSection';
+import { WhatsAppButton } from './components/WhatsAppButton';
 import { FleetSection } from './components/FleetSection';
+import { ServicesSection } from './components/ServicesSection';
+import { AdvantagesSection } from './components/AdvantagesSection';
+import { CoverageMapSection } from './components/CoverageMapSection';
 import { TopCitiesSection } from './components/TopCitiesSection';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
 import { VehicleDetailPage } from './components/VehicleDetailPage';
 import { BookingState, Vehicle, ServiceItem, CityDestination } from './types/limo';
-import { CLIENT_INFO, FLEET } from './data/limoData';
-import { MessageSquare } from 'lucide-react';
+import { FLEET } from './data/limoData';
 
 export default function App() {
   const [language, setLanguage] = useState<'FR' | 'EN'>('FR');
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [activeVehicleSlug, setActiveVehicleSlug] = useState<string | null>(null);
+
+  // Blacklane-style smooth scroll progress indicator
+  const { scrollYProgress } = useScroll();
 
   // Sync hash routing for vehicle subpages
   useEffect(() => {
@@ -75,7 +81,7 @@ export default function App() {
   };
 
   const handleSelectService = (service: ServiceItem) => {
-    const isAirport = service.id === 'airport-transfers';
+    const isAirport = service.id === 'airport-service';
     setBookingState((prev) => ({
       ...prev,
       serviceType: isAirport ? 'flat_rate' : 'hourly',
@@ -86,29 +92,40 @@ export default function App() {
     setIsBookingOpen(true);
   };
 
-  const handleSelectCity = (city: CityDestination) => {
+  const handleSelectCity = (city: CityDestination | string) => {
+    const dest = typeof city === 'string' ? city : `${city.name} (${city.region})`;
     setBookingState((prev) => ({
       ...prev,
       pickupAddress: 'Aéroport Montréal-Trudeau (YUL)',
-      dropoffAddress: `${city.name} (${city.region})`
+      dropoffAddress: dest
     }));
     setIsBookingOpen(true);
   };
 
   return (
-    <div className="min-h-screen bg-white text-neutral-900 flex flex-col font-sans selection:bg-[#E4A836] selection:text-neutral-950 relative">
+    <div className="min-h-screen bg-[#07080A] text-white flex flex-col font-sans selection:bg-[#D7B65D] selection:text-neutral-950 relative">
+      {/* Blacklane-style Top Scroll Progress Gold Line */}
+      <motion.div
+        style={{ scaleX: scrollYProgress, transformOrigin: '0%' }}
+        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#D7B65D] via-[#F5D577] to-[#D7B65D] z-50 pointer-events-none shadow-sm shadow-[#D7B65D]/50"
+      />
+
       {/* Subtle tactile noise texture overlay */}
-      <div className="fixed inset-0 pointer-events-none z-40 bg-noise opacity-[0.035]" />
+      <div className="fixed inset-0 pointer-events-none z-40 bg-noise opacity-[0.025]" />
 
       {/* Top Bar Navigation floating over hero */}
       <Navbar
         language={language}
         onToggleLanguage={setLanguage}
         onOpenBooking={() => setIsBookingOpen(true)}
-        onNavigateHome={() => setActiveVehicleSlug(null)}
+        onNavigateHome={() => {
+          setActiveVehicleSlug(null);
+          window.history.pushState(null, '', '#');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
       />
 
-      {/* Main Content: Either Dedicated Vehicle Subpage OR Full Homepage */}
+      {/* Main Content: Dedicated Vehicle Subpage OR Full Homepage */}
       <main className="flex-1">
         {activeVehicle ? (
           /* Subpage Detail of Selected Vehicle */
@@ -125,57 +142,60 @@ export default function App() {
             }}
           />
         ) : (
-          /* Luxury Single-Page Experience */
+          /* Luxury Single-Page Experience in exact required sequence */
           <>
-            {/* Hero Section with Cadillac Escalade background & floating reservation card */}
+            {/* 1. Hero Section with Cadillac Escalade background & floating reservation card */}
             <Hero
               language={language}
               onReserve={handleHeroReserve}
             />
 
-            {/* Section 01: Nos services / Our services */}
-            <ServicesSection
+            {/* 2. Section 02: À Propos / Our Values with night fleet */}
+            <AboutUsSection
               language={language}
-              onSelectService={handleSelectService}
+              onBookNow={() => setIsBookingOpen(true)}
             />
 
-            {/* Blacklane-inspired Experience Sanctuary Section */}
-            <WhyChooseUsSection language={language} />
-
-            {/* Section 02: Notre flotte / Our fleet (with large transparent PNGs & subpage links) */}
+            {/* 3. Section 03: Notre flotte / Our fleet (Car Section strictly 3rd section) */}
             <FleetSection
               language={language}
               onSelectVehicle={handleSelectVehicle}
               onViewVehicleDetails={handleViewVehicleDetails}
             />
 
-            {/* Section 03: Destinations phares / Top destinations */}
+            {/* 4. Section 04: Nos services / Our services (6 services grid matching screenshot) */}
+            <ServicesSection
+              language={language}
+              onSelectService={handleSelectService}
+            />
+
+            {/* 5. Section 05: Pourquoi nous choisir / Why Choose Us (6 dashed gold cards) */}
+            <AdvantagesSection
+              language={language}
+              onBookNow={() => setIsBookingOpen(true)}
+            />
+
+            {/* Section: Destinations Phares avec AccordionGallery */}
             <TopCitiesSection
               language={language}
               onSelectCity={handleSelectCity}
+            />
+
+            {/* 6. Section 06: Destinations Phares Canada & USA (Coverage Map) */}
+            <CoverageMapSection
+              language={language}
+              onSelectCity={(cityName) => handleSelectCity(cityName)}
+              onOpenBooking={() => setIsBookingOpen(true)}
             />
           </>
         )}
       </main>
 
-      {/* Pure Black Luxury Footer */}
+      {/* Pure Black Luxury Footer (matching screenshot, newsletter removed) */}
       <Footer language={language} />
 
-      {/* Floating Instant WhatsApp Button */}
-      <aside aria-label="Quick contact" className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2.5">
-        <a
-          href={CLIENT_INFO.whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex items-center gap-2.5 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95"
-          aria-label="Contact Limo Raf on WhatsApp"
-        >
-          <MessageSquare className="w-5 h-5 fill-current" />
-          <span className="text-xs font-bold tracking-wide hidden sm:inline-block">
-            {language === 'FR' ? 'WhatsApp Direct' : 'WhatsApp Us'}
-          </span>
-        </a>
-      </aside>
+      {/* Floating Instant WhatsApp Button matching YS-MARKETING-SOLUTION */}
+      <WhatsAppButton language={language} />
 
       {/* Interactive Reservation Concierge Modal */}
       <BookingModal

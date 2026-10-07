@@ -1,6 +1,11 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { TOP_CITIES } from '../data/limoData';
 import { CityDestination } from '../types/limo';
+import { AccordionGallery, AccordionGalleryItem } from './ui/AccordionGallery';
+import { ShinyText } from './ui/ShinyText';
+import { FoldText } from './ui/FoldText';
+import { Sparkles, ArrowUpRight } from 'lucide-react';
 
 interface TopCitiesSectionProps {
   language: 'FR' | 'EN';
@@ -8,79 +13,112 @@ interface TopCitiesSectionProps {
 }
 
 export const TopCitiesSection: React.FC<TopCitiesSectionProps> = ({ language, onSelectCity }) => {
+  const isFr = language === 'FR';
+
+  const galleryItems: AccordionGalleryItem[] = TOP_CITIES.slice(0, 5).map((city) => ({
+    image: city.image,
+    cityName: city.name,
+    label: `${city.name}`,
+    region: city.region,
+    airportCode: city.airportCode,
+    alt: `${city.name} - Chauffeur Privé Limo Raf`,
+  }));
+
+  const handleItemClick = (_item: AccordionGalleryItem, index: number) => {
+    if (TOP_CITIES[index]) {
+      onSelectCity(TOP_CITIES[index]);
+    }
+  };
+
   return (
-    <section id="cities" className="py-24 lg:py-28 bg-white text-neutral-900 border-t border-neutral-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header: 03 on left, Top cities in center */}
-        <div className="relative mb-14 sm:mb-16 flex items-center justify-center">
-          <div className="absolute left-0 top-1/2 -translate-y-1/2">
-            <span className="text-4xl sm:text-5xl font-light text-neutral-300 font-sans select-none">
-              03
+    <section id="cities" className="py-24 lg:py-32 bg-[#08090C] text-white relative overflow-hidden border-t border-neutral-900">
+      {/* Background ambient lighting */}
+      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[600px] h-[400px] bg-[#D7B65D]/5 rounded-full blur-[160px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header with ShinyText and FoldText */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center max-w-3xl mx-auto mb-14 sm:mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D7B65D]/10 border border-[#D7B65D]/30 mb-4 backdrop-blur-sm">
+            <Sparkles className="w-3.5 h-3.5 text-[#F5D577]" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#F5D577]">
+              {isFr ? 'DESTINATIONS DE LUXE' : 'PRESTIGE DESTINATIONS'}
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight font-sans">
-            {language === 'FR' ? 'Destinations phares' : 'Top destinations'}
+
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4 font-serif">
+            <ShinyText
+              text={isFr ? 'Destinations Phares' : 'Top Destinations'}
+              className="text-[#D7B65D]"
+              speed={4}
+            />
           </h2>
-        </div>
 
-        {/* Content: Left text & Open page, Right 5 vertical cards matching screenshot */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Text paragraph & Open page button */}
-          <div className="lg:col-span-4 space-y-6 max-w-sm">
-            <p className="text-xs sm:text-[13px] text-neutral-600 leading-relaxed font-light">
-              {language === 'FR'
-                ? "Découvrez le summum du confort avec Limo Raf à Montréal et ses environs. Que ce soit pour un transfert vers l'aéroport YUL, une escapade vers les pentes de Mont-Tremblant, ou un déplacement d'affaires à Laval, Québec ou Ottawa, nos chauffeurs privés garantissent une ponctualité exemplaire et une discrétion absolue."
-                : "Experience the height of luxury and convenience with Limo Raf across Montreal and premier regional destinations. From YUL airport transfers to Mont-Tremblant ski retreats and executive corporate travel to Laval, Quebec City, and Ottawa, ride with unmatched peace of mind."}
-            </p>
+          <div className="text-sm sm:text-base text-neutral-300 font-light max-w-2xl mx-auto">
+            <FoldText
+              text={
+                isFr
+                  ? "Survolez chaque destination pour explorer nos liaisons régulières d'exception avec chauffeur dédié."
+                  : "Hover over each destination to explore our signature chauffeured corridors with dedicated service."
+              }
+              trigger="scroll"
+              duration={0.65}
+              stagger={0.03}
+              color="#D1D5DB"
+            />
+          </div>
+        </motion.div>
 
-            <div>
-              <button
-                onClick={() => onSelectCity(TOP_CITIES[0])}
-                className="px-6 py-2.5 text-xs font-semibold text-neutral-950 bg-[#E4A836] hover:bg-[#d59929] active:scale-[0.98] rounded-md transition-all shadow-sm cursor-pointer"
-              >
-                {language === 'FR' ? 'Explorer les trajets' : 'Open page'}
-              </button>
-            </div>
+        {/* AccordionGallery Component */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full"
+        >
+          <AccordionGallery
+            items={galleryItems}
+            defaultIndex={0}
+            expandRatio={0.46}
+            trigger="hover"
+            accentColor="#D7B65D"
+            overlayColor="#07080A"
+            textColor="#ffffff"
+            height={440}
+            gap={14}
+            radius={22}
+            tilt={6}
+            parallax={0.35}
+            grayscale={false}
+            onItemClick={handleItemClick}
+          />
+        </motion.div>
+
+        {/* Bottom CTA bar */}
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-6 rounded-2xl bg-neutral-900/40 border border-neutral-800/80 backdrop-blur-sm">
+          <div className="text-xs sm:text-sm text-neutral-300">
+            <span className="font-bold text-[#F5D577]">
+              {isFr ? 'Trajets longue distance sur mesure :' : 'Bespoke long distance transit :'}
+            </span>{' '}
+            {isFr
+              ? "Prise en charge à votre porte, tarif fixe tout compris et confort première classe."
+              : "Doorstep pickup, guaranteed fixed flat-rate pricing, and first-class cabin comfort."}
           </div>
 
-          {/* Right Column: 5 Vertical City Cards directly matching screenshot */}
-          <div className="lg:col-span-8">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-3.5">
-              {TOP_CITIES.slice(0, 5).map((city) => (
-                <div
-                  key={city.id}
-                  onClick={() => onSelectCity(city)}
-                  className="group relative h-72 sm:h-80 md:h-[360px] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-neutral-100"
-                >
-                  {/* Skyline photo */}
-                  <img
-                    src={city.image}
-                    alt={`${city.name} - Limo Raf Destination`}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/60" />
-
-                  {/* Top pill with city name matching screenshot */}
-                  <div className="relative z-10 p-2.5 flex justify-center">
-                    <span className="px-3 py-1 text-[11px] font-medium text-neutral-900 bg-white/95 backdrop-blur-xs rounded-md shadow-xs border border-white/50">
-                      {city.name}
-                    </span>
-                  </div>
-
-                  {/* Bottom region & info badge on hover */}
-                  <div className="absolute bottom-3 left-2.5 right-2.5 z-10 text-white opacity-90 group-hover:opacity-100 transition-opacity">
-                    <span className="text-[10px] text-amber-300 tracking-wider uppercase font-semibold block">
-                      {city.region}
-                    </span>
-                    <span className="text-[11px] font-light text-neutral-200 line-clamp-1">
-                      {city.airportCode}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <button
+            type="button"
+            onClick={() => onSelectCity(TOP_CITIES[0])}
+            className="shrink-0 inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#D7B65D] via-[#F5D577] to-[#D7B65D] text-neutral-950 font-bold text-xs uppercase tracking-wider hover:scale-105 active:scale-95 transition-all shadow-md shadow-[#D7B65D]/20 cursor-pointer"
+          >
+            <span>{isFr ? 'Réserver un trajet' : 'Book a route'}</span>
+            <ArrowUpRight className="w-3.5 h-3.5 stroke-[3]" />
+          </button>
         </div>
       </div>
     </section>

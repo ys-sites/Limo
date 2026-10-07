@@ -43,14 +43,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     FLEET[0];
 
   // Price calculations
+  const hourly = selectedVehicle.hourlyRate ?? 140;
+  const flat = selectedVehicle.flatAirportRate ?? 160;
   let baseRate = 0;
   if (booking.serviceType === 'hourly') {
-    baseRate = selectedVehicle.hourlyRate * (booking.hours || 3);
+    baseRate = hourly * (booking.hours || 3);
   } else if (booking.serviceType === 'flat_rate') {
-    baseRate = selectedVehicle.flatAirportRate;
+    baseRate = flat;
   } else {
     // distance estimate base
-    baseRate = selectedVehicle.hourlyRate * 1.5;
+    baseRate = hourly * 1.5;
   }
 
   const gratuity = Math.round(baseRate * 0.15); // 15% gratuity

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Luxury dark rounded badge backplate -->
+  <rect width="64" height="64" rx="14" fill="#0A0A0B"/>
+  <rect x="1" y="1" width="62" height="62" rx="13" stroke="url(#goldGradient)" stroke-width="1.5" stroke-opacity="0.6"/>
+
+  <!-- Sleek Luxury Limousine Silhouette -->
+  <g transform="translate(4, 14)">
+    <!-- Roof line and car body -->
+    <path d="M6 24 C6 24 10 23.5 13 21 C15.5 18.5 19 13.5 24 13.5 H42 C46 13.5 49 17 51 21 C53 23 55 24 55 24 L56 26 C56 26.5 55.5 27 55 27 H50.5 C50.5 25.5 49 24 47 24 C45 24 43.5 25.5 43.5 27 H18.5 C18.5 25.5 17 24 15 24 C13 24 11.5 25.5 11.5 27 H1 C0.5 27 0 26.5 0 26 L1 24 C2 24 4.5 24 6 24 Z" 
+          fill="url(#goldGradient)" />
+    
+    <!-- VIP Tinted Window Cutouts -->
+    <path d="M16 20.5 C17.5 18 20 15.5 23.5 15.5 H28.5 V21 H16.5 C16.2 20.8 16.1 20.6 16 20.5 Z" fill="#0A0A0B" fill-opacity="0.85"/>
+    <path d="M30 15.5 H37 V21 H30 V15.5 Z" fill="#0A0A0B" fill-opacity="0.85"/>
+    <path d="M38.5 15.5 H41 C43.5 15.5 45.8 18 47.2 20.5 C47.4 20.7 47.1 21 46.8 21 H38.5 V15.5 Z" fill="#0A0A0B" fill-opacity="0.85"/>
+
+    <!-- Subtle Headlight & Taillight Accents -->
+    <circle cx="54.5" cy="24.5" r="1" fill="#FFF8E7"/>
+    <line x1="1" y1="24.5" x2="3" y2="24.5" stroke="#FF4D4D" stroke-width="1.2" stroke-linecap="round"/>
+
+    <!-- Wheels (Front & Rear Luxury Gold Alloy Rims) -->
+    <!-- Rear Wheel -->
+    <circle cx="15" cy="26" r="4.2" fill="#141416" stroke="url(#goldGradient)" stroke-width="1.8"/>
+    <circle cx="15" cy="26" r="1.8" fill="#F5D577"/>
+    
+    <!-- Front Wheel -->
+    <circle cx="47" cy="26" r="4.2" fill="#141416" stroke="url(#goldGradient)" stroke-width="1.8"/>
+    <circle cx="47" cy="26" r="1.8" fill="#F5D577"/>
+
+    <!-- Luxury Underglow Accent Line -->
+    <line x1="20" y1="28.5" x2="42" y2="28.5" stroke="url(#goldGradient)" stroke-width="1" stroke-linecap="round" stroke-opacity="0.8"/>
+  </g>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCE18B"/>
+      <stop offset="45%" stop-color="#D7B65D"/>
+      <stop offset="100%" stop-color="#A57A27"/>
+    </linearGradient>
+  </defs>
+</svg>

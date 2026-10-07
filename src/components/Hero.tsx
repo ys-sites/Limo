@@ -1,8 +1,11 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { BookingWidget } from './BookingWidget';
 import { BookingState } from '../types/limo';
 import { HERO_IMAGE, CLIENT_INFO } from '../data/limoData';
-import { MessageSquare, PhoneCall } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
+import { ShinyText } from './ui/ShinyText';
+import { FoldText } from './ui/FoldText';
 
 interface HeroProps {
   language: 'FR' | 'EN';
@@ -10,91 +13,129 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ language, onReserve }) => {
+  const isFr = language === 'FR';
+
   return (
-    <section id="about" className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden">
+    <section id="hero" className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-neutral-950">
       {/* Background Cinematic Image matching screenshot */}
       <div className="absolute inset-0 z-0">
         <img
           src={HERO_IMAGE}
           alt="Limo Raf Chauffeur Privé Montréal Cadillac Escalade"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-center filter brightness-[0.82]"
           referrerPolicy="no-referrer"
         />
         {/* Soft linear gradient overlays for luxury contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-black/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/45" />
       </div>
 
       {/* Main Content: Headline on Left, Booking Card on Right */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-32 pb-16 lg:pt-36 lg:pb-20 flex-1 flex flex-col justify-center">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Left: Headline & Explore More */}
-          <div className="lg:col-span-7 space-y-6 text-white max-w-xl">
+          {/* Left: Headline & Explore More with Blacklane-style smooth entrance */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 space-y-6 text-white max-w-xl"
+          >
             {/* VIP Location Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[11px] text-amber-300 font-medium">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-black/60 backdrop-blur-md border border-[#D7B65D]/40 rounded-full text-[11px] text-[#F5D577] font-semibold tracking-wide">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>{language === 'FR' ? 'Service 24/7 Grand Montréal · YUL · Laval · Tremblant' : '24/7 Greater Montreal · YUL Airport · Laval · Tremblant'}</span>
+              <span>
+                {isFr ? 'Service 24/7 Grand Montréal · YUL · Laval · Tremblant' : '24/7 Greater Montreal · YUL Airport · Laval · Tremblant'}
+              </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[60px] font-bold text-white tracking-tight leading-[1.08] font-sans">
-              {language === 'FR' ? (
+            {/* Title with ShinyText effect */}
+            <h1 className="text-4xl sm:text-5xl lg:text-[62px] font-extrabold text-white tracking-tight leading-[1.08] font-serif">
+              {isFr ? (
                 <>
-                  Votre chauffeur <br />
-                  vous attend.
+                  <span className="block text-white">Votre chauffeur</span>
+                  <ShinyText
+                    text="vous attend."
+                    color="#D7B65D"
+                    shineColor="#FFF6D6"
+                    speed={3}
+                    className="block"
+                  />
                 </>
               ) : (
                 <>
-                  Your chauffeur <br />
-                  awaits.
+                  <span className="block text-white">Your chauffeur</span>
+                  <ShinyText
+                    text="awaits."
+                    color="#D7B65D"
+                    shineColor="#FFF6D6"
+                    speed={3}
+                    className="block"
+                  />
                 </>
               )}
             </h1>
 
-            <p className="text-xs sm:text-sm text-neutral-200/90 leading-relaxed max-w-md font-light">
-              {language === 'FR'
-                ? "Chez Limo Raf, nous transformons chacun de vos déplacements en une expérience haut de gamme. Que ce soit pour un transfert YUL, un événement corporatif ou une escapade longue distance, voyagez avec élégance."
-                : "At Limo Raf, we transform every journey into an elite first-class experience. Whether for YUL airport transfers, corporate roadshows, or intercity travel, ride with elegance."}
-            </p>
+            {/* Subtext with FoldText component */}
+            <div className="text-xs sm:text-base text-neutral-300 leading-relaxed max-w-md font-light">
+              <FoldText
+                text={
+                  isFr
+                    ? "Chez Limo Raf, nous transformons chacun de vos déplacements en une expérience haut de gamme. Voyagez avec élégance."
+                    : "At Limo Raf, we transform every journey into an elite first-class experience. Ride with elegance."
+                }
+                trigger="mount"
+                duration={0.65}
+                stagger={0.03}
+                color="#E5E7EB"
+              />
+            </div>
 
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            {/* Action buttons with brand gold accent */}
+            <div className="pt-2 flex flex-wrap items-center gap-3.5">
               <a
                 href="#fleet"
-                className="inline-block px-7 py-3 text-xs font-semibold text-neutral-950 bg-[#E4A836] hover:bg-[#d59929] active:scale-[0.98] rounded-md transition-all shadow-sm cursor-pointer"
+                className="inline-flex items-center gap-2 px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-neutral-950 bg-gradient-to-r from-[#D7B65D] via-[#F5D577] to-[#D7B65D] hover:scale-105 active:scale-95 rounded-full transition-all shadow-lg shadow-[#D7B65D]/30 cursor-pointer"
               >
-                {language === 'FR' ? 'Explorer la flotte' : 'Explore now'}
+                <span>{isFr ? 'Explorer la flotte' : 'Explore fleet'}</span>
+                <span>→</span>
               </a>
 
               <a
                 href={CLIENT_INFO.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 text-xs font-medium text-white bg-emerald-700/80 hover:bg-emerald-600 border border-emerald-500/30 backdrop-blur-xs rounded-md transition-all shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-3.5 text-xs font-semibold text-white bg-emerald-600/90 hover:bg-emerald-500 border border-emerald-400/40 backdrop-blur-md rounded-full transition-all shadow-md active:scale-95"
               >
-                <MessageSquare className="w-3.5 h-3.5 text-emerald-300" />
-                <span>WhatsApp Instant</span>
+                <MessageSquare className="w-4 h-4 fill-current" />
+                <span>WhatsApp VIP</span>
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right: Floating Booking Widget directly matching screenshot */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 flex justify-center lg:justify-end"
+          >
             <BookingWidget language={language} onReserve={onReserve} />
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Bottom: Mouse Scroll Down indicator matching screenshot */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-8">
         <a
-          href="#services"
-          className="inline-flex items-center gap-2.5 text-xs text-white/80 hover:text-white transition-colors group"
+          href="#about"
+          className="inline-flex items-center gap-2.5 text-xs text-white/80 hover:text-[#F5D577] transition-colors group"
         >
           {/* Mouse capsule outline with wheel dot */}
-          <div className="w-4 h-7 rounded-full border border-white/70 flex items-start justify-center p-1">
-            <div className="w-1 h-1.5 bg-white rounded-full animate-bounce" />
+          <div className="w-4 h-7 rounded-full border border-white/70 group-hover:border-[#F5D577] flex items-start justify-center p-1 transition-colors">
+            <div className="w-1 h-1.5 bg-[#F5D577] rounded-full animate-bounce" />
           </div>
-          <span className="text-[11px] font-light tracking-wider">
-            {language === 'FR' ? 'Défiler vers le bas' : 'Scroll down'}
+          <span className="text-[11px] font-medium tracking-wider">
+            {isFr ? 'Défiler vers le bas' : 'Scroll down'}
           </span>
         </a>
       </div>
