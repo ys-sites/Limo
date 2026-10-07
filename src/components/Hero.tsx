@@ -1,18 +1,16 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import { BookingWidget } from './BookingWidget';
-import { BookingState } from '../types/limo';
 import { HERO_IMAGE, CLIENT_INFO } from '../data/limoData';
 import { Phone, ArrowRight } from 'lucide-react';
 import { LUXURY_EASE, scrollToAnchor } from '../lib/motion';
 
 interface HeroProps {
   language: 'FR' | 'EN';
-  onReserve: (booking: BookingState) => void;
   onCallback: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ language, onReserve, onCallback }) => {
+export const Hero: React.FC<HeroProps> = ({ language, onCallback }) => {
   const isFr = language === 'FR';
   const containerRef = useRef<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -140,7 +138,7 @@ export const Hero: React.FC<HeroProps> = ({ language, onReserve, onCallback }) =
             transition={{ duration: 0.9, delay: 0.5, ease: LUXURY_EASE }}
             className="lg:col-span-5 flex justify-center lg:justify-end"
           >
-            <BookingWidget language={language} onReserve={onReserve} />
+            <BookingWidget language={language} />
           </motion.div>
         </div>
       </div>

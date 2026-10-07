@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import { User, Mail, Phone, Car, ChevronDown, CheckCircle2, AlertCircle, Loader2, FileText } from 'lucide-react';
-import { BookingState } from '../types/limo';
 import { CLIENT_INFO, FLEET } from '../data/limoData';
 import { FORMSUBMIT_EMAIL } from '../config/formConfig';
 
 interface BookingWidgetProps {
   language: 'FR' | 'EN';
-  onReserve?: (booking: BookingState) => void;
   className?: string;
 }
 
 export const BookingWidget: React.FC<BookingWidgetProps> = ({
   language,
-  onReserve,
   className = ''
 }) => {
   const isFr = language === 'FR';
@@ -54,21 +51,6 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
 
       if (response.ok) {
         setStatus('success');
-        if (onReserve) {
-          onReserve({
-            serviceType: 'distance',
-            pickupAddress: 'Montréal / YUL',
-            dropoffAddress: 'Destination demandée',
-            tripType: 'one_way',
-            date: new Date().toISOString().split('T')[0],
-            timeHour: '12',
-            timeMinute: '00',
-            timePeriod: 'PM',
-            selectedVehicleId: 'cadillac-escalade',
-            passengers: 2,
-            luggage: 2
-          });
-        }
       } else {
         const errorData = await response.json().catch(() => null);
         throw new Error(errorData?.message || 'Erreur lors de la transmission');

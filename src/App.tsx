@@ -11,7 +11,6 @@ import { CoverageMapSection } from './components/CoverageMapSection';
 import { TopCitiesSection } from './components/TopCitiesSection';
 import { ReviewsMarquee } from './components/ReviewsMarquee';
 import { Footer } from './components/Footer';
-import { BookingState } from './types/limo';
 import { FLEET } from './data/limoData';
 import { QuoteModal } from './components/QuoteModal';
 import { DestinationInquiryModal } from './components/DestinationInquiryModal';
@@ -81,15 +80,6 @@ export default function App() {
     }
   }, [activeVehicle, isDestinationsPage]);
 
-  // Hero widget submit → open the quote popup with trip details prefilled
-  const handleHeroReserve = (incomingBooking: BookingState) => {
-    const vehicle = FLEET.find((v) => v.id === incomingBooking.selectedVehicleId);
-    openQuote({
-      vehicle: vehicle?.name,
-      details: `${incomingBooking.pickupAddress} → ${incomingBooking.dropoffAddress} · ${incomingBooking.date} ${incomingBooking.timeHour}:${incomingBooking.timeMinute} ${incomingBooking.timePeriod} · ${incomingBooking.passengers} passagers`,
-    });
-  };
-
   const handleViewVehicleDetails = (slug: string) => {
     setActiveVehicleSlug(slug);
     window.history.pushState(null, '', `#/vehicles/${slug}`);
@@ -155,7 +145,6 @@ export default function App() {
             {/* 1. Hero Section with Cadillac Escalade background & floating reservation card */}
             <Hero
               language={language}
-              onReserve={handleHeroReserve}
               onCallback={() => setCallbackOpen(true)}
             />
 
