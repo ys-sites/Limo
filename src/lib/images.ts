@@ -19,8 +19,6 @@ const PUBLIC_WITH_MOBILE = new Set([
   '/images/about_chauffeur_vip.webp',
   '/images/about_discretion_vip.webp',
   '/images/fleet_cadillac_escalade_1791294159140.webp',
-  '/images/fleet_png/cadillac_lyriq_electric.webp',
-  '/images/fleet_png/chevrolet_suburban_premier.webp',
   '/images/service_airport_transfer_1791294128362.webp',
   '/images/service_corporate_travel_1791294137972.webp',
   '/images/service_special_events_1791294148674.webp',

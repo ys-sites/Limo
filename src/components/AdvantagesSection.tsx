@@ -26,8 +26,8 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ language }
       number: '02',
       titleFr: 'Flotte luxueuse et confortable',
       titleEn: 'Luxurious and comfortable fleet',
-      descFr: 'Des SUV noirs récents haut de gamme (Cadillac Escalade ESV, GMC Yukon Denali XL, Cadillac Lyriq), méticuleusement inspectés et nettoyés avant chaque prise en charge.',
-      descEn: 'Late-model luxury black SUVs (Cadillac Escalade ESV, GMC Yukon Denali XL, Cadillac Lyriq), meticulously inspected and detailed before every pickup.',
+      descFr: 'Des SUV noirs récents haut de gamme (Cadillac Escalade ESV, Cadillac XT6, GMC Yukon Denali XL), méticuleusement inspectés et nettoyés avant chaque prise en charge.',
+      descEn: 'Late-model luxury black SUVs (Cadillac Escalade ESV, Cadillac XT6, GMC Yukon Denali XL), meticulously inspected and detailed before every pickup.',
       highlightsFr: ['Modèles récents haut de gamme', 'Habitacle cuir désinfecté', 'Suspension pneumatique grand confort'],
       highlightsEn: ['Late-model prestige vehicles', 'Sanitized leather interior', 'Pneumatic luxury suspension']
     },

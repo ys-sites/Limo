@@ -48,10 +48,10 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
   radius = 20,
   expandRatio = 0.44,
   orientation = 'horizontal',
-  duration = 0.55,
+  duration = 0.7,
   ease = 'power3.out',
   parallax = 0.4,
-  tilt = 6,
+  tilt = 0,
   stagger = 0.05,
   trigger = 'hover',
   showLabels = true,
@@ -68,6 +68,7 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
   const tlRef = useRef<gsap.core.Timeline | null>(null);
   const firstRunRef = useRef(true);
   const mediaSizeRef = useRef(360);
+  const hoverTimerRef = useRef<number | undefined>(undefined);
 
   const vertical = orientation === 'vertical';
   const count = items.length;
@@ -147,6 +148,8 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
       const size = Math.max(140, usable * Math.min(Math.max(expandRatio, 0.2), 0.9) * 1.25);
       mediaSizeRef.current = size;
       el.style.setProperty('--ag-media-size', `${size}px`);
+      // Width of the expanded panel: every photo is rendered at this size once
+      el.style.setProperty('--ag-media-w', `${Math.ceil(usable * Math.min(Math.max(expandRatio, 0.2), 0.9)) + 2}px`);
       applyLayout(!firstRunRef.current);
     };
 
@@ -164,11 +167,19 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
   useEffect(() => {
     return () => {
       tlRef.current?.kill();
+      window.clearTimeout(hoverTimerRef.current);
     };
   }, []);
 
+  // Short hover intent so sweeping the cursor across panels doesn't restart the animation on each one
   const handleEnter = (i: number) => {
-    if (trigger === 'hover') setActive(i);
+    if (trigger !== 'hover') return;
+    window.clearTimeout(hoverTimerRef.current);
+    hoverTimerRef.current = window.setTimeout(() => setActive(i), 90);
+  };
+
+  const handleLeave = () => {
+    window.clearTimeout(hoverTimerRef.current);
   };
 
   const handleClick = (i: number, e: React.MouseEvent) => {
@@ -213,6 +224,7 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
             style={{ borderRadius: `${radius}px` }}
             onClick={(e) => handleClick(i, e)}
             onMouseEnter={() => handleEnter(i)}
+            onMouseLeave={handleLeave}
             onFocus={() => setActive(i)}
             role="listitem"
             tabIndex={0}
@@ -237,7 +249,7 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
 
             {/* Top glass badge with city name */}
             <div className="ag-panel__top-badge">
-              <span className="px-3 py-1 text-[11px] font-bold text-neutral-900 bg-white/60 backdrop-blur-xl rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_20px_-8px_rgba(0,0,0,0.4)] border border-white/70">
+              <span className="px-3 py-1 text-[11px] font-bold text-neutral-900 bg-white/85 rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_20px_-8px_rgba(0,0,0,0.4)] border border-white/70">
                 {item.cityName || item.label}
               </span>
             </div>

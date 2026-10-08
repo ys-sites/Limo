@@ -109,7 +109,6 @@ export const TopCitiesSection: React.FC<TopCitiesSectionProps> = ({
             height={440}
             gap={14}
             radius={22}
-            tilt={6}
             parallax={0.35}
             grayscale={false}
             onItemClick={handleItemClick}

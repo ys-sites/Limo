@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Users, Luggage, Info, Sparkles } from 'lucide-react';
-import { FLEET } from '../data/limoData';
-import { Vehicle } from '../types/limo';
+import React from 'react';
+import { motion } from 'motion/react';
+import { Users, Luggage, Palette, Wifi, Car, Mail, MessageCircle, Plus } from 'lucide-react';
+import { CLIENT_INFO, FLEET } from '../data/limoData';
 import { QuotePrefill } from '../lib/contact';
 import { ShinyText } from './ui/ShinyText';
+import { LUXURY_EASE } from '../lib/motion';
 import { preloadImages, srcSetFor } from '../lib/images';
 
 interface FleetSectionProps {
@@ -13,34 +13,25 @@ interface FleetSectionProps {
   onViewVehicleDetails: (slug: string) => void;
 }
 
-export const FleetSection: React.FC<FleetSectionProps> = ({ 
-  language, 
-  onQuote, 
-  onViewVehicleDetails 
+export const FleetSection: React.FC<FleetSectionProps> = ({
+  language,
+  onQuote,
+  onViewVehicleDetails
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
+  const isFr = language === 'FR';
 
-  const categories = [
-    { id: 'ALL', labelEn: 'ALL', labelFr: 'TOUS' },
-    { id: 'SUV_VIP', labelEn: 'VIP SUV', labelFr: 'VUS VIP' },
-    { id: 'EXECUTIVE', labelEn: 'EXECUTIVE', labelFr: 'EXÉCUTIF' },
-    { id: 'ELECTRIC', labelEn: 'ELECTRIC', labelFr: 'ÉLECTRIQUE' }
-  ];
-
-  const filteredFleet = FLEET.filter((vehicle) => {
-    if (selectedCategory === 'ALL') return true;
-    return vehicle.category === selectedCategory;
-  });
-
-  const handleCategoryChange = (catId: string) => {
-    setSelectedCategory(catId);
+  const whatsappFor = (vehicleName: string) => {
+    const text = isFr
+      ? `Bonjour, je souhaite réserver le ${vehicleName} avec Limo Raf.`
+      : `Hello, I would like to book the ${vehicleName} with Limo Raf.`;
+    return `https://api.whatsapp.com/send/?phone=${CLIENT_INFO.phoneRaw.replace('+', '')}&text=${encodeURIComponent(text)}`;
   };
 
   return (
     <section id="fleet" className="py-24 lg:py-28 bg-white text-neutral-900 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header: 03 on left, Our fleet in center */}
-        <div className="relative mb-12 sm:mb-14 flex items-center justify-center">
+        <div className="relative mb-14 sm:mb-16 flex items-center justify-center">
           <div className="absolute left-0 top-1/2 -translate-y-1/2 hidden sm:block">
             <span className="text-4xl sm:text-5xl font-light text-neutral-300 font-sans select-none">
               03
@@ -49,188 +40,113 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
           <div className="text-center">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight font-sans">
               <ShinyText
-                text={language === 'FR' ? 'Notre flotte' : 'Our fleet'}
+                text={isFr ? 'Notre flotte' : 'Our fleet'}
                 color="#171717"
                 shineColor="#D7B65D"
                 speed={3}
               />
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-500 font-light mt-1">
-              {language === 'FR'
-                ? 'Tous nos véhicules de prestige sont disponibles 24/7 avec chauffeur privé dédié.'
-                : 'All our prestige vehicles are available 24/7 with a dedicated private chauffeur.'}
-            </p>
+            {/* Divider with car glyph */}
+            <div className="flex items-center justify-center gap-3 mt-4" aria-hidden="true">
+              <span className="h-px w-16 bg-neutral-200" />
+              <Car className="w-4 h-4 text-[#C4963A]" />
+              <span className="h-px w-16 bg-neutral-200" />
+            </div>
           </div>
         </div>
 
-        {/* Filters: exactly 1 row on mobile (4 equal columns), wrap on desktop */}
-        <div className="grid grid-cols-4 sm:flex sm:flex-wrap sm:items-center sm:justify-center gap-2 sm:gap-4 pb-4 mb-10 text-xs font-semibold uppercase tracking-wider">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => handleCategoryChange(cat.id)}
-              className={`w-full sm:w-auto px-1 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all cursor-pointer whitespace-nowrap text-center text-[10px] sm:text-xs ${
-                selectedCategory === cat.id
-                  ? 'bg-black text-white shadow-md scale-[1.02]'
-                  : 'bg-white/60 hover:bg-white/85 text-neutral-700 border border-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]'
-              }`}
-            >
-              {language === 'FR' ? cat.labelFr : cat.labelEn}
-            </button>
-          ))}
-        </div>
+        {/* 3 vehicles, one column each */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 lg:gap-12">
+          {FLEET.map((vehicle, idx) => {
+            const specs = [
+              { Icon: Users, label: isFr ? `${vehicle.passengers} passagers` : `${vehicle.passengers} passengers` },
+              { Icon: Luggage, label: isFr ? `${vehicle.luggage} bagages` : `${vehicle.luggage} pieces of luggage` },
+              { Icon: Palette, label: isFr ? 'Intérieur / extérieur noir' : 'Black interior / exterior' },
+              { Icon: Wifi, label: isFr ? 'Wi-Fi à bord' : 'On-board Wi-Fi' },
+            ];
 
-        {/* Show all 5 cars at once in an executive responsive layout */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedCategory}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8"
-          >
-            {filteredFleet.map((vehicle, idx) => {
-              const categoryLabel = language === 'FR' ? vehicle.categoryLabelFr : vehicle.categoryLabelEn;
-              const isAllView = filteredFleet.length === 5;
-              const isFlagship = isAllView && (idx === 0 || idx === 1);
-
-              // Grid column distribution:
-              // In ALL view: 2 flagships on top row (6 cols each = 12), 3 vehicles on bottom row (4 cols each = 12)
-              // In filtered view: 3 items => 4 cols each, 1-2 items => 6 cols each
-              let colSpanClass = 'lg:col-span-4';
-              if (isAllView) {
-                colSpanClass = isFlagship ? 'lg:col-span-6' : 'lg:col-span-4';
-              } else if (filteredFleet.length <= 2) {
-                colSpanClass = 'lg:col-span-6';
-              } else if (filteredFleet.length === 3) {
-                colSpanClass = 'lg:col-span-4';
-              }
-
-              return (
-                <motion.div
-                  key={vehicle.id}
-                  // Start fetching the detail page photos as soon as the card is hovered / touched
-                  onPointerEnter={() => preloadImages(vehicle.galleryImages)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.45, 
-                    delay: idx * 0.06, 
-                    ease: [0.16, 1, 0.3, 1] as [number, number, number, number] 
-                  }}
-                  className={`${colSpanClass} bg-white/55 hover:bg-white/70 rounded-3xl p-6 sm:p-7 flex flex-col justify-between ${
-                    isFlagship ? 'sm:min-h-[460px]' : 'sm:min-h-[430px]'
-                  } border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_20px_50px_-20px_rgba(0,0,0,0.15)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_28px_60px_-20px_rgba(0,0,0,0.22)] transition-[background-color,box-shadow] duration-300 group relative overflow-hidden`}
+            return (
+              <motion.article
+                key={vehicle.id}
+                // Start fetching the detail page photos as soon as the card is hovered / touched
+                onPointerEnter={() => preloadImages(vehicle.galleryImages)}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.6, delay: idx * 0.08, ease: LUXURY_EASE }}
+                className="group flex flex-col"
+              >
+                {/* Car image: click (or the gold +) opens the vehicle page */}
+                <button
+                  type="button"
+                  onClick={() => onViewVehicleDetails(vehicle.slug)}
+                  aria-label={isFr ? `Voir la fiche du ${vehicle.name}` : `View ${vehicle.name} details`}
+                  className="relative h-52 sm:h-56 flex items-center justify-center cursor-pointer"
                 >
-                  {/* Top: Title, Category & Capacity Badge */}
-                  <div className="flex items-start justify-between gap-4 z-10">
-                    <div>
-                      <span className="text-[11px] font-semibold tracking-wider text-[#C4963A] uppercase block mb-1">
-                        {categoryLabel}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => onViewVehicleDetails(vehicle.slug)}
-                        className="text-lg sm:text-xl font-bold text-neutral-900 tracking-tight font-sans text-left hover:text-[#C4963A] transition-colors cursor-pointer"
-                      >
-                        {vehicle.name}
-                      </button>
-                      <p className="text-xs text-neutral-500 font-normal mt-0.5">
-                        {language === 'FR' ? 'Tarif tout compris · Devis sur mesure' : 'All-inclusive rate · Custom quote'}
-                      </p>
-                    </div>
+                  <img
+                    src={vehicle.image}
+                    srcSet={srcSetFor(vehicle.image)}
+                    sizes="(max-width: 767px) 60vw, 34vw"
+                    alt={`${vehicle.name} - Limo Raf Chauffeur Privé Montréal`}
+                    loading="lazy"
+                    decoding="async"
+                    className="max-h-full w-full object-contain drop-shadow-xl transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:scale-[1.03]"
+                  />
+                  <span className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-[#D7B65D] text-neutral-950 flex items-center justify-center shadow-[0_8px_24px_rgba(196,150,58,0.4)] opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-[opacity,transform] duration-300">
+                    <Plus className="w-5 h-5" strokeWidth={2.5} />
+                  </span>
+                </button>
 
-                    {/* Passenger & Luggage quick badge */}
-                    <div className="flex items-center gap-3 bg-white/80 px-3 py-1.5 rounded-full border border-neutral-200/80 text-[11px] text-neutral-600 font-medium shrink-0">
-                      <span className="flex items-center gap-1">
-                        <Users className="w-3.5 h-3.5 text-neutral-500" />
-                        <span>{vehicle.passengers}</span>
-                      </span>
-                      <span className="text-neutral-300">|</span>
-                      <span className="flex items-center gap-1">
-                        <Luggage className="w-3.5 h-3.5 text-neutral-500" />
-                        <span>{vehicle.luggage}</span>
-                      </span>
-                    </div>
-                  </div>
+                {/* Name */}
+                <button
+                  type="button"
+                  onClick={() => onViewVehicleDetails(vehicle.slug)}
+                  className="mt-6 text-left text-xl sm:text-2xl font-bold uppercase tracking-tight text-neutral-800 hover:text-[#C4963A] transition-colors cursor-pointer"
+                >
+                  {vehicle.name}
+                </button>
 
-                  {/* Grand Transparent PNG Car View with clean cutout and subtle hover effect */}
-                  <div 
-                    onClick={() => onViewVehicleDetails(vehicle.slug)}
-                    className="py-5 sm:py-7 flex-1 flex flex-col items-center justify-center relative my-2 cursor-pointer group-hover:scale-[1.02] transition-transform"
+                {/* Specs */}
+                <ul className="mt-4 space-y-2.5 text-sm text-neutral-600">
+                  {specs.map(({ Icon, label }) => (
+                    <li key={label} className="flex items-center gap-2.5">
+                      <Icon className="w-4 h-4 text-neutral-400 shrink-0" />
+                      <span>{label}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Actions */}
+                <div className="mt-7 grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => onQuote({ vehicle: vehicle.name })}
+                    className="inline-flex items-center justify-center gap-2 h-11 px-3 rounded-lg bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 text-xs sm:text-sm font-semibold transition-colors active:scale-[0.98] cursor-pointer"
                   >
-                    <div className="w-full flex items-center justify-center relative">
-                      <motion.img
-                        src={vehicle.image}
-                        srcSet={srcSetFor(vehicle.image)}
-                        sizes="(max-width: 767px) 60vw, 40vw"
-                        alt={`${vehicle.name} - Limo Raf Chauffeur Privé Montréal`}
-                        loading="lazy"
-                        decoding="async"
-                        initial={{ scale: 0.95, opacity: 0.9 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.45, delay: 0.05 + idx * 0.04, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-                        className={`${
-                          isFlagship 
-                            ? 'max-h-56 sm:max-h-64 lg:max-h-68' 
-                            : 'max-h-44 sm:max-h-48 lg:max-h-52'
-                        } w-full object-contain filter drop-shadow-xl group-hover:-translate-y-1 transition-all duration-500 z-10`}
-                        referrerPolicy="no-referrer"
-                      />
-                    </div>
-                    {/* Soft realistic ground shadow under wheels */}
-                    <div className="w-4/5 h-3.5 bg-black/20 blur-md rounded-full mt-1 mx-auto transition-transform duration-500 group-hover:scale-95 group-hover:opacity-60" />
-                    
-                    {/* Click to view subpage hint */}
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-2 text-[11px] font-semibold text-neutral-500 flex items-center gap-1">
-                      <Info className="w-3.5 h-3.5 text-[#C4963A]" />
-                      <span>{language === 'FR' ? 'Cliquer pour voir la fiche détaillée & photos' : 'Click to view subpage & photos'}</span>
-                    </div>
-                  </div>
+                    <span>{isFr ? 'Nous joindre' : 'Contact us'}</span>
+                    <Mail className="w-4 h-4" />
+                  </button>
+                  <a
+                    href={whatsappFor(vehicle.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 h-11 px-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white text-xs sm:text-sm font-semibold transition-colors active:scale-[0.98]"
+                  >
+                    <span>{isFr ? 'Appel ou texto' : 'Call or text'}</span>
+                    <MessageCircle className="w-4 h-4" />
+                  </a>
+                </div>
 
-                  {/* Vehicle Tagline & Details Link */}
-                  <div className="z-10 pt-2 border-t border-neutral-200/60 flex items-center justify-start">
-                    <button
-                      type="button"
-                      onClick={() => onViewVehicleDetails(vehicle.slug)}
-                      className="text-[11px] text-neutral-600 hover:text-black font-semibold text-left underline underline-offset-4 cursor-pointer"
-                    >
-                      {language === 'FR' ? 'Détails & photos →' : 'Details & photos →'}
-                    </button>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Bottom banner: Full fleet summary & global reservation CTA */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-[#F6F6F6] border border-neutral-200/80">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-[#D7B65D]/15 border border-[#D7B65D]/30 flex items-center justify-center text-[#C4963A]">
-              <Sparkles className="w-4 h-4" />
-            </div>
-            <div>
-              <p className="text-xs sm:text-sm font-bold text-neutral-900">
-                {language === 'FR' 
-                  ? '5 Véhicules de Luxe Disponibles 24/7' 
-                  : '5 Luxury Vehicles Available 24/7'}
-              </p>
-              <p className="text-[11px] sm:text-xs text-neutral-500 font-light">
-                {language === 'FR' 
-                  ? 'Berlines & VUS exécutifs impeccables · Chauffeur en tenue d\'apparat · Wifi haut débit' 
-                  : 'Pristine executive SUVs · Uniformed certified chauffeur · High-speed Wi-Fi'}
-              </p>
-            </div>
-          </div>
-
-          <button
-            onClick={() => onQuote({ vehicle: FLEET[0].name })}
-            className="w-full sm:w-auto px-7 py-3 text-xs font-bold text-neutral-950 bg-[#D7B65D] hover:bg-[#C4963A] active:scale-[0.98] rounded-full transition-all shadow-md shadow-[#D7B65D]/20 cursor-pointer uppercase tracking-wider"
-          >
-            {language === 'FR' ? 'Book Now · Réserver' : 'Book Now · Reserve'}
-          </button>
+                <button
+                  type="button"
+                  onClick={() => onViewVehicleDetails(vehicle.slug)}
+                  className="mt-4 self-start text-xs font-semibold text-neutral-500 hover:text-neutral-900 underline underline-offset-4 cursor-pointer"
+                >
+                  {isFr ? 'Détails & photos →' : 'Details & photos →'}
+                </button>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

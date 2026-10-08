@@ -9,9 +9,7 @@ import serviceSpecialEvents from '../assets/images/service_special_events_179129
 // Transparent PNG cutout vehicle showcases
 import carEscalade from '../assets/images/cadillac_escalade_esv.webp';
 import carYukon from '../assets/images/gmc_yukon_denali_xl.webp';
-import carSuburban from '../assets/images/chevrolet_suburban_premier.webp';
 import carXt6 from '../assets/images/cadillac_xt6_sport.webp';
-import carLyriq from '../assets/images/cadillac_lyriq_electric.webp';
 
 // Local Canadian regional destination postcards
 import cityMontreal from '../assets/images/city_montreal.webp';
@@ -175,83 +173,6 @@ export const SERVICES: ServiceItem[] = [
 
 export const FLEET: Vehicle[] = [
   {
-    id: 'gmc-yukon-denali',
-    slug: 'gmc-yukon-denali',
-    name: 'GMC Yukon Denali XL',
-    category: 'SUV_VIP',
-    categoryLabelEn: 'VIP Executive SUV',
-    categoryLabelFr: 'VUS Exécutif VIP',
-    passengers: 6,
-    luggage: 5,
-    color: 'Noir / Jet Black',
-    image: carYukon,
-    galleryImages: [
-      '/client_assets/1-slide-gmc-yukon-limo-0.jpg',
-      '/client_assets/4-slide-gmc-yukon-limo.jpg',
-      '/client_assets/3-slide-gmc-yukon-limo-1.jpg',
-      '/client_assets/2-slide-gmc-yukon-limo-1.jpg',
-      '/client_assets/background-gmc-yukon-denali.jpg'
-    ],
-    taglineEn: 'The GMC Yukon Denali XL is a spacious and versatile luxury SUV that offers a premium travel experience.',
-    taglineFr: 'Le GMC Yukon Denali XL est un VUS de luxe spacieux et polyvalent offrant une expérience de voyage haut de gamme.',
-    overviewEn: 'The GMC Yukon Denali XL delivers a commanding presence on the road with an imposing chrome grille, refined black leather interior, generous passenger space for up to 6 guests, and high-end multimedia options like headrest entertainment screens and integrated Wi-Fi.',
-    overviewFr: 'Le GMC Yukon Denali XL offre une présence imposante sur la route avec sa calandre chromée distinctive, un intérieur raffiné en cuir noir pouvant accueillir confortablement jusqu\'à 6 passagers, et des équipements multimédias haut de gamme tels que des écrans tactiles intégrés aux appuie-tête et le Wi-Fi intégré.',
-    featuresEn: [
-      '6 Passengers · 5 Large Luggage pieces',
-      'Signature Denali chrome grille & 22-inch alloy wheels',
-      'Rear dual-screen entertainment system in headrests',
-      'Heated & ventilated executive leather captain chairs',
-      'Integrated high-speed on-board Wi-Fi connectivity'
-    ],
-    featuresFr: [
-      '6 Passagers · 5 Grands bagages',
-      'Calandre chromée emblématique Denali & jantes alliage 22 pouces',
-      'Système de divertissement arrière à doubles écrans tactiles',
-      'Fauteuils capitaines en cuir chauffants et ventilés',
-      'Wi-Fi haut débit embarqué pour une connectivité continue'
-    ],
-    detailSections: [
-      {
-        titleEn: 'Exterior Presence',
-        titleFr: 'Design Extérieur',
-        contentEn: 'The Yukon Denali XL features a rugged and imposing design with a distinctive chrome grille and elegant lines. It is equipped with advanced LED headlights and 22-inch alloy wheels for smooth road stability.',
-        contentFr: 'Le Yukon Denali XL affiche un design robuste et imposant, doté d\'une calandre exclusive et de lignes élancées. Il est équipé de projecteurs DEL haute performance et de jantes en alliage de 22 pouces assurant une tenue de route irréprochable.'
-      },
-      {
-        titleEn: 'Interior Refinement',
-        titleFr: 'Raffinement Intérieur',
-        contentEn: 'Inside, the Yukon Denali XL offers a serene sanctuary accommodating up to 6 passengers in absolute luxury. Features heated and ventilated leather captain chairs, generous legroom, and multi-zone climate control.',
-        contentFr: 'À l\'intérieur, le Yukon Denali XL propose un habitacle feutré accueillant jusqu\'à 6 passagers. Sièges en cuir ventilés et chauffants, dégagement généreux pour les jambes et contrôle thermique multizone indépendant.'
-      },
-      {
-        titleEn: 'Cavernous Cargo Capacity',
-        titleFr: 'Espace Bagages Étendu',
-        contentEn: 'With extended XL wheelbase cargo dimensions, it easily accommodates 5 to 6 large travel suitcases plus carry-on bags, perfect for YUL airport transfers and corporate travel.',
-        contentFr: 'Grâce à son châssis allongé XL, il transporte facilement 5 à 6 grandes valises d\'aéroport et bagages cabine, convenant parfaitement aux navettes aéroportuaires et voyages longue distance.'
-      },
-      {
-        titleEn: 'Technology & Rear Entertainment',
-        titleFr: 'Technologie & Divertissement',
-        contentEn: 'Equipped with dual rear touchscreens integrated into front seat headrests for movies or presentations, Bose premium audio, integrated Wi-Fi, and multiple high-speed USB-C charging stations.',
-        contentFr: 'Muni d\'écrans tactiles arrière intégrés aux appuie-tête pour le visionnement de médias, d\'un système audio Bose ambiophonique, du Wi-Fi intégré et de prises de recharge rapide.'
-      }
-    ],
-    servicesOfferedEn: [
-      'Montréal-Trudeau Airport (YUL) Meet & Greet',
-      'As-Directed Hourly Chauffeur Service',
-      'Corporate Travel & VIP Roadshows',
-      'Long-Distance (Mont-Tremblant, Québec, Ottawa, USA)'
-    ],
-    servicesOfferedFr: [
-      'Transferts Aéroport Montréal-Trudeau (YUL) avec accueil en terminal',
-      'Service de chauffeur privé à l\'heure (As-Directed)',
-      'Déplacements corporatifs et délégations d\'affaires',
-      'Longue distance (Mont-Tremblant, Québec, Ottawa, USA)'
-    ],
-    popularForEn: 'YUL Airport VIP transfers, corporate delegations & ski resort transit to Mont-Tremblant',
-    popularForFr: 'Transferts VIP aéroport YUL, délégations d\'affaires & séjours à Mont-Tremblant'
-  },
-  {
     id: 'cadillac-escalade',
     slug: 'cadillac-escalade',
     name: 'Cadillac Escalade ESV',
@@ -335,8 +256,8 @@ export const FLEET: Vehicle[] = [
     category: 'EXECUTIVE',
     categoryLabelEn: 'Midsize Luxury SUV',
     categoryLabelFr: 'VUS Sport & Luxe',
-    passengers: 4,
-    luggage: 4,
+    passengers: 3,
+    luggage: 3,
     color: 'Noir / Jet Black',
     image: carXt6,
     galleryImages: [
@@ -351,14 +272,14 @@ export const FLEET: Vehicle[] = [
     overviewEn: 'The Cadillac XT6 Sport is a versatile luxury SUV that offers an elegant and modern design inside and out. Its sleek lines, sport-tuned all-wheel drive, and tailored cabin make it ideal for executive city commutes and fine dining evenings.',
     overviewFr: 'Le Cadillac XT6 Sport est un VUS de luxe polyvalent offrant un design moderne et racé. Ses lignes épurées, sa traction intégrale sportive et son habitacle raffiné en font le choix idéal pour les rendez-vous d\'affaires urbains et les soirées montréalaises.',
     featuresEn: [
-      '4-6 Passengers · 4 Luggage pieces',
+      '3 Passengers · 3 Luggage pieces',
       'Jet Black Sport trim with gloss-black exterior package',
       'Bose Performance 14-speaker surround sound system',
       'Intelligent AWD engineered for Quebec winter conditions',
       'Apple CarPlay, Android Auto, and wireless charging'
     ],
     featuresFr: [
-      '4-6 Passagers · 4 Bagages',
+      '3 Passagers · 3 Bagages',
       'Finition Sport noire avec ensemble extérieur noir lustré',
       'Système audio ambiophonique Bose Performance 14 haut-parleurs',
       'Traction intégrale intelligente parée pour l\'hiver québécois',
@@ -380,8 +301,8 @@ export const FLEET: Vehicle[] = [
       {
         titleEn: 'Versatile Cargo',
         titleFr: 'Modularité du Coffre',
-        contentEn: 'Power folding seating configurations accommodate up to 4 large suitcases or presentation display cases with ease.',
-        contentFr: 'Sièges rabattables électriquement permettant de loger facilement 4 valises ou du matériel de présentation corporatif.'
+        contentEn: 'Power folding seating configurations accommodate up to 3 large suitcases or presentation display cases with ease.',
+        contentFr: 'Sièges rabattables électriquement permettant de loger facilement 3 valises ou du matériel de présentation corporatif.'
       },
       {
         titleEn: 'Winter-Ready Performance',
@@ -406,153 +327,81 @@ export const FLEET: Vehicle[] = [
     popularForFr: 'Dîners gastronomiques, rendez-vous d\'affaires, Centre Bell & sorties privées'
   },
   {
-    id: 'chevrolet-suburban',
-    slug: 'chevrolet-suburban',
-    name: 'Chevrolet Suburban Premier',
-    category: 'EXECUTIVE',
-    categoryLabelEn: 'Full-Size Luxury SUV',
-    categoryLabelFr: 'VUS Pleine Grandeur',
-    passengers: 7,
-    luggage: 6,
+    id: 'gmc-yukon-denali',
+    slug: 'gmc-yukon-denali',
+    name: 'GMC Yukon Denali XL',
+    category: 'SUV_VIP',
+    categoryLabelEn: 'VIP Executive SUV',
+    categoryLabelFr: 'VUS Exécutif VIP',
+    passengers: 6,
+    luggage: 5,
     color: 'Noir / Jet Black',
-    image: carSuburban,
+    image: carYukon,
     galleryImages: [
-      '/images/fleet_png/chevrolet_suburban_premier.webp',
-      '/client_assets/service-limo.webp',
-      '/client_assets/chauffeur-voiture-de-luxe.webp'
+      '/client_assets/1-slide-gmc-yukon-limo-0.jpg',
+      '/client_assets/4-slide-gmc-yukon-limo.jpg',
+      '/client_assets/3-slide-gmc-yukon-limo-1.jpg',
+      '/client_assets/2-slide-gmc-yukon-limo-1.jpg',
+      '/client_assets/background-gmc-yukon-denali.jpg'
     ],
-    taglineEn: 'The benchmark of space and smooth riding comfort for groups, delegations, and heavy baggage.',
-    taglineFr: 'La référence de l\'espace et du confort feutré pour groupes et bagages volumineux.',
-    overviewEn: 'The Chevrolet Suburban Premier is the undisputed titan of passenger space. Offering comfortable seating for up to 7 passengers with expansive third-row legroom and class-leading cargo capacity behind the third row.',
-    overviewFr: 'Le Chevrolet Suburban Premier est la référence absolue pour le transport de groupe de prestige. Il accueille jusqu\'à 7 passagers avec un dégagement impressionnant à la troisième rangée et un coffre volumineux.',
+    taglineEn: 'The GMC Yukon Denali XL is a spacious and versatile luxury SUV that offers a premium travel experience.',
+    taglineFr: 'Le GMC Yukon Denali XL est un VUS de luxe spacieux et polyvalent offrant une expérience de voyage haut de gamme.',
+    overviewEn: 'The GMC Yukon Denali XL delivers a commanding presence on the road with an imposing chrome grille, refined black leather interior, generous passenger space for up to 6 guests, and high-end multimedia options like headrest entertainment screens and integrated Wi-Fi.',
+    overviewFr: 'Le GMC Yukon Denali XL offre une présence imposante sur la route avec sa calandre chromée distinctive, un intérieur raffiné en cuir noir pouvant accueillir confortablement jusqu\'à 6 passagers, et des équipements multimédias haut de gamme tels que des écrans tactiles intégrés aux appuie-tête et le Wi-Fi intégré.',
     featuresEn: [
-      '7 Passengers · 6 Large Luggage pieces',
-      'Jet Black executive exterior and leather interior',
-      'Maximum third-row passenger legroom in class',
-      'Smooth Magnetic Ride Control suspension',
-      'Integrated charging ports for all seat rows'
+      '6 Passengers · 5 Large Luggage pieces',
+      'Signature Denali chrome grille & 22-inch alloy wheels',
+      'Rear dual-screen entertainment system in headrests',
+      'Heated & ventilated executive leather captain chairs',
+      'Integrated high-speed on-board Wi-Fi connectivity'
     ],
     featuresFr: [
-      '7 Passagers · 6 Grands bagages',
-      'Finition noire exécutive et cuir haut de gamme',
-      'Dégagement pour les jambes inégalé en 3e rangée',
-      'Suspension magnétique garantissant une douceur de roulement',
-      'Ports de recharge intégrés à chaque rangée'
+      '6 Passagers · 5 Grands bagages',
+      'Calandre chromée emblématique Denali & jantes alliage 22 pouces',
+      'Système de divertissement arrière à doubles écrans tactiles',
+      'Fauteuils capitaines en cuir chauffants et ventilés',
+      'Wi-Fi haut débit embarqué pour une connectivité continue'
     ],
     detailSections: [
       {
-        titleEn: 'Maximum Group Capacity',
-        titleFr: 'Capacité de Groupe Maximale',
-        contentEn: 'Seating for up to 7 adult passengers with full individual legroom, ensuring executive delegations travel together seamlessly.',
-        contentFr: 'Accueille jusqu\'à 7 adultes avec un confort individuel complet, idéal pour déplacer des équipes sans scinder le groupe.'
+        titleEn: 'Exterior Presence',
+        titleFr: 'Design Extérieur',
+        contentEn: 'The Yukon Denali XL features a rugged and imposing design with a distinctive chrome grille and elegant lines. It is equipped with advanced LED headlights and 22-inch alloy wheels for smooth road stability.',
+        contentFr: 'Le Yukon Denali XL affiche un design robuste et imposant, doté d\'une calandre exclusive et de lignes élancées. Il est équipé de projecteurs DEL haute performance et de jantes en alliage de 22 pouces assurant une tenue de route irréprochable.'
       },
       {
-        titleEn: 'Magnetic Ride Control',
-        titleFr: 'Douceur de Roulement',
-        contentEn: 'Advanced Magnetic Ride Control dampers read the road every millisecond, insulating passengers from potholes and rough winter roads.',
-        contentFr: 'La suspension magnétique analyse la chaussée chaque milliseconde pour neutraliser les imperfections de la route.'
+        titleEn: 'Interior Refinement',
+        titleFr: 'Raffinement Intérieur',
+        contentEn: 'Inside, the Yukon Denali XL offers a serene sanctuary accommodating up to 6 passengers in absolute luxury. Features heated and ventilated leather captain chairs, generous legroom, and multi-zone climate control.',
+        contentFr: 'À l\'intérieur, le Yukon Denali XL propose un habitacle feutré accueillant jusqu\'à 6 passagers. Sièges en cuir ventilés et chauffants, dégagement généreux pour les jambes et contrôle thermique multizone indépendant.'
       },
       {
-        titleEn: 'Massive Cargo Space',
-        titleFr: 'Coffre Gigantesque',
-        contentEn: 'Accommodates up to 6 to 7 large luggage bags even with all rows occupied, making it the top choice for ski trips and international flights.',
-        contentFr: 'Loge jusqu\'à 6 ou 7 valises grand format même avec tous les sièges occupés, parfait pour les séjours de ski et vols longs courriers.'
+        titleEn: 'Cavernous Cargo Capacity',
+        titleFr: 'Espace Bagages Étendu',
+        contentEn: 'With extended XL wheelbase cargo dimensions, it easily accommodates 5 to 6 large travel suitcases plus carry-on bags, perfect for YUL airport transfers and corporate travel.',
+        contentFr: 'Grâce à son châssis allongé XL, il transporte facilement 5 à 6 grandes valises d\'aéroport et bagages cabine, convenant parfaitement aux navettes aéroportuaires et voyages longue distance.'
       },
       {
-        titleEn: 'Executive Amenities',
-        titleFr: 'Commodités à Bord',
-        contentEn: 'Full 120V and USB-C connectivity throughout the vehicle, quiet acoustic isolation, and privacy tinted glass.',
-        contentFr: 'Prises USB-C et 120V à chaque rangée, insonorisation soignée et vitres teintées protégeant votre intimité.'
+        titleEn: 'Technology & Rear Entertainment',
+        titleFr: 'Technologie & Divertissement',
+        contentEn: 'Equipped with dual rear touchscreens integrated into front seat headrests for movies or presentations, Bose premium audio, integrated Wi-Fi, and multiple high-speed USB-C charging stations.',
+        contentFr: 'Muni d\'écrans tactiles arrière intégrés aux appuie-tête pour le visionnement de médias, d\'un système audio Bose ambiophonique, du Wi-Fi intégré et de prises de recharge rapide.'
       }
     ],
     servicesOfferedEn: [
-      'Group Airport Transfers for Executive Teams',
-      'Mont-Tremblant & Charlevoix Ski Resort Transfers',
-      'Sports Delegations & Film Production Shuttles',
-      'Intercity Long-Distance Travel'
+      'Montréal-Trudeau Airport (YUL) Meet & Greet',
+      'As-Directed Hourly Chauffeur Service',
+      'Corporate Travel & VIP Roadshows',
+      'Long-Distance (Mont-Tremblant, Québec, Ottawa, USA)'
     ],
     servicesOfferedFr: [
-      'Navettes aéroportuaires pour délégations et familles',
-      'Transferts vers les stations de ski de Mont-Tremblant et Charlevoix',
-      'Transports pour équipes sportives et productions cinématographiques',
-      'Voyages interurbains et longue distance'
+      'Transferts Aéroport Montréal-Trudeau (YUL) avec accueil en terminal',
+      'Service de chauffeur privé à l\'heure (As-Directed)',
+      'Déplacements corporatifs et délégations d\'affaires',
+      'Longue distance (Mont-Tremblant, Québec, Ottawa, USA)'
     ],
-    popularForEn: 'Group airport transfers, executive teams & international sports delegations',
-    popularForFr: 'Navettes aéroport de groupe, équipes de direction & délégations sportives'
-  },
-  {
-    id: 'cadillac-lyriq',
-    slug: 'cadillac-lyriq',
-    name: 'Cadillac Lyriq EV',
-    category: 'ELECTRIC',
-    categoryLabelEn: '100% Electric Luxury',
-    categoryLabelFr: '100% Électrique de Luxe',
-    passengers: 3,
-    luggage: 3,
-    color: 'Noir / Jet Black',
-    image: carLyriq,
-    galleryImages: [
-      '/images/fleet_png/cadillac_lyriq_electric.webp',
-      '/client_assets/wordwide-768x576-1.jpg'
-    ],
-    taglineEn: 'Zero-emission next-generation luxury with whisper-quiet electric drive and 33-inch LED display.',
-    taglineFr: 'Le luxe zéro émission de nouvelle génération au silence absolu et écran LED 33 pouces.',
-    overviewEn: 'The Cadillac Lyriq EV represents the forward-thinking future of luxury transport. Silent electric propulsion, a luminous black crystal grille, and next-generation active road noise cancellation create an unprecedented serene environment.',
-    overviewFr: 'Le Cadillac Lyriq EV incarne l\'avant-garde du luxe écoresponsable. Une motorisation électrique silencieuse, une calandre illuminée en cristal noir et un système antibruit actif créent un havre de quiétude absolue.',
-    featuresEn: [
-      '3 Passengers · 3 Luggage pieces',
-      '100% All-electric zero emission VIP transport',
-      'Whisper-quiet electric powertrain with next-gen sound insulation',
-      '33-inch diagonal advanced curved LED cockpit display',
-      'Next-generation active noise cancellation'
-    ],
-    featuresFr: [
-      '3 Passagers · 3 Bagages',
-      'Transport VIP 100% électrique à zéro émission',
-      'Motorisation électrique ultra silencieuse',
-      'Écran incurvé haute résolution 33 pouces',
-      'Annulation active des bruits de roulement'
-    ],
-    detailSections: [
-      {
-        titleEn: 'Zero-Emission Distinction',
-        titleFr: 'Distinction Zéro Émission',
-        contentEn: 'Travel with a clean environmental footprint while upholding the highest standards of luxury and refined chauffeur presentation.',
-        contentFr: 'Déplacez-vous avec une empreinte carbone neutre tout en profitant des standards d\'excellence d\'un service avec chauffeur privé.'
-      },
-      {
-        titleEn: 'Acoustic Sanctuary',
-        titleFr: 'Sanctuaire Acoustique',
-        contentEn: 'The absence of combustion noise combined with active road noise cancellation creates the quietest passenger cabin in its class.',
-        contentFr: 'L\'absence de bruit de moteur combinée à l\'insonorisation active procure une quiétude absolue propice à la détente et au travail.'
-      },
-      {
-        titleEn: 'Next-Gen Display Technology',
-        titleFr: 'Technologie d\'Avant-Garde',
-        contentEn: 'Features a panoramic 33-inch curved LED screen capable of emitting 1 billion colors, illuminating the modern interior.',
-        contentFr: 'Une dalle LED incurvée de 33 pouces capable de reproduire un milliard de nuances de couleurs sublime la planche de bord.'
-      },
-      {
-        titleEn: 'Tailored Comfort',
-        titleFr: 'Confort Personnalisé',
-        contentEn: 'Sculpted leather seating with multi-color ambient lighting and premium dual-zone climate filtration.',
-        contentFr: 'Sellerie en cuir au galbe ergonomique, éclairage d\'ambiance personnalisable et filtration d\'air supérieure.'
-      }
-    ],
-    servicesOfferedEn: [
-      'Eco-Conscious Executive Transfers to YUL',
-      'Clean VIP Transportation for Tech & ESG Conferences',
-      'Corporate Roadshows in Greater Montreal',
-      'Private As-Directed Electric Limousine'
-    ],
-    servicesOfferedFr: [
-      'Transferts corporatifs écoresponsables vers l\'Aéroport YUL',
-      'Transport VIP pour sommets technologiques et événements ESG',
-      'Déplacements professionnels dans le Grand Montréal',
-      'Chauffeur privé électrique à disposition'
-    ],
-    popularForEn: 'Eco-conscious executive travel, corporate VIP transit & tech conferences',
-    popularForFr: 'Déplacements corporatifs écoresponsables & sommets technologiques'
+    popularForEn: 'YUL Airport VIP transfers, corporate delegations & ski resort transit to Mont-Tremblant',
+    popularForFr: 'Transferts VIP aéroport YUL, délégations d\'affaires & séjours à Mont-Tremblant'
   }
 ];
 
