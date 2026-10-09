@@ -274,7 +274,7 @@ export default function App() {
       {/* Floating Instant WhatsApp Button matching YS-MARKETING-SOLUTION */}
       <WhatsAppButton language={language} />
 
-      {/* Contact popups: general quote / destinations inquiry / callback request */}
+      {/* Contact popups: general quote / destinations inquiry */}
       <Suspense fallback={null}>
         {(modalsLoaded.quote || quoteModal.open) && (
           <QuoteModal
@@ -290,13 +290,6 @@ export default function App() {
             onClose={() => setDestModal({ open: false })}
             language={language}
             destination={destModal.destination}
-          />
-        )}
-        {(modalsLoaded.callback || callbackOpen) && (
-          <CallbackModal
-            isOpen={callbackOpen}
-            onClose={() => setCallbackOpen(false)}
-            language={language}
           />
         )}
       </Suspense>

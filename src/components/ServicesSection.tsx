@@ -153,7 +153,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language, onQu
                 <div className="pt-2 flex flex-wrap items-center gap-3">
                   <button
                     type="button"
-                    onClick={() => onQuote({ service: isFr ? activeService.titleFr : activeService.titleEn })}
+                    onClick={() => onQuote({ serviceId: activeService.id })}
                     className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 font-semibold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_4px_16px_rgba(215,182,93,0.3)] active:scale-[0.98]"
                   >
                     <span>{isFr ? 'Réserver ce service' : 'Reserve this service'}</span>

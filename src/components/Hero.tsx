@@ -6,6 +6,11 @@ import { Phone, ArrowRight } from 'lucide-react';
 import { LUXURY_EASE, scrollToAnchor } from '../lib/motion';
 import { srcSetFor } from '../lib/images';
 
+// Portrait-friendly photo for phones/tablets: the landscape car shot crops to an unreadable
+// sliver on a tall screen, while this cabin scene keeps its subject in frame.
+const MOBILE_HERO_IMAGE = '/images/about_discretion_vip.webp';
+const MOBILE_HERO_IMAGE_SM = '/images/about_discretion_vip-768.webp';
+
 interface HeroProps {
   language: 'FR' | 'EN';
   onReserveClick?: () => void;
@@ -40,41 +45,49 @@ export const Hero: React.FC<HeroProps> = ({
       {/* Background Cinematic Image with Entrance Zoom & Scroll Parallax */}
       <motion.div
         style={{ y: parallaxY }}
-        className="absolute inset-0 z-0 will-change-transform"
+        className="absolute inset-x-0 top-0 h-[78svh] lg:h-auto lg:inset-0 z-0 will-change-transform"
       >
-        <motion.img
-          initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.08 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.8, ease: LUXURY_EASE }}
-          src={HERO_IMAGE}
-          srcSet={srcSetFor(HERO_IMAGE)}
-          sizes="100vw"
-          alt="Limo Raf Chauffeur Privé Montréal Cadillac Escalade"
-          className="w-full h-full object-cover object-center"
-          fetchPriority="high"
-          decoding="async"
-        />
-        {/* Darkens the photo; cheaper than a CSS brightness filter on a full-screen layer */}
-        <div className="absolute inset-0 bg-black/[0.28]" />
-        {/* Deep luxury linear gradients */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#07080A]/95 via-[#07080A]/65 to-[#07080A]/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#07080A] via-transparent to-[#07080A]/60" />
+        <picture>
+          <source
+            media="(max-width: 1023px)"
+            srcSet={`${MOBILE_HERO_IMAGE_SM} 768w, ${MOBILE_HERO_IMAGE} 1200w`}
+            sizes="100vw"
+          />
+          <motion.img
+            initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.08 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.8, ease: LUXURY_EASE }}
+            src={HERO_IMAGE}
+            srcSet={srcSetFor(HERO_IMAGE)}
+            sizes="100vw"
+            alt="Limo Raf Chauffeur Privé Montréal Cadillac Escalade"
+            className="w-full h-full object-cover object-[10%_15%] lg:object-center"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
+        {/* Desktop: much more visible background with soft side gradient behind left text */}
+        <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#07080A]/80 via-[#07080A]/35 to-transparent" />
+        <div className="hidden lg:block absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
+        <div className="hidden lg:block absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#07080A] via-[#07080A]/60 to-transparent pointer-events-none" />
+        {/* Mobile: keep the photo bright, shade only under the nav and fade into the form */}
+        <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-[#07080A]/70 via-[#07080A]/20 via-35% to-[#07080A]" />
       </motion.div>
 
       {/* Main Content Grid: Left Editorial Statement, Right Booking Widget */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-32 pb-16 lg:pt-36 lg:pb-20 flex-1 flex flex-col justify-center">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-[33svh] sm:pt-[36svh] pb-12 lg:pt-36 lg:pb-20 flex-1 flex flex-col justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           {/* Left Column */}
-          <div className="lg:col-span-7 space-y-7 text-white max-w-xl">
+          <div className="lg:col-span-7 space-y-5 lg:space-y-7 text-white max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
             {/* Location Line: Plain small caps, no pill background */}
             <motion.div
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: LUXURY_EASE }}
-              className="flex items-center gap-3"
+              className="flex items-center justify-center lg:justify-start gap-3"
             >
-              <span className="w-6 h-[1px] bg-[#D7B65D] shrink-0" />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#D7B65D]">
+              <span className="hidden lg:block w-6 h-[1px] bg-[#D7B65D] shrink-0" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#D7B65D] [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
                 {isFr
                   ? 'Montréal · YUL · Laval · Mont-Tremblant — 24/7'
                   : 'Montréal · YUL · Laval · Mont-Tremblant — 24/7'}
@@ -82,7 +95,7 @@ export const Hero: React.FC<HeroProps> = ({
             </motion.div>
 
             {/* Display Serif Headline with Masked Line Rise */}
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-[72px] font-medium text-white tracking-tight leading-[1.05]">
+            <h1 className="font-display text-[44px] sm:text-6xl lg:text-[72px] font-medium text-white tracking-tight leading-[1.05] [text-shadow:0_2px_28px_rgba(0,0,0,0.65)]">
               <span className="block overflow-hidden py-0.5">
                 <motion.span
                   initial={shouldReduceMotion ? { opacity: 0 } : { y: '110%', opacity: 0 }}
@@ -110,7 +123,7 @@ export const Hero: React.FC<HeroProps> = ({
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.45, ease: LUXURY_EASE }}
-              className="text-base sm:text-[17px] text-neutral-300 font-light leading-relaxed max-w-lg"
+              className="hidden lg:block text-base sm:text-[17px] text-neutral-200 font-light leading-relaxed max-w-lg [text-shadow:0_1px_14px_rgba(0,0,0,0.7)]"
             >
               {isFr
                 ? "Transferts aéroport, déplacements d'affaires et longues distances en VUS noir, avec un chauffeur qui connaît la route."
@@ -122,7 +135,7 @@ export const Hero: React.FC<HeroProps> = ({
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.55, ease: LUXURY_EASE }}
-              className="pt-2 flex flex-wrap items-center gap-4 sm:gap-5"
+              className="hidden lg:flex pt-2 flex-wrap items-center gap-4 sm:gap-5"
             >
               <button
                 type="button"
@@ -130,7 +143,7 @@ export const Hero: React.FC<HeroProps> = ({
                   const card = document.getElementById('booking-card');
                   if (card) {
                     card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    const input = card.querySelector('input[name="name"]') as HTMLInputElement | null;
+                    const input = card.querySelector('input') as HTMLInputElement | null;
                     if (input) setTimeout(() => input.focus(), 350);
                   }
                 })}
@@ -151,14 +164,14 @@ export const Hero: React.FC<HeroProps> = ({
                 </button>
               )}
 
-              <button
-                onClick={onCallback}
+              <a
+                href={`tel:${CLIENT_INFO.phoneRaw}`}
                 className="inline-flex items-center gap-2 text-sm text-neutral-300 hover:text-white tabular-nums tracking-tight transition-all py-2 px-3 rounded-lg hover:bg-white/[0.05] cursor-pointer"
                 aria-label="Appeler Limo Raf"
               >
                 <Phone className="w-4 h-4 text-[#D7B65D]" />
                 <span>{CLIENT_INFO.phone}</span>
-              </button>
+              </a>
             </motion.div>
           </div>
 
@@ -175,7 +188,7 @@ export const Hero: React.FC<HeroProps> = ({
       </div>
 
       {/* Bottom Scroll Down Line Indicator */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-8">
+      <div className="hidden lg:block relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-8">
         <a
           href="#about"
           onClick={(e) => {

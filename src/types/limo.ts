@@ -21,6 +21,8 @@ export interface Vehicle {
   flatAirportRate?: number;
   passengers: number;
   luggage: number;
+  /** Shown in the fleet spec list; defaults to true */
+  onboardWifi?: boolean;
   color: string;
   image: string; // Transparent PNG showcase
   galleryImages: string[]; // Interior & exterior real client photos

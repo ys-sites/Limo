@@ -4,6 +4,8 @@ import { FORMSUBMIT_EMAIL } from '../config/formConfig';
 export { FORMSUBMIT_EMAIL };
 
 export interface QuotePrefill {
+  /** SERVICES id: opens the form with this occasion selected and asks for its date */
+  serviceId?: string;
   service?: string;
   vehicle?: string;
   destination?: string;

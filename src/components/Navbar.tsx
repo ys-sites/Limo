@@ -149,14 +149,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Column 3: Right Action Cluster (Takes flex-1 to guarantee dead-center nav) */}
           <div className="flex-1 flex items-center justify-end gap-2.5 sm:gap-3 shrink-0 whitespace-nowrap">
             {/* Direct Phone Number - Refined liquid glass pill on desktop */}
-            <button
-              onClick={onCallback}
+            <a
+              href={`tel:${CLIENT_INFO.phoneRaw}`}
               className="hidden min-[1380px]:inline-flex items-center gap-2 h-9 px-3.5 rounded-lg liquid-glass-pill hover:border-[#D7B65D]/60 text-neutral-300 hover:text-white text-xs font-semibold tabular-nums tracking-tight transition-all cursor-pointer"
               aria-label="Appeler Limo Raf"
             >
               <Phone className="w-3.5 h-3.5 text-[#D7B65D]" />
               <span>{CLIENT_INFO.phone}</span>
-            </button>
+            </a>
 
             {/* Language Switcher (FR / EN) - Liquid glass capsule */}
             <div className="flex items-center h-9 text-[11px] font-bold tracking-wider text-neutral-400 liquid-glass-pill rounded-lg overflow-hidden shrink-0 p-0.5">
@@ -263,13 +263,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <div className="flex items-center justify-between text-xs text-neutral-400 pt-2">
-              <button
-                onClick={() => { setMobileMenuOpen(false); onCallback(); }}
+              <a
+                href={`tel:${CLIENT_INFO.phoneRaw}`}
                 className="flex items-center gap-2 hover:text-white tabular-nums cursor-pointer"
               >
                 <Phone className="w-3.5 h-3.5 text-[#D7B65D]" />
                 <span>{CLIENT_INFO.phone}</span>
-              </button>
+              </a>
               <a
                 href={`https://api.whatsapp.com/send/?phone=${CLIENT_INFO.phoneRaw}&text=Bonjour%20Limo%20Raf`}
                 target="_blank"

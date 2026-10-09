@@ -7,6 +7,7 @@ import {
 import { Vehicle } from '../types/limo';
 import { CLIENT_INFO, FLEET } from '../data/limoData';
 import { FORMSUBMIT_EMAIL, ONLINE_PAYMENT_URL } from '../config/formConfig';
+import { TripFields, useTripDetails, tripEmailFields, tripSummaryFr } from './TripFields';
 import { ShinyText } from './ui/ShinyText';
 import { srcSetFor } from '../lib/images';
 
@@ -35,6 +36,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [specialNotes, setSpecialNotes] = useState('');
+  const { trip, setTrip, resetTrip } = useTripDetails();
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -51,12 +53,13 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          _subject: `Nouvelle Réservation Limo Raf : ${vehicle.name}`,
+          _subject: `Nouvelle Réservation Limo Raf : ${vehicle.name} - ${tripSummaryFr(trip)}`,
           _template: 'table',
           véhicule: vehicle.name,
           nom: name,
           courriel: email,
           téléphone: phone,
+          ...tripEmailFields(trip),
           notes_trajet: specialNotes || 'Aucune note spécifique'
         })
       });
@@ -70,6 +73,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
       setEmail('');
       setPhone('');
       setSpecialNotes('');
+      resetTrip();
     } catch {
       setStatus('error');
       setErrorMessage(
@@ -382,6 +386,9 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
                   </div>
                 )}
 
+                {/* Transfer (pickup -> drop-off) or drive as directed (pickup + duration) */}
+                <TripFields trip={trip} onChange={setTrip} isFr={language === 'FR'} variant="light" />
+
                 {/* Name */}
                 <div>
                   <label className="block text-xs font-semibold text-neutral-800 mb-1">
@@ -440,7 +447,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
                 {/* Itinerary / Notes */}
                 <div>
                   <label className="block text-xs font-semibold text-neutral-800 mb-1">
-                    {language === 'FR' ? 'Détails du trajet / Date / Heure' : 'Trip Details / Date / Time'}
+                    {language === 'FR' ? 'Date, heure et précisions' : 'Date, time & details'}
                   </label>
                   <div className="relative">
                     <FileText className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
@@ -448,7 +455,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({
                       rows={3}
                       value={specialNotes}
                       onChange={(e) => setSpecialNotes(e.target.value)}
-                      placeholder={language === 'FR' ? "Départ YUL, destination Mont-Tremblant, vol AC882..." : "Pickup YUL, destination Mont-Tremblant, flight AC882..."}
+                      placeholder={language === 'FR' ? "Samedi 14 h, vol AC882, 4 passagers..." : "Saturday 2 PM, flight AC882, 4 passengers..."}
                       className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#F8F6F0] border border-neutral-300 text-neutral-900 placeholder:text-neutral-400 text-xs focus:outline-hidden focus:border-[#C4963A] transition-colors"
                     />
                   </div>

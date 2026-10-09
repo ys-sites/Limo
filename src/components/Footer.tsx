@@ -57,9 +57,9 @@ export const Footer: React.FC<FooterProps> = ({ language, onNavigateHome, onSele
             <ul className="space-y-2.5 text-sm text-neutral-400 font-light">
               <li className="flex items-center gap-2.5">
                 <Phone className="w-3.5 h-3.5 text-[#D7B65D] shrink-0" />
-                <button onClick={onCallback} className="hover:text-white transition-colors tabular-nums cursor-pointer text-left">
+                <a href={`tel:${CLIENT_INFO.phoneRaw}`} className="hover:text-white transition-colors tabular-nums cursor-pointer text-left">
                   {CLIENT_INFO.phone}
-                </button>
+                </a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-3.5 h-3.5 text-[#D7B65D] shrink-0" />

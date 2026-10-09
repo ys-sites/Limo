@@ -56,13 +56,15 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
         </div>
 
         {/* 3 vehicles, one column each */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 md:gap-x-10 md:gap-y-14 xl:gap-8">
           {FLEET.map((vehicle, idx) => {
             const specs = [
               { Icon: Users, label: isFr ? `${vehicle.passengers} passagers` : `${vehicle.passengers} passengers` },
               { Icon: Luggage, label: isFr ? `${vehicle.luggage} bagages` : `${vehicle.luggage} pieces of luggage` },
               { Icon: Palette, label: isFr ? 'Intérieur / extérieur noir' : 'Black interior / exterior' },
-              { Icon: Wifi, label: isFr ? 'Wi-Fi à bord' : 'On-board Wi-Fi' },
+              ...(vehicle.onboardWifi !== false
+                ? [{ Icon: Wifi, label: isFr ? 'Wi-Fi à bord' : 'On-board Wi-Fi' }]
+                : []),
             ];
 
             return (
@@ -86,7 +88,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                   <img
                     src={vehicle.image}
                     srcSet={srcSetFor(vehicle.image)}
-                    sizes="(max-width: 767px) 60vw, 34vw"
+                    sizes="(max-width: 767px) 60vw, (max-width: 1279px) 45vw, 25vw"
                     alt={`${vehicle.name} - Limo Raf Chauffeur Privé Montréal`}
                     loading="lazy"
                     decoding="async"
