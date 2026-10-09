@@ -56,7 +56,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
         </div>
 
         {/* 3 vehicles, one column each */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 md:gap-x-10 md:gap-y-14 xl:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-x-10 md:gap-y-14 lg:gap-x-12 xl:gap-x-16">
           {FLEET.map((vehicle, idx) => {
             const specs = [
               { Icon: Users, label: isFr ? `${vehicle.passengers} passagers` : `${vehicle.passengers} passengers` },
@@ -76,19 +76,19 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 0.6, delay: idx * 0.08, ease: LUXURY_EASE }}
-                className="group flex flex-col"
+                className="group flex flex-col md:last:odd:col-span-2 md:last:odd:justify-self-center md:last:odd:w-[calc(50%-1.25rem)] lg:last:odd:col-span-1 lg:last:odd:w-auto lg:last:odd:justify-self-stretch"
               >
                 {/* Car image: click (or the gold +) opens the vehicle page */}
                 <button
                   type="button"
                   onClick={() => onViewVehicleDetails(vehicle.slug)}
                   aria-label={isFr ? `Voir la fiche du ${vehicle.name}` : `View ${vehicle.name} details`}
-                  className="relative h-52 sm:h-56 flex items-center justify-center cursor-pointer"
+                  className="relative h-52 sm:h-60 xl:h-64 flex items-center justify-center cursor-pointer"
                 >
                   <img
                     src={vehicle.image}
                     srcSet={srcSetFor(vehicle.image)}
-                    sizes="(max-width: 767px) 60vw, (max-width: 1279px) 45vw, 25vw"
+                    sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 33vw"
                     alt={`${vehicle.name} - Limo Raf Chauffeur Privé Montréal`}
                     loading="lazy"
                     decoding="async"
@@ -103,7 +103,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                 <button
                   type="button"
                   onClick={() => onViewVehicleDetails(vehicle.slug)}
-                  className="mt-6 text-left text-xl sm:text-2xl font-bold uppercase tracking-tight text-neutral-800 hover:text-[#C4963A] transition-colors cursor-pointer"
+                  className="mt-6 text-left text-xl sm:text-2xl font-bold uppercase tracking-tight whitespace-nowrap text-neutral-800 hover:text-[#C4963A] transition-colors cursor-pointer"
                 >
                   {vehicle.name}
                 </button>
@@ -123,7 +123,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                   <button
                     type="button"
                     onClick={() => onQuote({ vehicle: vehicle.name })}
-                    className="inline-flex items-center justify-center gap-2 h-11 px-3 rounded-lg bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 text-xs sm:text-sm font-semibold transition-colors active:scale-[0.98] cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 h-11 px-3 rounded-lg bg-[#D7B65D] hover:bg-[#C4963A] text-neutral-950 text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors active:scale-[0.98] cursor-pointer"
                   >
                     <span>{isFr ? 'Nous joindre' : 'Contact us'}</span>
                     <Mail className="w-4 h-4" />
@@ -132,7 +132,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                     href={whatsappFor(vehicle.name)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 h-11 px-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white text-xs sm:text-sm font-semibold transition-colors active:scale-[0.98]"
+                    className="inline-flex items-center justify-center gap-2 h-11 px-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors active:scale-[0.98]"
                   >
                     <span>{isFr ? 'Appel ou texto' : 'Call or text'}</span>
                     <MessageCircle className="w-4 h-4" />

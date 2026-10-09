@@ -66,7 +66,7 @@ export const TimePickerDropdown: React.FC<TimePickerDropdownProps> = ({
         ref={buttonRef}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full pl-6 pr-6 py-2 text-left text-[13px] sm:text-sm text-white bg-transparent border-b border-white/15 hover:border-white/30 focus:border-[#D7B65D] rounded-none focus:outline-none flex items-center justify-between cursor-pointer transition-colors group"
+        className="relative w-full pl-6 pr-0 py-2 text-left text-[13px] sm:text-sm text-white bg-transparent border-b border-white/15 hover:border-white/30 focus:border-[#D7B65D] rounded-none focus:outline-none flex items-center justify-between cursor-pointer transition-colors group"
       >
         <Clock className="w-3.5 h-3.5 text-[#D7B65D] absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none" />
         <span className={value ? 'text-white font-medium tabular-nums' : 'text-neutral-500'}>

@@ -214,7 +214,6 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({ language = 'FR' 
                   </div>
                   <div className="flex items-center gap-1.5 text-neutral-400 text-[11px]">
                     <GoogleIcon />
-                    <span>{isFr ? rev.timeFr : rev.timeEn}</span>
                   </div>
                 </div>
 

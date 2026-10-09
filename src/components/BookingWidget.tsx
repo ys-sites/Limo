@@ -352,7 +352,7 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
           )}
 
           {/* 3. Date & Time Row */}
-          <div className="grid grid-cols-2 gap-4 pt-1">
+          <div className="grid grid-cols-2 gap-4 pt-1 items-end">
             <DatePickerDropdown
               label={isFr ? 'Date' : 'Date'}
               value={date}
